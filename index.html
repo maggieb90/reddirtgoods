@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Red Dirt Goods Co. | Small-Batch Texas Provisions</title>
   
+  <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
     tailwind.config = {
@@ -17,11 +18,12 @@
               200: '#f6d5c9',
               300: '#eeb4a1',
               400: '#e3886e',
-              500: '#c85a32', /* Core Texas Rust */
+              500: '#c85a32',
               600: '#af4420',
               700: '#8e3518',
               800: '#752d18',
               900: '#612818',
+              950: '#381308',
             },
             charcoal: {
               800: '#211d1a',
@@ -36,14 +38,21 @@
 </head>
 <body class="bg-charcoal-950 text-stone-200 font-sans antialiased selection:bg-rust-500 selection:text-white">
 
+  <!-- Navigation / Header -->
   <header class="border-b border-stone-800 bg-charcoal-900/90 backdrop-blur sticky top-0 z-50">
-    <div class="max-w-5xl mx-auto px-4 py-4 flex justify-between items-center">
-      <a href="#" class="font-serif font-bold text-xl tracking-wide text-stone-100">
-        RED DIRT GOODS <span class="text-rust-500 font-light">Co.</span>
+    <div class="max-w-5xl mx-auto px-4 py-3 flex justify-between items-center">
+      <a href="#" class="flex items-center gap-3">
+        <!-- Logo Image in Header -->
+        <img src="logo.png" alt="Red Dirt Goods Logo" class="h-10 w-auto object-contain">
+        <span class="font-serif font-bold text-lg tracking-wide text-stone-100 hidden sm:inline-block">
+          RED DIRT GOODS <span class="text-rust-500 font-light">Co.</span>
+        </span>
       </a>
+      
       <nav class="flex items-center gap-3 sm:gap-6 text-xs sm:text-sm font-medium">
         <a href="#provisions" class="text-stone-300 hover:text-rust-400 transition hidden sm:inline-block">Provisions</a>
         <a href="#order" class="text-stone-300 hover:text-rust-400 transition">Pre-Order</a>
+        <a href="#crew" class="text-stone-300 hover:text-rust-400 transition hidden sm:inline-block">The Crew</a>
         <a href="#contact" class="text-stone-300 hover:text-rust-400 transition">Contact</a>
         <a href="#market-info" class="font-semibold uppercase tracking-wider bg-rust-600 text-white px-3 py-2 rounded hover:bg-rust-500 transition shadow-lg shadow-rust-950">
           Market Schedule
@@ -52,16 +61,24 @@
     </div>
   </header>
 
-  <section class="py-16 sm:py-20 px-4 max-w-4xl mx-auto text-center">
+  <!-- Hero Section -->
+  <section class="py-12 sm:py-16 px-4 max-w-4xl mx-auto text-center">
+    <!-- Featured Hero Logo -->
+    <div class="mb-6 flex justify-center">
+      <img src="logo.png" alt="Red Dirt Goods Co." class="w-48 sm:w-60 h-auto drop-shadow-2xl">
+    </div>
+
     <span class="text-xs font-bold uppercase tracking-widest text-rust-400 bg-rust-950/80 px-3.5 py-1.5 rounded-full border border-rust-800/60 inline-block mb-4">
       Handcrafted in Wichita Falls, Texas
     </span>
-    <h1 class="font-serif text-4xl sm:text-6xl font-extrabold text-stone-100 tracking-tight leading-tight">
+
+    <h1 class="font-serif text-3xl sm:text-5xl font-extrabold text-stone-100 tracking-tight leading-tight">
       Small-Batch Smoke, Brine & Texas Pantry Goods
     </h1>
-    <p class="mt-5 text-base sm:text-lg text-stone-400 max-w-2xl mx-auto leading-relaxed">
+    <p class="mt-4 text-base sm:text-lg text-stone-400 max-w-2xl mx-auto leading-relaxed">
       Elevated condiments, pickled mustard caviar, and cold-crafted drinking vinegars built for weekend barbecues and charcuteries.
     </p>
+
     <div class="mt-8 flex justify-center gap-4">
       <a href="#order" class="bg-rust-600 text-white font-semibold px-6 py-3 rounded-lg hover:bg-rust-500 transition shadow-md">
         Pre-Order for Market Pickup
@@ -72,14 +89,16 @@
     </div>
   </section>
 
+  <!-- Market Products Section -->
   <section id="provisions" class="py-16 bg-charcoal-900 border-y border-stone-800/80">
     <div class="max-w-5xl mx-auto px-4">
       <div class="text-center mb-12">
         <h2 class="font-serif text-3xl sm:text-4xl font-bold text-stone-100">Pantry Provisions</h2>
-        <p class="text-rust-400 text-sm mt-2 font-medium tracking-wide">$9 Each • Any 3 for $24 Bundle (Discount applied at checkout/pickup)</p>
+        <p class="text-rust-400 text-sm mt-2 font-medium tracking-wide">$9 Each • Any 3 for $24 Bundle (Discount applied at pickup)</p>
       </div>
 
       <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <!-- Product 1 -->
         <div class="border border-stone-800 rounded-xl p-5 bg-charcoal-950/70 hover:border-rust-500/50 transition">
           <div class="flex justify-between items-start">
             <h3 class="font-serif font-bold text-lg text-stone-100">Paw-Paw's Jalapeño Relish</h3>
@@ -90,6 +109,7 @@
           </p>
         </div>
 
+        <!-- Product 2 -->
         <div class="border border-stone-800 rounded-xl p-5 bg-charcoal-950/70 hover:border-rust-500/50 transition">
           <div class="flex justify-between items-start">
             <h3 class="font-serif font-bold text-lg text-stone-100">Mustard Caviar</h3>
@@ -100,6 +120,7 @@
           </p>
         </div>
 
+        <!-- Product 3 -->
         <div class="border border-stone-800 rounded-xl p-5 bg-charcoal-950/70 hover:border-rust-500/50 transition">
           <div class="flex justify-between items-start">
             <h3 class="font-serif font-bold text-lg text-stone-100">Whole-Grain Shiner Bock Mustard</h3>
@@ -110,6 +131,7 @@
           </p>
         </div>
 
+        <!-- Product 4 -->
         <div class="border border-stone-800 rounded-xl p-5 bg-charcoal-950/70 hover:border-rust-500/50 transition">
           <div class="flex justify-between items-start">
             <h3 class="font-serif font-bold text-lg text-stone-100">Texas Agrodolce</h3>
@@ -120,6 +142,7 @@
           </p>
         </div>
 
+        <!-- Product 5 -->
         <div class="border border-stone-800 rounded-xl p-5 bg-charcoal-950/70 hover:border-rust-500/50 transition">
           <div class="flex justify-between items-start">
             <h3 class="font-serif font-bold text-lg text-stone-100">Craft Fruit Shrubs (8 oz)</h3>
@@ -130,6 +153,7 @@
           </p>
         </div>
 
+        <!-- Product 6 -->
         <div class="border border-stone-800 rounded-xl p-5 bg-charcoal-950/70 hover:border-rust-500/50 transition">
           <div class="flex justify-between items-start">
             <h3 class="font-serif font-bold text-lg text-stone-100">Jalapeño Fire Salt</h3>
@@ -143,6 +167,7 @@
     </div>
   </section>
 
+  <!-- Market Pre-Order Section -->
   <section id="order" class="py-16 px-4 max-w-3xl mx-auto">
     <div class="text-center mb-10">
       <span class="text-xs font-bold uppercase tracking-widest text-rust-400 bg-rust-950/60 px-3 py-1 rounded-full border border-rust-900">
@@ -154,6 +179,7 @@
       </p>
     </div>
 
+    <!-- Pre-Order Form -->
     <form action="https://formsubmit.co/reddirtgoodsco@gmail.com" method="POST" class="bg-charcoal-900 border border-stone-800 p-6 sm:p-8 rounded-2xl space-y-6 shadow-xl">
       <input type="hidden" name="_subject" value="New Farmers Market Pre-Order!">
       <input type="hidden" name="_captcha" value="false">
@@ -181,6 +207,7 @@
         </div>
       </div>
 
+      <!-- Item Selection -->
       <div class="border-t border-stone-800 pt-5">
         <label class="block text-xs font-bold uppercase tracking-wider text-rust-400 mb-3">Select Items & Quantities</label>
         <div class="grid gap-3">
@@ -227,45 +254,47 @@
     </form>
   </section>
 
- <!-- Meet the Crew Section -->
-<!-- Meet the Crew Section -->
-<section id="crew" class="py-14 px-4 max-w-5xl mx-auto border-t border-stone-800/80">
-  <div class="text-center mb-10">
-    <h2 class="font-serif text-2xl sm:text-3xl font-bold text-stone-100">The Market Crew</h2>
-    <p class="text-stone-400 text-sm mt-1">A true family-run homestead kitchen.</p>
-  </div>
-  <!-- Updated 2-column grid layout -->
-  <div class="grid grid-cols-2 gap-4 text-center">
-    <!-- Row 1 -->
-    <div class="p-4 bg-charcoal-900 border border-stone-800 rounded-xl">
-      <p class="font-bold text-stone-100 text-base">Dad</p>
-      <p class="text-xs text-rust-400 font-semibold mt-0.5">Head Pitmaster & Smoker</p>
+  <!-- Meet the Crew Section (2 Columns, 3 Rows) -->
+  <section id="crew" class="py-14 px-4 max-w-4xl mx-auto border-t border-stone-800/80">
+    <div class="text-center mb-10">
+      <h2 class="font-serif text-2xl sm:text-3xl font-bold text-stone-100">The Market Crew</h2>
+      <p class="text-stone-400 text-sm mt-1">A true family-run homestead kitchen.</p>
     </div>
-    <div class="p-4 bg-charcoal-900 border border-stone-800 rounded-xl">
-      <p class="font-bold text-stone-100 text-base">Mom</p>
-      <p class="text-xs text-rust-400 font-semibold mt-0.5">Director of Shenanigans</p>
-    </div>
-    <!-- Row 2 -->
-    <div class="p-4 bg-charcoal-900 border border-stone-800 rounded-xl">
-      <p class="font-bold text-stone-100 text-base">Atreyu</p>
-      <p class="text-xs text-rust-400 font-semibold mt-0.5">Master Mixer (11)</p>
-    </div>
-    <div class="p-4 bg-charcoal-900 border border-stone-800 rounded-xl">
-      <p class="font-bold text-stone-100 text-base">Isabella</p>
-      <p class="text-xs text-rust-400 font-semibold mt-0.5">Number Cruncher (9)</p>
-    </div>
-    <!-- Row 3 -->
-    <div class="p-4 bg-charcoal-900 border border-stone-800 rounded-xl">
-      <p class="font-bold text-stone-100 text-base">Ronin</p>
-      <p class="text-xs text-rust-400 font-semibold mt-0.5">Taste Tester (5)</p>
-    </div>
-    <div class="p-4 bg-charcoal-900 border border-stone-800 rounded-xl">
-      <p class="font-bold text-stone-100 text-base">Lagertha</p>
-      <p class="text-xs text-rust-400 font-semibold mt-0.5">C.E.O.: Chief Emotional Officer (3)</p>
-    </div>
-  </div>
-</section>
+    
+    <div class="grid grid-cols-2 gap-4 text-center">
+      <!-- Row 1 -->
+      <div class="p-4 bg-charcoal-900 border border-stone-800 rounded-xl">
+        <p class="font-bold text-stone-100 text-base">Dad</p>
+        <p class="text-xs text-rust-400 font-semibold mt-0.5">Head Pitmaster & Smoker</p>
+      </div>
+      <div class="p-4 bg-charcoal-900 border border-stone-800 rounded-xl">
+        <p class="font-bold text-stone-100 text-base">Mom</p>
+        <p class="text-xs text-rust-400 font-semibold mt-0.5">Director of Shenanigans</p>
+      </div>
 
+      <!-- Row 2 -->
+      <div class="p-4 bg-charcoal-900 border border-stone-800 rounded-xl">
+        <p class="font-bold text-stone-100 text-base">Atreyu</p>
+        <p class="text-xs text-rust-400 font-semibold mt-0.5">Master Mixer (11)</p>
+      </div>
+      <div class="p-4 bg-charcoal-900 border border-stone-800 rounded-xl">
+        <p class="font-bold text-stone-100 text-base">Isabella</p>
+        <p class="text-xs text-rust-400 font-semibold mt-0.5">Number Cruncher (9)</p>
+      </div>
+
+      <!-- Row 3 -->
+      <div class="p-4 bg-charcoal-900 border border-stone-800 rounded-xl">
+        <p class="font-bold text-stone-100 text-base">Ronin</p>
+        <p class="text-xs text-rust-400 font-semibold mt-0.5">Taste Tester (5)</p>
+      </div>
+      <div class="p-4 bg-charcoal-900 border border-stone-800 rounded-xl">
+        <p class="font-bold text-stone-100 text-base">Lagertha</p>
+        <p class="text-xs text-rust-400 font-semibold mt-0.5">C.E.O.: Chief Emotional Officer (3)</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact Us Section -->
   <section id="contact" class="py-16 bg-charcoal-900 border-t border-stone-800">
     <div class="max-w-3xl mx-auto px-4">
       <div class="text-center mb-8">
@@ -298,6 +327,7 @@
     </div>
   </section>
 
+  <!-- Location & Hours Section -->
   <section id="market-info" class="py-14 bg-charcoal-950 text-stone-100 border-t border-stone-800/80">
     <div class="max-w-3xl mx-auto px-4 text-center">
       <h2 class="font-serif text-2xl sm:text-3xl font-bold">Find Us at the Farmers Market</h2>
@@ -314,6 +344,7 @@
     </div>
   </section>
 
+  <!-- Footer -->
   <footer class="py-6 text-center text-xs text-stone-500 bg-charcoal-950 border-t border-stone-900">
     © 2026 Red Dirt Goods Co. • Handcrafted in Texas
   </footer>
