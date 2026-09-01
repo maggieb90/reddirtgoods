@@ -1,162 +1,306 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Red Dirt Goods Co. | Small-Batch Texas Provisions</title>
-  <!-- Tailwind CSS CDN for instant styling without build tools -->
+  
   <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            rust: {
+              50: '#fdf6f3',
+              100: '#faeae4',
+              200: '#f6d5c9',
+              300: '#eeb4a1',
+              400: '#e3886e',
+              500: '#c85a32', /* Core Texas Rust */
+              600: '#af4420',
+              700: '#8e3518',
+              800: '#752d18',
+              900: '#612818',
+            },
+            charcoal: {
+              800: '#211d1a',
+              900: '#171412',
+              950: '#0e0c0b'
+            }
+          }
+        }
+      }
+    }
+  </script>
 </head>
-<body class="bg-stone-50 text-stone-800 font-sans antialiased selection:bg-amber-100 selection:text-amber-900">
+<body class="bg-charcoal-950 text-stone-200 font-sans antialiased selection:bg-rust-500 selection:text-white">
 
-  <!-- Navigation / Header -->
-  <header class="border-b border-stone-200 bg-white/80 backdrop-blur sticky top-0 z-50">
-    <div class="max-w-4xl mx-auto px-4 py-4 flex justify-between items-center">
-      <div class="font-serif font-bold text-xl tracking-wide text-stone-900">
-        RED DIRT GOODS <span class="text-amber-700 font-light">Co.</span>
-      </div>
-      <a href="#market-info" class="text-xs font-semibold uppercase tracking-wider bg-stone-900 text-white px-3 py-2 rounded hover:bg-amber-800 transition">
-        Market Schedule
+  <header class="border-b border-stone-800 bg-charcoal-900/90 backdrop-blur sticky top-0 z-50">
+    <div class="max-w-5xl mx-auto px-4 py-4 flex justify-between items-center">
+      <a href="#" class="font-serif font-bold text-xl tracking-wide text-stone-100">
+        RED DIRT GOODS <span class="text-rust-500 font-light">Co.</span>
       </a>
+      <nav class="flex items-center gap-3 sm:gap-6 text-xs sm:text-sm font-medium">
+        <a href="#provisions" class="text-stone-300 hover:text-rust-400 transition hidden sm:inline-block">Provisions</a>
+        <a href="#order" class="text-stone-300 hover:text-rust-400 transition">Pre-Order</a>
+        <a href="#contact" class="text-stone-300 hover:text-rust-400 transition">Contact</a>
+        <a href="#market-info" class="font-semibold uppercase tracking-wider bg-rust-600 text-white px-3 py-2 rounded hover:bg-rust-500 transition shadow-lg shadow-rust-950">
+          Market Schedule
+        </a>
+      </nav>
     </div>
   </header>
 
-  <!-- Hero Section -->
-  <section class="py-16 px-4 max-w-4xl mx-auto text-center">
-    <span class="text-xs font-bold uppercase tracking-widest text-amber-700 bg-amber-50 px-3 py-1 rounded-full border border-amber-200">
+  <section class="py-16 sm:py-20 px-4 max-w-4xl mx-auto text-center">
+    <span class="text-xs font-bold uppercase tracking-widest text-rust-400 bg-rust-950/80 px-3.5 py-1.5 rounded-full border border-rust-800/60 inline-block mb-4">
       Handcrafted in Wichita Falls, Texas
     </span>
-    <h1 class="font-serif text-4xl sm:text-5xl font-extrabold text-stone-900 mt-4 tracking-tight">
+    <h1 class="font-serif text-4xl sm:text-6xl font-extrabold text-stone-100 tracking-tight leading-tight">
       Small-Batch Smoke, Brine & Texas Pantry Goods
     </h1>
-    <p class="mt-4 text-lg text-stone-600 max-w-2xl mx-auto">
+    <p class="mt-5 text-base sm:text-lg text-stone-400 max-w-2xl mx-auto leading-relaxed">
       Elevated condiments, pickled mustard caviar, and cold-crafted drinking vinegars built for weekend barbecues and charcuteries.
     </p>
+    <div class="mt-8 flex justify-center gap-4">
+      <a href="#order" class="bg-rust-600 text-white font-semibold px-6 py-3 rounded-lg hover:bg-rust-500 transition shadow-md">
+        Pre-Order for Market Pickup
+      </a>
+      <a href="#provisions" class="border border-stone-700 hover:border-stone-500 text-stone-300 px-6 py-3 rounded-lg transition">
+        Browse Menu
+      </a>
+    </div>
   </section>
 
-  <!-- Market Products Section -->
-  <section class="py-12 bg-white border-y border-stone-200">
-    <div class="max-w-4xl mx-auto px-4">
-      <div class="text-center mb-10">
-        <h2 class="font-serif text-2xl sm:text-3xl font-bold text-stone-900">Pantry Provisions</h2>
-        <p class="text-stone-500 text-sm mt-1">$9 Each • Any 3 for $24 Bundle</p>
+  <section id="provisions" class="py-16 bg-charcoal-900 border-y border-stone-800/80">
+    <div class="max-w-5xl mx-auto px-4">
+      <div class="text-center mb-12">
+        <h2 class="font-serif text-3xl sm:text-4xl font-bold text-stone-100">Pantry Provisions</h2>
+        <p class="text-rust-400 text-sm mt-2 font-medium tracking-wide">$9 Each • Any 3 for $24 Bundle (Discount applied at checkout/pickup)</p>
       </div>
 
-      <div class="grid sm:grid-cols-2 gap-6">
-        <!-- Product 1 -->
-        <div class="border border-stone-200 rounded-lg p-5 bg-stone-50 hover:border-amber-600 transition">
+      <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div class="border border-stone-800 rounded-xl p-5 bg-charcoal-950/70 hover:border-rust-500/50 transition">
           <div class="flex justify-between items-start">
-            <h3 class="font-serif font-bold text-stone-900">Paw-Paw's Jalapeño Relish</h3>
-            <span class="text-xs font-bold bg-amber-100 text-amber-800 px-2 py-1 rounded">$9.00</span>
+            <h3 class="font-serif font-bold text-lg text-stone-100">Paw-Paw's Jalapeño Relish</h3>
+            <span class="text-xs font-bold bg-rust-950 text-rust-300 border border-rust-800 px-2 py-1 rounded">$9.00</span>
           </div>
-          <p class="text-sm text-stone-600 mt-2">
-            Our signature sweet-heat relish made with fresh jalapeños.
+          <p class="text-sm text-stone-400 mt-2">
+            Our signature sweet-heat relish made with fresh, locally sourced jalapeños.
           </p>
         </div>
 
-        <!-- Product 2 -->
-        <div class="border border-stone-200 rounded-lg p-5 bg-stone-50 hover:border-amber-600 transition">
+        <div class="border border-stone-800 rounded-xl p-5 bg-charcoal-950/70 hover:border-rust-500/50 transition">
           <div class="flex justify-between items-start">
-            <h3 class="font-serif font-bold text-stone-900">Mustard Caviar</h3>
-            <span class="text-xs font-bold bg-amber-100 text-amber-800 px-2 py-1 rounded">$9.00</span>
+            <h3 class="font-serif font-bold text-lg text-stone-100">Mustard Caviar</h3>
+            <span class="text-xs font-bold bg-rust-950 text-rust-300 border border-rust-800 px-2 py-1 rounded">$9.00</span>
           </div>
-          <p class="text-sm text-stone-600 mt-2">
-            Yellow and brown mustard seeds pickled into glossy, savory pearls. The ultimate topper for smoked meats and steaks.
+          <p class="text-sm text-stone-400 mt-2">
+            Yellow and brown mustard seeds pickled into glossy, savory pearls. The ultimate topper for smoked meats.
           </p>
         </div>
 
-        <!-- Product 3 -->
-        <div class="border border-stone-200 rounded-lg p-5 bg-stone-50 hover:border-amber-600 transition">
+        <div class="border border-stone-800 rounded-xl p-5 bg-charcoal-950/70 hover:border-rust-500/50 transition">
           <div class="flex justify-between items-start">
-            <h3 class="font-serif font-bold text-stone-900">Whole-Grain Shiner Bock Mustard</h3>
-            <span class="text-xs font-bold bg-amber-100 text-amber-800 px-2 py-1 rounded">$9.00</span>
+            <h3 class="font-serif font-bold text-lg text-stone-100">Whole-Grain Shiner Bock Mustard</h3>
+            <span class="text-xs font-bold bg-rust-950 text-rust-300 border border-rust-800 px-2 py-1 rounded">$9.00</span>
           </div>
-          <p class="text-sm text-stone-600 mt-2">
+          <p class="text-sm text-stone-400 mt-2">
             Coarse stone-style mustard soaked for 48 hours in dark Texas bock beer with raw honey and spices.
           </p>
         </div>
 
-        <!-- Product 4 -->
-        <div class="border border-stone-200 rounded-lg p-5 bg-stone-50 hover:border-amber-600 transition">
+        <div class="border border-stone-800 rounded-xl p-5 bg-charcoal-950/70 hover:border-rust-500/50 transition">
           <div class="flex justify-between items-start">
-            <h3 class="font-serif font-bold text-stone-900">Texas Agrodolce</h3>
-            <span class="text-xs font-bold bg-amber-100 text-amber-800 px-2 py-1 rounded">$9.00</span>
+            <h3 class="font-serif font-bold text-lg text-stone-100">Texas Agrodolce</h3>
+            <span class="text-xs font-bold bg-rust-950 text-rust-300 border border-rust-800 px-2 py-1 rounded">$9.00</span>
           </div>
-          <p class="text-sm text-stone-600 mt-2">
-            A thick, sweet-and-sour gastrique reduction of raw piloncillo sugar, toasted ancho chiles, and apple cider vinegar.
+          <p class="text-sm text-stone-400 mt-2">
+            A thick sweet-and-sour gastrique reduction of piloncillo sugar, toasted ancho chiles, and cider vinegar.
           </p>
         </div>
 
-        <!-- Product 5 -->
-        <div class="border border-stone-200 rounded-lg p-5 bg-stone-50 hover:border-amber-600 transition">
+        <div class="border border-stone-800 rounded-xl p-5 bg-charcoal-950/70 hover:border-rust-500/50 transition">
           <div class="flex justify-between items-start">
-            <h3 class="font-serif font-bold text-stone-900">Craft Fruit Shrubs (8 oz)</h3>
-            <span class="text-xs font-bold bg-amber-100 text-amber-800 px-2 py-1 rounded">$12.00</span>
+            <h3 class="font-serif font-bold text-lg text-stone-100">Craft Fruit Shrubs (8 oz)</h3>
+            <span class="text-xs font-bold bg-rust-950 text-rust-300 border border-rust-800 px-2 py-1 rounded">$12.00</span>
           </div>
-          <p class="text-sm text-stone-600 mt-2">
-            Cold-macerated drinking vinegars (Blackberry-Thyme & Peach-Ginger). Splash 1 oz into club soda or iced tea.
+          <p class="text-sm text-stone-400 mt-2">
+            Cold-macerated drinking vinegars (Blackberry-Thyme & Peach-Ginger). Perfect for sparkling water and cocktails.
           </p>
         </div>
 
-        <!-- Product 6 -->
-        <div class="border border-stone-200 rounded-lg p-5 bg-stone-50 hover:border-amber-600 transition">
+        <div class="border border-stone-800 rounded-xl p-5 bg-charcoal-950/70 hover:border-rust-500/50 transition">
           <div class="flex justify-between items-start">
-            <h3 class="font-serif font-bold text-stone-900">Jalapeño Fire Salt</h3>
-            <span class="text-xs font-bold bg-amber-100 text-amber-800 px-2 py-1 rounded">$6.00</span>
+            <h3 class="font-serif font-bold text-lg text-stone-100">Jalapeño Fire Salt</h3>
+            <span class="text-xs font-bold bg-rust-950 text-rust-300 border border-rust-800 px-2 py-1 rounded">$6.00</span>
           </div>
-          <p class="text-sm text-stone-600 mt-2">
-            Dehydrated roasted jalapeño flakes pulsed with coarse flaky sea salt in 2-oz tabletop tins.
+          <p class="text-sm text-stone-400 mt-2">
+            Dehydrated roasted jalapeño flakes pulsed with coarse flaky sea salt in convenient tabletop tins.
           </p>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Meet the Crew -->
-  <section class="py-12 px-4 max-w-4xl mx-auto">
-    <div class="text-center mb-8">
-      <h2 class="font-serif text-2xl sm:text-3xl font-bold text-stone-900">The Market Crew</h2>
-      <p class="text-stone-500 text-sm mt-1">A true family-run homestead kitchen.</p>
+  <section id="order" class="py-16 px-4 max-w-3xl mx-auto">
+    <div class="text-center mb-10">
+      <span class="text-xs font-bold uppercase tracking-widest text-rust-400 bg-rust-950/60 px-3 py-1 rounded-full border border-rust-900">
+        Reserve Your Batch
+      </span>
+      <h2 class="font-serif text-3xl sm:text-4xl font-bold text-stone-100 mt-3">Farmers Market Pre-Order</h2>
+      <p class="text-stone-400 text-sm mt-2">
+        Place your order in advance to ensure your items are held for Saturday pickup. Pay at pickup via Cash, Card, or Venmo.
+      </p>
+    </div>
+
+    <form action="https://formsubmit.co/reddirtgoodsco@gmail.com" method="POST" class="bg-charcoal-900 border border-stone-800 p-6 sm:p-8 rounded-2xl space-y-6 shadow-xl">
+      <input type="hidden" name="_subject" value="New Farmers Market Pre-Order!">
+      <input type="hidden" name="_captcha" value="false">
+      <input type="text" name="_honey" style="display:none">
+
+      <div class="grid sm:grid-cols-2 gap-4">
+        <div>
+          <label class="block text-xs font-semibold uppercase text-stone-400 mb-1">Your Full Name *</label>
+          <input type="text" name="Name" required class="w-full bg-charcoal-950 border border-stone-700 rounded-lg px-3.5 py-2.5 text-stone-100 focus:outline-none focus:border-rust-500" placeholder="e.g., Sarah Davis">
+        </div>
+        <div>
+          <label class="block text-xs font-semibold uppercase text-stone-400 mb-1">Phone Number *</label>
+          <input type="tel" name="Phone" required class="w-full bg-charcoal-950 border border-stone-700 rounded-lg px-3.5 py-2.5 text-stone-100 focus:outline-none focus:border-rust-500" placeholder="(940) 555-0123">
+        </div>
+      </div>
+
+      <div class="grid sm:grid-cols-2 gap-4">
+        <div>
+          <label class="block text-xs font-semibold uppercase text-stone-400 mb-1">Email Address *</label>
+          <input type="email" name="Email" required class="w-full bg-charcoal-950 border border-stone-700 rounded-lg px-3.5 py-2.5 text-stone-100 focus:outline-none focus:border-rust-500" placeholder="you@domain.com">
+        </div>
+        <div>
+          <label class="block text-xs font-semibold uppercase text-stone-400 mb-1">Pickup Date (Saturday) *</label>
+          <input type="date" name="Pickup_Date" required class="w-full bg-charcoal-950 border border-stone-700 rounded-lg px-3.5 py-2.5 text-stone-100 focus:outline-none focus:border-rust-500">
+        </div>
+      </div>
+
+      <div class="border-t border-stone-800 pt-5">
+        <label class="block text-xs font-bold uppercase tracking-wider text-rust-400 mb-3">Select Items & Quantities</label>
+        <div class="grid gap-3">
+          <div class="flex items-center justify-between bg-charcoal-950 p-3 rounded-lg border border-stone-800">
+            <span class="text-sm text-stone-200">Paw-Paw's Jalapeño Relish ($9)</span>
+            <input type="number" name="Qty_Jalapeno_Relish" min="0" max="10" value="0" class="w-16 bg-charcoal-900 border border-stone-700 rounded px-2 py-1 text-center text-stone-100 focus:border-rust-500">
+          </div>
+
+          <div class="flex items-center justify-between bg-charcoal-950 p-3 rounded-lg border border-stone-800">
+            <span class="text-sm text-stone-200">Mustard Caviar ($9)</span>
+            <input type="number" name="Qty_Mustard_Caviar" min="0" max="10" value="0" class="w-16 bg-charcoal-900 border border-stone-700 rounded px-2 py-1 text-center text-stone-100 focus:border-rust-500">
+          </div>
+
+          <div class="flex items-center justify-between bg-charcoal-950 p-3 rounded-lg border border-stone-800">
+            <span class="text-sm text-stone-200">Shiner Bock Whole Grain Mustard ($9)</span>
+            <input type="number" name="Qty_Shiner_Mustard" min="0" max="10" value="0" class="w-16 bg-charcoal-900 border border-stone-700 rounded px-2 py-1 text-center text-stone-100 focus:border-rust-500">
+          </div>
+
+          <div class="flex items-center justify-between bg-charcoal-950 p-3 rounded-lg border border-stone-800">
+            <span class="text-sm text-stone-200">Texas Agrodolce ($9)</span>
+            <input type="number" name="Qty_Agrodolce" min="0" max="10" value="0" class="w-16 bg-charcoal-900 border border-stone-700 rounded px-2 py-1 text-center text-stone-100 focus:border-rust-500">
+          </div>
+
+          <div class="flex items-center justify-between bg-charcoal-950 p-3 rounded-lg border border-stone-800">
+            <span class="text-sm text-stone-200">Craft Fruit Shrubs ($12)</span>
+            <input type="number" name="Qty_Shrubs" min="0" max="10" value="0" class="w-16 bg-charcoal-900 border border-stone-700 rounded px-2 py-1 text-center text-stone-100 focus:border-rust-500">
+          </div>
+
+          <div class="flex items-center justify-between bg-charcoal-950 p-3 rounded-lg border border-stone-800">
+            <span class="text-sm text-stone-200">Jalapeño Fire Salt ($6)</span>
+            <input type="number" name="Qty_Fire_Salt" min="0" max="10" value="0" class="w-16 bg-charcoal-900 border border-stone-700 rounded px-2 py-1 text-center text-stone-100 focus:border-rust-500">
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <label class="block text-xs font-semibold uppercase text-stone-400 mb-1">Notes / Custom Requests</label>
+        <textarea name="Notes" rows="2" class="w-full bg-charcoal-950 border border-stone-700 rounded-lg p-3 text-stone-100 focus:outline-none focus:border-rust-500" placeholder="Let us know if you need specific shrub flavors or pickup timing..."></textarea>
+      </div>
+
+      <button type="submit" class="w-full bg-rust-600 hover:bg-rust-500 text-white font-bold py-3.5 rounded-lg transition shadow-lg tracking-wide uppercase text-sm">
+        Submit Pre-Order Reservation
+      </button>
+    </form>
+  </section>
+
+  <section class="py-14 px-4 max-w-4xl mx-auto border-t border-stone-800/80">
+    <div class="text-center mb-10">
+      <h2 class="font-serif text-2xl sm:text-3xl font-bold text-stone-100">The Market Crew</h2>
+      <p class="text-stone-400 text-sm mt-1">A true family-run homestead kitchen.</p>
     </div>
     <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 text-center">
-      <div class="p-4 bg-white border border-stone-200 rounded-lg">
-        <p class="font-bold text-stone-900 text-base">Atreyu</p>
-        <p class="text-xs text-amber-700 font-semibold">Master Mixer (11)</p>
+      <div class="p-4 bg-charcoal-900 border border-stone-800 rounded-xl">
+        <p class="font-bold text-stone-100 text-base">Atreyu</p>
+        <p class="text-xs text-rust-400 font-semibold mt-0.5">Master Mixer (11)</p>
       </div>
-      <div class="p-4 bg-white border border-stone-200 rounded-lg">
-        <p class="font-bold text-stone-900 text-base">Isabella</p>
-        <p class="text-xs text-amber-700 font-semibold">Number Cruncher (9)</p>
+      <div class="p-4 bg-charcoal-900 border border-stone-800 rounded-xl">
+        <p class="font-bold text-stone-100 text-base">Isabella</p>
+        <p class="text-xs text-rust-400 font-semibold mt-0.5">Number Cruncher (9)</p>
       </div>
-      <div class="p-4 bg-white border border-stone-200 rounded-lg">
-        <p class="font-bold text-stone-900 text-base">Ronin</p>
-        <p class="text-xs text-amber-700 font-semibold">Taste Tester (5)</p>
+      <div class="p-4 bg-charcoal-900 border border-stone-800 rounded-xl">
+        <p class="font-bold text-stone-100 text-base">Ronin</p>
+        <p class="text-xs text-rust-400 font-semibold mt-0.5">Taste Tester (5)</p>
       </div>
-      <div class="p-4 bg-white border border-stone-200 rounded-lg">
-        <p class="font-bold text-stone-900 text-base">Lagertha</p>
-        <p class="text-xs text-amber-700 font-semibold">C.E.O.: Chief Emotional Officer (3)</p>
+      <div class="p-4 bg-charcoal-900 border border-stone-800 rounded-xl">
+        <p class="font-bold text-stone-100 text-base">Lagertha</p>
+        <p class="text-xs text-rust-400 font-semibold mt-0.5">C.E.O.: Chief Emotional Officer (3)</p>
       </div>
     </div>
   </section>
 
-  <!-- Location & Hours Section -->
-  <section id="market-info" class="py-12 bg-stone-900 text-stone-100">
+  <section id="contact" class="py-16 bg-charcoal-900 border-t border-stone-800">
+    <div class="max-w-3xl mx-auto px-4">
+      <div class="text-center mb-8">
+        <h2 class="font-serif text-3xl font-bold text-stone-100">Get In Touch</h2>
+        <p class="text-stone-400 text-sm mt-1">Questions about ingredients, wholesale inquiries, or custom batch orders?</p>
+      </div>
+
+      <form action="https://formsubmit.co/reddirtgoodsco@gmail.com" method="POST" class="bg-charcoal-950 border border-stone-800 p-6 rounded-xl space-y-4">
+        <input type="hidden" name="_subject" value="New Contact Inquiry (reddirtgoods.com)">
+        <input type="hidden" name="_captcha" value="false">
+
+        <div class="grid sm:grid-cols-2 gap-4">
+          <div>
+            <label class="block text-xs font-semibold uppercase text-stone-400 mb-1">Your Name</label>
+            <input type="text" name="Contact_Name" required class="w-full bg-charcoal-900 border border-stone-700 rounded-lg p-2.5 text-stone-100 focus:outline-none focus:border-rust-500">
+          </div>
+          <div>
+            <label class="block text-xs font-semibold uppercase text-stone-400 mb-1">Email Address</label>
+            <input type="email" name="Contact_Email" required class="w-full bg-charcoal-900 border border-stone-700 rounded-lg p-2.5 text-stone-100 focus:outline-none focus:border-rust-500">
+          </div>
+        </div>
+        <div>
+          <label class="block text-xs font-semibold uppercase text-stone-400 mb-1">Message</label>
+          <textarea name="Contact_Message" rows="3" required class="w-full bg-charcoal-900 border border-stone-700 rounded-lg p-2.5 text-stone-100 focus:outline-none focus:border-rust-500" placeholder="How can we help?"></textarea>
+        </div>
+        <button type="submit" class="w-full bg-stone-800 hover:bg-rust-700 text-stone-200 hover:text-white font-semibold py-2.5 rounded-lg transition border border-stone-700">
+          Send Message
+        </button>
+      </form>
+    </div>
+  </section>
+
+  <section id="market-info" class="py-14 bg-charcoal-950 text-stone-100 border-t border-stone-800/80">
     <div class="max-w-3xl mx-auto px-4 text-center">
-      <h2 class="font-serif text-2xl sm:text-3xl font-bold">Find Us at the Farmer's Market</h2>
+      <h2 class="font-serif text-2xl sm:text-3xl font-bold">Find Us at the Farmers Market</h2>
       <p class="text-stone-300 mt-2 text-base">
         Downtown Wichita Falls Farmers Market<br />
         8th & Ohio Ave, Wichita Falls, TX
       </p>
-      <div class="mt-4 inline-block border border-stone-700 bg-stone-800 px-4 py-2 rounded-lg text-sm text-amber-400 font-medium">
+      <div class="mt-4 inline-block border border-rust-800/60 bg-rust-950/40 px-4 py-2 rounded-lg text-sm text-rust-400 font-medium">
         Every Saturday Morning • 9:00 AM – 1:00 PM
       </div>
-      <p class="text-xs text-stone-400 mt-8 leading-relaxed max-w-xl mx-auto">
+      <p class="text-xs text-stone-500 mt-8 leading-relaxed max-w-xl mx-auto uppercase tracking-wide">
         THIS PRODUCT WAS PRODUCED IN A PRIVATE RESIDENCE THAT IS NOT SUBJECT TO GOVERNMENTAL LICENSING OR INSPECTION.
       </p>
     </div>
   </section>
 
-  <!-- Footer -->
-  <footer class="py-6 text-center text-xs text-stone-500">
+  <footer class="py-6 text-center text-xs text-stone-500 bg-charcoal-950 border-t border-stone-900">
     © 2026 Red Dirt Goods Co. • Handcrafted in Texas
   </footer>
 
