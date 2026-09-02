@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Contact & Market Info | Red Dirt Goods Co.</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            rust: {
+              50: '#fdf6f3', 100: '#faeae4', 200: '#f6d5c9', 300: '#eeb4a1',
+              400: '#e3886e', 500: '#c85a32', 600: '#af4420', 700: '#8e3518',
+              800: '#752d18', 900: '#612818', 950: '#381308',
+            },
+            charcoal: { 800: '#211d1a', 900: '#171412', 950: '#0e0c0b' }
+          }
+        }
+      }
+    }
+  </script>
+</head>
+<body class="bg-charcoal-950 text-stone-200 font-sans antialiased flex flex-col min-h-screen">
+
+  <header class="border-b border-stone-800 bg-charcoal-900/90 backdrop-blur sticky top-0 z-50">
+    <div class="max-w-6xl mx-auto px-4 py-3 flex flex-wrap justify-between items-center gap-4">
+      <a href="index.html" class="flex items-center gap-3">
+        <img src="logo.png" alt="Red Dirt Goods Logo" class="h-10 w-auto object-contain">
+        <span class="font-serif font-bold text-lg tracking-wide text-stone-100">
+          RED DIRT GOODS <span class="text-rust-500 font-light">Co.</span>
+        </span>
+      </a>
+      <nav class="flex items-center gap-4 sm:gap-6 text-xs sm:text-sm font-medium">
+        <a href="index.html" class="text-stone-300 hover:text-rust-400 transition">Home</a>
+        <a href="products.html" class="text-stone-300 hover:text-rust-400 transition">Products</a>
+        <a href="about.html" class="text-stone-300 hover:text-rust-400 transition">About Us</a>
+        <a href="market-memories.html" class="text-stone-300 hover:text-rust-400 transition">Market Memories</a>
+        <a href="contact.html" class="text-rust-400 font-semibold">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="flex-grow py-16 px-4 max-w-4xl mx-auto">
+    
+    <section id="market-info" class="text-center mb-16 border-b border-stone-800 pb-16">
+      <span class="text-xs font-bold uppercase tracking-widest text-rust-400 bg-rust-950/80 px-3.5 py-1.5 rounded-full border border-rust-800/60 inline-block mb-3">
+        Market Presence
+      </span>
+      <h1 class="font-serif text-3xl sm:text-4xl font-bold text-stone-100">Find Us Every Saturday</h1>
+      <p class="text-stone-300 mt-3 text-lg">
+        Downtown Wichita Falls Farmers Market<br />
+        8th & Ohio Ave, Wichita Falls, TX
+      </p>
+      <div class="mt-4 inline-block border border-rust-800/60 bg-rust-950/40 px-5 py-2.5 rounded-lg text-sm text-rust-300 font-medium">
+        Every Saturday Morning • 9:00 AM – 1:00 PM
+      </div>
+      <div class="mt-6">
+        <a href="https://maps.google.com/?q=Downtown+Wichita+Falls+Farmers+Market+8th+and+Ohio+Ave+Wichita+Falls+TX" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-rust-400 hover:text-rust-300 underline">
+          Open in Google Maps →
+        </a>
+      </div>
+    </section>
+
+    <section>
+      <div class="text-center mb-8">
+        <h2 class="font-serif text-2xl sm:text-3xl font-bold text-stone-100">Get In Touch</h2>
+        <p class="text-stone-400 text-sm mt-1">Questions about batch ingredients, wholesale requests, or custom party orders?</p>
+      </div>
+
+      <form action="https://formsubmit.co/reddirtgoodsco@gmail.com" method="POST" class="bg-charcoal-900 border border-stone-800 p-6 sm:p-8 rounded-2xl space-y-4 shadow-xl">
+        <input type="hidden" name="_subject" value="New Contact Inquiry (reddirtgoods.com)">
+        <input type="hidden" name="_captcha" value="false">
+
+        <div class="grid sm:grid-cols-2 gap-4">
+          <div>
+            <label class="block text-xs font-semibold uppercase text-stone-400 mb-1">Your Name *</label>
+            <input type="text" name="Contact_Name" required class="w-full bg-charcoal-950 border border-stone-700 rounded-lg p-2.5 text-stone-100 focus:outline-none focus:border-rust-500">
+          </div>
+          <div>
+            <label class="block text-xs font-semibold uppercase text-stone-400 mb-1">Email Address *</label>
+            <input type="email" name="Contact_Email" required class="w-full bg-charcoal-950 border border-stone-700 rounded-lg p-2.5 text-stone-100 focus:outline-none focus:border-rust-500">
+          </div>
+        </div>
+        <div>
+          <label class="block text-xs font-semibold uppercase text-stone-400 mb-1">Message *</label>
+          <textarea name="Contact_Message" rows="4" required class="w-full bg-charcoal-950 border border-stone-700 rounded-lg p-2.5 text-stone-100 focus:outline-none focus:border-rust-500" placeholder="Let us know how we can help..."></textarea>
+        </div>
+        <button type="submit" class="w-full bg-rust-600 hover:bg-rust-500 text-white font-bold py-3 rounded-lg transition border border-rust-500 shadow-md uppercase tracking-wide text-xs">
+          Send Message
+        </button>
+      </form>
+    </section>
+  </main>
+
+  <footer class="py-8 bg-charcoal-950 border-t border-stone-900 text-center px-4">
+    <p class="text-xs text-stone-500 max-w-2xl mx-auto uppercase tracking-wide leading-relaxed">
+      THIS PRODUCT WAS PRODUCED IN A PRIVATE RESIDENCE THAT IS NOT SUBJECT TO GOVERNMENTAL LICENSING OR INSPECTION.
+    </p>
+    <p class="text-xs text-stone-600 mt-4">
+      © 2026 Red Dirt Goods Co. • Handcrafted in Texas
+    </p>
+  </footer>
+
+</body>
+</html>
