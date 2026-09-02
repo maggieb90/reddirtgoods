@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>About Us | Red Dirt Goods Co.</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            rust: {
+              50: '#fdf6f3', 100: '#faeae4', 200: '#f6d5c9', 300: '#eeb4a1',
+              400: '#e3886e', 500: '#c85a32', 600: '#af4420', 700: '#8e3518',
+              800: '#752d18', 900: '#612818', 950: '#381308',
+            },
+            charcoal: { 800: '#211d1a', 900: '#171412', 950: '#0e0c0b' }
+          }
+        }
+      }
+    }
+  </script>
+</head>
+<body class="bg-charcoal-950 text-stone-200 font-sans antialiased flex flex-col min-h-screen">
+
+  <header class="border-b border-stone-800 bg-charcoal-900/90 backdrop-blur sticky top-0 z-50">
+    <div class="max-w-6xl mx-auto px-4 py-3 flex flex-wrap justify-between items-center gap-4">
+      <a href="index.html" class="flex items-center gap-3">
+        <img src="logo.png" alt="Red Dirt Goods Logo" class="h-10 w-auto object-contain">
+        <span class="font-serif font-bold text-lg tracking-wide text-stone-100">
+          RED DIRT GOODS <span class="text-rust-500 font-light">Co.</span>
+        </span>
+      </a>
+      <nav class="flex items-center gap-4 sm:gap-6 text-xs sm:text-sm font-medium">
+        <a href="index.html" class="text-stone-300 hover:text-rust-400 transition">Home</a>
+        <a href="products.html" class="text-stone-300 hover:text-rust-400 transition">Products</a>
+        <a href="about.html" class="text-rust-400 font-semibold">About Us</a>
+        <a href="market-memories.html" class="text-stone-300 hover:text-rust-400 transition">Market Memories</a>
+        <a href="contact.html" class="text-stone-300 hover:text-rust-400 transition">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="flex-grow py-16 px-4 max-w-4xl mx-auto">
+    <div class="text-center mb-12">
+      <span class="text-xs font-bold uppercase tracking-widest text-rust-400 bg-rust-950/80 px-3.5 py-1.5 rounded-full border border-rust-800/60 inline-block mb-3">
+        Our Homestead Kitchen
+      </span>
+      <h1 class="font-serif text-3xl sm:text-5xl font-bold text-stone-100">Rooted in Texas Heritage</h1>
+      <p class="text-stone-400 text-base mt-4 max-w-2xl mx-auto leading-relaxed">
+        Red Dirt Goods Co. was built out of a passion for authentic culinary traditions, bold Texas flavors, and honest homestead canning. Everything we produce is small-batch, hand-stirred, and preserved with care right here in Wichita Falls.
+      </p>
+    </div>
+
+    <div class="border border-stone-800 bg-charcoal-900 rounded-2xl p-6 sm:p-10 mb-12">
+      <h2 class="font-serif text-2xl font-bold text-stone-100 text-center mb-2">The Market Crew</h2>
+      <p class="text-stone-400 text-sm text-center mb-8">Every hand in our family plays an essential role on market day.</p>
+
+      <div class="grid grid-cols-2 gap-4 text-center">
+        <div class="p-4 bg-charcoal-950 border border-stone-800 rounded-xl">
+          <p class="font-bold text-stone-100 text-base">Josh (Dad)</p>
+          <p class="text-xs text-rust-400 font-semibold mt-0.5">Head Honcho</p>
+        </div>
+        <div class="p-4 bg-charcoal-950 border border-stone-800 rounded-xl">
+          <p class="font-bold text-stone-100 text-base">Ashley (Mom)</p>
+          <p class="text-xs text-rust-400 font-semibold mt-0.5">Director of Shenanigans</p>
+        </div>
+        <div class="p-4 bg-charcoal-950 border border-stone-800 rounded-xl">
+          <p class="font-bold text-stone-100 text-base">Atreyu</p>
+          <p class="text-xs text-rust-400 font-semibold mt-0.5">Master Mixer (11)</p>
+        </div>
+        <div class="p-4 bg-charcoal-950 border border-stone-800 rounded-xl">
+          <p class="font-bold text-stone-100 text-base">Isabella</p>
+          <p class="text-xs text-rust-400 font-semibold mt-0.5">Number Cruncher (9)</p>
+        </div>
+        <div class="p-4 bg-charcoal-950 border border-stone-800 rounded-xl">
+          <p class="font-bold text-stone-100 text-base">Ronin</p>
+          <p class="text-xs text-rust-400 font-semibold mt-0.5">Taste Connoisseur (5)</p>
+        </div>
+        <div class="p-4 bg-charcoal-950 border border-stone-800 rounded-xl">
+          <p class="font-bold text-stone-100 text-base">Lagertha</p>
+          <p class="text-xs text-rust-400 font-semibold mt-0.5">C.E.O.: Chief Emotional Officer (3)</p>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="py-8 bg-charcoal-950 border-t border-stone-900 text-center px-4">
+    <p class="text-xs text-stone-500 max-w-2xl mx-auto uppercase tracking-wide leading-relaxed">
+      THIS PRODUCT WAS PRODUCED IN A PRIVATE RESIDENCE THAT IS NOT SUBJECT TO GOVERNMENTAL LICENSING OR INSPECTION.
+    </p>
+    <p class="text-xs text-stone-600 mt-4">
+      © 2026 Red Dirt Goods Co. • Handcrafted in Texas
+    </p>
+  </footer>
+
+</body>
+</html>
