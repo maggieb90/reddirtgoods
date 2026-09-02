@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Market Memories | Red Dirt Goods Co.</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            rust: {
+              50: '#fdf6f3', 100: '#faeae4', 200: '#f6d5c9', 300: '#eeb4a1',
+              400: '#e3886e', 500: '#c85a32', 600: '#af4420', 700: '#8e3518',
+              800: '#752d18', 900: '#612818', 950: '#381308',
+            },
+            charcoal: { 800: '#211d1a', 900: '#171412', 950: '#0e0c0b' }
+          }
+        }
+      }
+    }
+  </script>
+</head>
+<body class="bg-charcoal-950 text-stone-200 font-sans antialiased flex flex-col min-h-screen">
+
+  <header class="border-b border-stone-800 bg-charcoal-900/90 backdrop-blur sticky top-0 z-50">
+    <div class="max-w-6xl mx-auto px-4 py-3 flex flex-wrap justify-between items-center gap-4">
+      <a href="index.html" class="flex items-center gap-3">
+        <img src="logo.png" alt="Red Dirt Goods Logo" class="h-10 w-auto object-contain">
+        <span class="font-serif font-bold text-lg tracking-wide text-stone-100">
+          RED DIRT GOODS <span class="text-rust-500 font-light">Co.</span>
+        </span>
+      </a>
+      <nav class="flex items-center gap-4 sm:gap-6 text-xs sm:text-sm font-medium">
+        <a href="index.html" class="text-stone-300 hover:text-rust-400 transition">Home</a>
+        <a href="products.html" class="text-stone-300 hover:text-rust-400 transition">Products</a>
+        <a href="about.html" class="text-stone-300 hover:text-rust-400 transition">About Us</a>
+        <a href="market-memories.html" class="text-rust-400 font-semibold">Market Memories</a>
+        <a href="contact.html" class="text-stone-300 hover:text-rust-400 transition">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="flex-grow py-16 px-4 max-w-6xl mx-auto">
+    <div class="text-center mb-12">
+      <span class="text-xs font-bold uppercase tracking-widest text-rust-400 bg-rust-950/80 px-3.5 py-1.5 rounded-full border border-rust-800/60 inline-block mb-3">
+        Out at the Market
+      </span>
+      <h1 class="font-serif text-3xl sm:text-5xl font-bold text-stone-100">Market Memories</h1>
+      <p class="text-stone-400 text-sm sm:text-base mt-3 max-w-xl mx-auto">
+        Snapshots from our Saturday mornings at the Downtown Wichita Falls Farmers Market, jar canning sessions, and family memories in action.
+      </p>
+    </div>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+      
+      <div class="group border border-stone-800 bg-charcoal-900 rounded-xl overflow-hidden shadow-lg">
+        <div class="aspect-[4/3] bg-stone-900 overflow-hidden relative">
+          <img src="market-booth.jpg" alt="Red Dirt Goods Market Booth" class="w-full h-full object-cover group-hover:scale-105 transition duration-500" onerror="this.src='https://placehold.co/600x450/171412/c85a32?text=Market+Booth+Setup'">
+        </div>
+        <div class="p-4">
+          <h3 class="font-serif font-bold text-stone-100 text-base">Saturday Morning Market Table</h3>
+          <p class="text-xs text-rust-400 mt-0.5">Downtown Wichita Falls</p>
+          <p class="text-xs text-stone-400 mt-2">All stocked up with freshly labeled relish, shrubs, and mustard caviar before the morning crowd arrives.</p>
+        </div>
+      </div>
+
+      <div class="group border border-stone-800 bg-charcoal-900 rounded-xl overflow-hidden shadow-lg">
+        <div class="aspect-[4/3] bg-stone-900 overflow-hidden relative">
+          <img src="family-crew.jpg" alt="The Crew in Action" class="w-full h-full object-cover group-hover:scale-105 transition duration-500" onerror="this.src='https://placehold.co/600x450/171412/c85a32?text=The+Crew+in+Action'">
+        </div>
+        <div class="p-4">
+          <h3 class="font-serif font-bold text-stone-100 text-base">The Crew in Action</h3>
+          <p class="text-xs text-rust-400 mt-0.5">Working the Market Tent</p>
+          <p class="text-xs text-stone-400 mt-2">Atreyu and Isabella greeting folks and keeping track of Saturday reservations.</p>
+        </div>
+      </div>
+
+      <div class="group border border-stone-800 bg-charcoal-900 rounded-xl overflow-hidden shadow-lg">
+        <div class="aspect-[4/3] bg-stone-900 overflow-hidden relative">
+          <img src="canning-day.jpg" alt="Homestead Batch Prep" class="w-full h-full object-cover group-hover:scale-105 transition duration-500" onerror="this.src='https://placehold.co/600x450/171412/c85a32?text=Fresh+Batch+Prep'">
+        </div>
+        <div class="p-4">
+          <h3 class="font-serif font-bold text-stone-100 text-base">Fresh Batch Day</h3>
+          <p class="text-xs text-rust-400 mt-0.5">Homestead Kitchen</p>
+          <p class="text-xs text-stone-400 mt-2">Dicing fresh Texas jalapeños for Paw-Paw's Relish and steeping Shiner Bock mustard seed.</p>
+        </div>
+      </div>
+
+      <div class="group border border-stone-800 bg-charcoal-900 rounded-xl overflow-hidden shadow-lg">
+        <div class="aspect-[4/3] bg-stone-900 overflow-hidden relative">
+          <img src="el-padres-prep.jpg" alt="El Padres Salsa Batch" class="w-full h-full object-cover group-hover:scale-105 transition duration-500" onerror="this.src='https://placehold.co/600x450/171412/c85a32?text=Fire-Roasting+Salsa'">
+        </div>
+        <div class="p-4">
+          <h3 class="font-serif font-bold text-stone-100 text-base">Fire-Roasting El Padre's Salsa</h3>
+          <p class="text-xs text-rust-400 mt-0.5">Kitchen Prep</p>
+          <p class="text-xs text-stone-400 mt-2">Charring serranos and fresh tomatoes for that distinctive Texas smoky bite.</p>
+        </div>
+      </div>
+
+      <div class="group border border-stone-800 bg-charcoal-900 rounded-xl overflow-hidden shadow-lg">
+        <div class="aspect-[4/3] bg-stone-900 overflow-hidden relative">
+          <img src="market-samples.jpg" alt="Tasting and Samples" class="w-full h-full object-cover group-hover:scale-105 transition duration-500" onerror="this.src='https://placehold.co/600x450/171412/c85a32?text=Market+Tastings'">
+        </div>
+        <div class="p-4">
+          <h3 class="font-serif font-bold text-stone-100 text-base">Saturday Taste Tests</h3>
+          <p class="text-xs text-rust-400 mt-0.5">Downtown Wichita Falls</p>
+          <p class="text-xs text-stone-400 mt-2">Sampling out fruit shrubs with chilled topo chico on warm sunny Texas mornings.</p>
+        </div>
+      </div>
+
+      <div class="group border border-stone-800 bg-charcoal-900 rounded-xl overflow-hidden shadow-lg">
+        <div class="aspect-[4/3] bg-stone-900 overflow-hidden relative">
+          <img src="youngest-crew.jpg" alt="Little Helpers" class="w-full h-full object-cover group-hover:scale-105 transition duration-500" onerror="this.src='https://placehold.co/600x450/171412/c85a32?text=Market+Break+Smiles'">
+        </div>
+        <div class="p-4">
+          <h3 class="font-serif font-bold text-stone-100 text-base">Junior Crew Break</h3>
+          <p class="text-xs text-rust-400 mt-0.5">Behind the Tent</p>
+          <p class="text-xs text-stone-400 mt-2">Ronin and Lagertha keeping spirits high between customer visits.</p>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <footer class="py-8 bg-charcoal-950 border-t border-stone-900 text-center px-4">
+    <p class="text-xs text-stone-500 max-w-2xl mx-auto uppercase tracking-wide leading-relaxed">
+      THIS PRODUCT WAS PRODUCED IN A PRIVATE RESIDENCE THAT IS NOT SUBJECT TO GOVERNMENTAL LICENSING OR INSPECTION.
+    </p>
+    <p class="text-xs text-stone-600 mt-4">
+      © 2026 Red Dirt Goods Co. • Handcrafted in Texas
+    </p>
+  </footer>
+
+</body>
+</html>
