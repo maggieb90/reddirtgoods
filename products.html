@@ -57,7 +57,7 @@
         </p>
       </div>
 
-<div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
         <div class="border border-stone-800 rounded-xl p-5 bg-charcoal-900 hover:border-rust-500/50 transition flex flex-col justify-between">
           <div>
             <div class="flex justify-between items-start">
@@ -96,7 +96,7 @@
           </p>
         </div>
 
-  <div class="border border-stone-800 rounded-xl p-5 bg-charcoal-900 hover:border-rust-500/50 transition flex flex-col justify-between">
+        <div class="border border-stone-800 rounded-xl p-5 bg-charcoal-900 hover:border-rust-500/50 transition flex flex-col justify-between">
           <div>
             <div class="flex justify-between items-start">
               <h2 class="font-serif font-bold text-lg text-stone-100">Meme's Pear Preserves (8 oz)</h2>
@@ -210,43 +210,47 @@
           </p>
         </div>
       </div>
-
-        <div>
-          <label class="block text-xs font-semibold uppercase text-stone-400 mb-1">Notes / Custom Requests</label>
-          <textarea name="Notes" rows="2" class="w-full bg-charcoal-950 border border-stone-700 rounded-lg p-3 text-stone-100 focus:outline-none focus:border-rust-500" placeholder="Specific shrub flavors (Blackberry-Thyme or Peach-Ginger), estimated arrival time, etc."></textarea>
-        </div>
-
-      <div class="bg-charcoal-950 border border-rust-900/60 rounded-xl p-4 text-xs space-y-1.5">
-          <p class="text-rust-300 font-semibold flex items-center gap-1.5">
-            ⏱ Cutoff: Pre-orders close every Friday at 5:00 PM for Saturday pickup.
-          </p>
-          <p class="text-stone-400">
-            Payment collected at market table via <span class="text-stone-200 font-medium">Cash, Venmo, Cash App, or Card (Square)</span>.
-          </p>
-        </div>
-      
-        <button type="submit" class="w-full bg-rust-600 hover:bg-rust-500 text-white font-bold py-3.5 rounded-lg transition shadow-lg tracking-wide uppercase text-sm">
-          Submit Pre-Order Reservation
-        </button>
-      </form>
     </section>
-  </main>
 
-<footer class="py-8 bg-charcoal-950 border-t border-stone-900 text-center px-4">
-    <div class="flex justify-center gap-6 mb-4 text-xs font-semibold uppercase tracking-wider text-stone-400">
-      <a href="https://instagram.com/reddirtgoodsco" target="_blank" rel="noopener noreferrer" class="hover:text-rust-400 transition">Instagram</a>
-      <span>•</span>
-      <a href="https://facebook.com/reddirtgoodsco" target="_blank" rel="noopener noreferrer" class="hover:text-rust-400 transition">Facebook</a>
-      <span>•</span>
-      <a href="contact.html" class="hover:text-rust-400 transition">Market Schedule</a>
-    </div>
-    <p class="text-xs text-stone-500 max-w-2xl mx-auto uppercase tracking-wide leading-relaxed">
-      THIS PRODUCT WAS PRODUCED IN A PRIVATE RESIDENCE THAT IS NOT SUBJECT TO GOVERNMENTAL LICENSING OR INSPECTION.
-    </p>
-    <p class="text-xs text-stone-600 mt-3">
-      © 2026 Red Dirt Goods Co. • Handcrafted in Texas
-    </p>
-  </footer>
+    <section id="order" class="py-16 px-4 max-w-3xl mx-auto border-t border-stone-800">
+      <div class="text-center mb-10">
+        <span class="text-xs font-bold uppercase tracking-widest text-rust-400 bg-rust-950/60 px-3 py-1 rounded-full border border-rust-900">
+          Reserve Your Batch
+        </span>
+        <h2 class="font-serif text-3xl font-bold text-stone-100 mt-3">Saturday Market Pre-Order</h2>
+        <p class="text-stone-400 text-sm mt-2">
+          Reserve your items ahead of time so your batch isn't claimed early. Pay at pickup with Cash, Card, or Venmo.
+        </p>
+      </div>
 
-</body>
-</html>
+      <form action="https://formsubmit.co/reddirtgoodsco@gmail.com" method="POST" class="bg-charcoal-900 border border-stone-800 p-6 sm:p-8 rounded-2xl space-y-6 shadow-xl">
+        <input type="hidden" name="_subject" value="New Farmers Market Pre-Order!">
+        <input type="hidden" name="_captcha" value="false">
+        <input type="text" name="_honey" style="display:none">
+
+        <div class="grid sm:grid-cols-2 gap-4">
+          <div>
+            <label class="block text-xs font-semibold uppercase text-stone-400 mb-1">Your Full Name *</label>
+            <input type="text" name="Name" required class="w-full bg-charcoal-950 border border-stone-700 rounded-lg px-3.5 py-2.5 text-stone-100 focus:outline-none focus:border-rust-500" placeholder="e.g., Sarah Davis">
+          </div>
+          <div>
+            <label class="block text-xs font-semibold uppercase text-stone-400 mb-1">Phone Number *</label>
+            <input type="tel" name="Phone" required class="w-full bg-charcoal-950 border border-stone-700 rounded-lg px-3.5 py-2.5 text-stone-100 focus:outline-none focus:border-rust-500" placeholder="(940) 555-0123">
+          </div>
+        </div>
+
+        <div class="grid sm:grid-cols-2 gap-4">
+          <div>
+            <label class="block text-xs font-semibold uppercase text-stone-400 mb-1">Email Address *</label>
+            <input type="email" name="Email" required class="w-full bg-charcoal-950 border border-stone-700 rounded-lg px-3.5 py-2.5 text-stone-100 focus:outline-none focus:border-rust-500" placeholder="you@domain.com">
+          </div>
+          <div>
+            <label class="block text-xs font-semibold uppercase text-stone-400 mb-1">Pickup Date (Saturday) *</label>
+            <input type="date" name="Pickup_Date" required class="w-full bg-charcoal-950 border border-stone-700 rounded-lg px-3.5 py-2.5 text-stone-100 focus:outline-none focus:border-rust-500">
+          </div>
+        </div>
+
+        <div class="border-t border-stone-800 pt-5">
+          <label class="block text-xs font-bold uppercase tracking-wider text-rust-400 mb-3">Select Items & Quantities</label>
+          <div class="grid gap-3">
+            <div class="flex items-center justify-between bg-charcoal-950
