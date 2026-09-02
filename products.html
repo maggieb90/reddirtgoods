@@ -212,7 +212,7 @@
       </div>
     </section>
 
-    <section id="order" class="py-16 px-4 max-w-3xl mx-auto border-t border-stone-800">
+  <section id="order" class="py-16 px-4 max-w-3xl mx-auto border-t border-stone-800">
       <div class="text-center mb-10">
         <span class="text-xs font-bold uppercase tracking-widest text-rust-400 bg-rust-950/60 px-3 py-1 rounded-full border border-rust-900">
           Reserve Your Batch
@@ -255,4 +255,75 @@
           <div class="grid gap-3">
             <div class="flex items-center justify-between bg-charcoal-950 p-3 rounded-lg border border-stone-800">
               <span class="text-sm text-stone-200">El Padre's Salsa (16 oz) — $9</span>
-              <input type="number" name="Qty_El_Padres_Salsa_16oz" min="0" max="10" value="0" class="w-16 bg-charcoal-900 border border-stone-700 rounded px-2 py-1 text-
+              <input type="number" name="Qty_El_Padres_Salsa_16oz" min="0" max="10" value="0" class="w-16 bg-charcoal-900 border border-stone-700 rounded px-2 py-1 text-center text-stone-100 focus:border-rust-500">
+            </div>
+            <div class="flex items-center justify-between bg-charcoal-950 p-3 rounded-lg border border-stone-800">
+              <span class="text-sm text-stone-200">Paw-Paw's Jalapeño Relish (8 oz) — $9</span>
+              <input type="number" name="Qty_Jalapeno_Relish_8oz" min="0" max="10" value="0" class="w-16 bg-charcoal-900 border border-stone-700 rounded px-2 py-1 text-center text-stone-100 focus:border-rust-500">
+            </div>
+            <div class="flex items-center justify-between bg-charcoal-950 p-3 rounded-lg border border-stone-800">
+              <span class="text-sm text-stone-200">Meme's Pear Preserves (8 oz) — $9</span>
+              <input type="number" name="Qty_Pear_Preserves_8oz" min="0" max="10" value="0" class="w-16 bg-charcoal-900 border border-stone-700 rounded px-2 py-1 text-center text-stone-100 focus:border-rust-500">
+            </div>
+            <div class="flex items-center justify-between bg-charcoal-950 p-3 rounded-lg border border-stone-800">
+              <span class="text-sm text-stone-200">Mustard Caviar (4 oz) — $9</span>
+              <input type="number" name="Qty_Mustard_Caviar_4oz" min="0" max="10" value="0" class="w-16 bg-charcoal-900 border border-stone-700 rounded px-2 py-1 text-center text-stone-100 focus:border-rust-500">
+            </div>
+            <div class="flex items-center justify-between bg-charcoal-950 p-3 rounded-lg border border-stone-800">
+              <span class="text-sm text-stone-200">Shiner Bock Whole Grain Mustard (4 oz) — $9</span>
+              <input type="number" name="Qty_Shiner_Mustard_4oz" min="0" max="10" value="0" class="w-16 bg-charcoal-900 border border-stone-700 rounded px-2 py-1 text-center text-stone-100 focus:border-rust-500">
+            </div>
+            <div class="flex items-center justify-between bg-charcoal-950 p-3 rounded-lg border border-stone-800">
+              <span class="text-sm text-stone-200">Texas Agrodolce (4 oz) — $9</span>
+              <input type="number" name="Qty_Agrodolce_4oz" min="0" max="10" value="0" class="w-16 bg-charcoal-900 border border-stone-700 rounded px-2 py-1 text-center text-stone-100 focus:border-rust-500">
+            </div>
+            <div class="flex items-center justify-between bg-charcoal-950 p-3 rounded-lg border border-stone-800">
+              <span class="text-sm text-stone-200">Craft Fruit Shrubs (5 oz) — $9</span>
+              <input type="number" name="Qty_Shrubs_5oz" min="0" max="10" value="0" class="w-16 bg-charcoal-900 border border-stone-700 rounded px-2 py-1 text-center text-stone-100 focus:border-rust-500">
+            </div>
+            <div class="flex items-center justify-between bg-charcoal-950 p-3 rounded-lg border border-stone-800">
+              <span class="text-sm text-stone-200">Jalapeño Fire Salt (4 oz) — $6</span>
+              <input type="number" name="Qty_Fire_Salt_4oz" min="0" max="10" value="0" class="w-16 bg-charcoal-900 border border-stone-700 rounded px-2 py-1 text-center text-stone-100 focus:border-rust-500">
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-xs font-semibold uppercase text-stone-400 mb-1">Notes / Custom Requests</label>
+          <textarea name="Notes" rows="2" class="w-full bg-charcoal-950 border border-stone-700 rounded-lg p-3 text-stone-100 focus:outline-none focus:border-rust-500" placeholder="Specific shrub flavors (Blackberry-Thyme or Peach-Ginger), estimated arrival time, etc."></textarea>
+        </div>
+
+        <div class="bg-charcoal-950 border border-rust-900/60 rounded-xl p-4 text-xs space-y-1.5">
+          <p class="text-rust-300 font-semibold flex items-center gap-1.5">
+            ⏱ Cutoff: Pre-orders close every Friday at 5:00 PM for Saturday pickup.
+          </p>
+          <p class="text-stone-400">
+            Payment collected at market table via <span class="text-stone-200 font-medium">Cash, Venmo, Cash App, or Card (Square)</span>.
+          </p>
+        </div>
+
+        <button type="submit" class="w-full bg-rust-600 hover:bg-rust-500 text-white font-bold py-3.5 rounded-lg transition shadow-lg tracking-wide uppercase text-sm">
+          Submit Pre-Order Reservation
+        </button>
+      </form>
+    </section>
+  </main>
+
+  <footer class="py-8 bg-charcoal-950 border-t border-stone-900 text-center px-4">
+    <div class="flex justify-center gap-6 mb-4 text-xs font-semibold uppercase tracking-wider text-stone-400">
+      <a href="https://instagram.com/reddirtgoodsco" target="_blank" rel="noopener noreferrer" class="hover:text-rust-400 transition">Instagram</a>
+      <span>•</span>
+      <a href="https://facebook.com/reddirtgoodsco" target="_blank" rel="noopener noreferrer" class="hover:text-rust-400 transition">Facebook</a>
+      <span>•</span>
+      <a href="contact.html" class="hover:text-rust-400 transition">Market Schedule</a>
+    </div>
+    <p class="text-xs text-stone-500 max-w-2xl mx-auto uppercase tracking-wide leading-relaxed">
+      THIS PRODUCT WAS PRODUCED IN A PRIVATE RESIDENCE THAT IS NOT SUBJECT TO GOVERNMENTAL LICENSING OR INSPECTION.
+    </p>
+    <p class="text-xs text-stone-600 mt-3">
+      © 2026 Red Dirt Goods Co. • Handcrafted in Texas
+    </p>
+  </footer>
+
+</body>
+</html>
