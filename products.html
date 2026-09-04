@@ -53,7 +53,7 @@
       <div class="text-center mb-12">
         <h1 class="font-serif text-3xl sm:text-5xl font-bold text-stone-100">Pantry Provisions</h1>
         <p class="text-rust-400 text-sm mt-3 font-medium tracking-wide">
-          $9 Each • Any 3 for $24 Bundle (Discounts applied at pickup)
+          $9 Each • Any 3 for $24 Bundle (Discounts automatically applied in cart)
         </p>
       </div>
 
@@ -141,7 +141,7 @@
               <span class="text-xs font-bold bg-rust-950 text-rust-300 border border-rust-800 px-2 py-1 rounded">$9.00</span>
             </div>
             <div class="flex gap-1.5 mt-2">
-              <span class="text-[10px] font-semibold uppercase tracking-wider bg-stone-800 text-stone-300 px-2 py-0.5 rounded border border-stone-700">Contains Gluten (Bock)</span>
+              <span class="text-[10px] font-semibold uppercase tracking-wider bg-stone-800 text-stone-300 px-2 py-0.5 rounded border border-stone-700">Contains Gluten</span>
               <span class="text-[10px] font-semibold uppercase tracking-wider bg-stone-800 text-stone-300 px-2 py-0.5 rounded border border-stone-700">Vegetarian</span>
             </div>
             <p class="text-sm text-stone-400 mt-2.5">
@@ -212,98 +212,167 @@
       </div>
     </section>
 
-  <section id="order" class="py-16 px-4 max-w-3xl mx-auto border-t border-stone-800">
+    <section id="order" class="py-16 px-4 max-w-3xl mx-auto border-t border-stone-800">
       <div class="text-center mb-10">
         <span class="text-xs font-bold uppercase tracking-widest text-rust-400 bg-rust-950/60 px-3 py-1 rounded-full border border-rust-900">
-          Reserve Your Batch
+          Direct Ordering
         </span>
-        <h2 class="font-serif text-3xl font-bold text-stone-100 mt-3">Saturday Market Pre-Order</h2>
+        <h2 class="font-serif text-3xl font-bold text-stone-100 mt-3">Place Your Order</h2>
         <p class="text-stone-400 text-sm mt-2">
-          Reserve your items ahead of time so your batch isn't claimed early. Pay at pickup with Cash, Card, or Venmo.
+          Reserve for Saturday pickup at the Farmers Market or have your batch hand-delivered to your door.
         </p>
       </div>
 
-      <form action="https://formsubmit.co/reddirtgoodsco@gmail.com" method="POST" class="bg-charcoal-900 border border-stone-800 p-6 sm:p-8 rounded-2xl space-y-6 shadow-xl">
-        <input type="hidden" name="_subject" value="New Farmers Market Pre-Order!">
-        <input type="hidden" name="_captcha" value="false">
-        <input type="text" name="_honey" style="display:none">
+      <div class="bg-amber-950/40 border border-amber-800/60 rounded-xl p-4 mb-6 text-xs text-amber-200/90 leading-relaxed">
+        <p class="font-semibold text-amber-300 flex items-center gap-1.5 mb-1">
+          <span>⚖️</span> Texas Cottage Food Law Notice
+        </p>
+        <p>
+          Under Texas Cottage Food Regulations, all sales and hand transfers of our goods must occur directly within the state of Texas. We cannot ship or deliver across state lines. Out-of-state customers are warmly invited to select Saturday Farmers Market Pickup in Wichita Falls!
+        </p>
+      </div>
 
+      <form id="orderForm" class="bg-charcoal-900 border border-stone-800 p-6 sm:p-8 rounded-2xl space-y-6 shadow-xl">
         <div class="grid sm:grid-cols-2 gap-4">
           <div>
             <label class="block text-xs font-semibold uppercase text-stone-400 mb-1">Your Full Name *</label>
-            <input type="text" name="Name" required class="w-full bg-charcoal-950 border border-stone-700 rounded-lg px-3.5 py-2.5 text-stone-100 focus:outline-none focus:border-rust-500" placeholder="e.g., Sarah Davis">
+            <input type="text" id="custName" required class="w-full bg-charcoal-950 border border-stone-700 rounded-lg px-3.5 py-2.5 text-stone-100 focus:outline-none focus:border-rust-500" placeholder="e.g., Sarah Davis">
           </div>
           <div>
             <label class="block text-xs font-semibold uppercase text-stone-400 mb-1">Phone Number *</label>
-            <input type="tel" name="Phone" required class="w-full bg-charcoal-950 border border-stone-700 rounded-lg px-3.5 py-2.5 text-stone-100 focus:outline-none focus:border-rust-500" placeholder="(940) 555-0123">
+            <input type="tel" id="custPhone" required class="w-full bg-charcoal-950 border border-stone-700 rounded-lg px-3.5 py-2.5 text-stone-100 focus:outline-none focus:border-rust-500" placeholder="(940) 555-0123">
           </div>
         </div>
 
-        <div class="grid sm:grid-cols-2 gap-4">
-          <div>
-            <label class="block text-xs font-semibold uppercase text-stone-400 mb-1">Email Address *</label>
-            <input type="email" name="Email" required class="w-full bg-charcoal-950 border border-stone-700 rounded-lg px-3.5 py-2.5 text-stone-100 focus:outline-none focus:border-rust-500" placeholder="you@domain.com">
+        <div>
+          <label class="block text-xs font-semibold uppercase text-stone-400 mb-1">Email Address *</label>
+          <input type="email" id="custEmail" required class="w-full bg-charcoal-950 border border-stone-700 rounded-lg px-3.5 py-2.5 text-stone-100 focus:outline-none focus:border-rust-500" placeholder="you@domain.com">
+        </div>
+
+        <div class="border-t border-stone-800 pt-5">
+          <label class="block text-xs font-bold uppercase tracking-wider text-rust-400 mb-3">Fulfillment Method *</label>
+          <div class="grid sm:grid-cols-2 gap-3">
+            <label class="flex items-center gap-3 p-3.5 rounded-lg border border-stone-700 bg-charcoal-950 cursor-pointer hover:border-rust-500 transition has-[:checked]:border-rust-500 has-[:checked]:bg-rust-950/20">
+              <input type="radio" name="fulfillment" value="pickup" checked onchange="toggleFulfillment()" class="accent-rust-500 w-4 h-4">
+              <div>
+                <span class="block text-sm font-semibold text-stone-200">Farmers Market Pickup</span>
+                <span class="block text-xs text-stone-400">Free • Downtown Wichita Falls</span>
+              </div>
+            </label>
+            <label class="flex items-center gap-3 p-3.5 rounded-lg border border-stone-700 bg-charcoal-950 cursor-pointer hover:border-rust-500 transition has-[:checked]:border-rust-500 has-[:checked]:bg-rust-950/20">
+              <input type="radio" name="fulfillment" value="delivery" onchange="toggleFulfillment()" class="accent-rust-500 w-4 h-4">
+              <div>
+                <span class="block text-sm font-semibold text-stone-200">Hand-Delivery (TX Only)</span>
+                <span class="block text-xs text-stone-400">$5 (0–5 mi) + $0.50/mi up to 20 mi</span>
+              </div>
+            </label>
           </div>
+        </div>
+
+        <div id="pickupSection" class="bg-charcoal-950 border border-stone-800 rounded-xl p-4 space-y-3">
           <div>
-            <label class="block text-xs font-semibold uppercase text-stone-400 mb-1">Pickup Date (Saturday) *</label>
-            <input type="date" name="Pickup_Date" required class="w-full bg-charcoal-950 border border-stone-700 rounded-lg px-3.5 py-2.5 text-stone-100 focus:outline-none focus:border-rust-500">
+            <label class="block text-xs font-semibold uppercase text-stone-400 mb-1">Select Pickup Saturday *</label>
+            <select id="pickupDate" class="w-full bg-charcoal-900 border border-stone-700 rounded-lg px-3.5 py-2.5 text-stone-100 focus:outline-none focus:border-rust-500">
+              </select>
+          </div>
+          <p class="text-xs text-stone-400">Booth location: Downtown Farmers Market, 8:00 AM – 1:00 PM.</p>
+        </div>
+
+        <div id="deliverySection" class="hidden bg-charcoal-950 border border-stone-800 rounded-xl p-4 space-y-4">
+          <div class="grid sm:grid-cols-3 gap-3">
+            <div class="sm:col-span-2">
+              <label class="block text-xs font-semibold uppercase text-stone-400 mb-1">Street Address *</label>
+              <input type="text" id="deliveryStreet" class="w-full bg-charcoal-900 border border-stone-700 rounded-lg px-3 py-2 text-stone-100 text-sm focus:border-rust-500" placeholder="123 Main Street">
+            </div>
+            <div>
+              <label class="block text-xs font-semibold uppercase text-stone-400 mb-1">City *</label>
+              <input type="text" id="deliveryCity" value="Wichita Falls" class="w-full bg-charcoal-900 border border-stone-700 rounded-lg px-3 py-2 text-stone-100 text-sm focus:border-rust-500">
+            </div>
+          </div>
+
+          <div class="grid sm:grid-cols-2 gap-3">
+            <div>
+              <label class="block text-xs font-semibold uppercase text-stone-400 mb-1">State</label>
+              <input type="text" value="Texas (TX)" disabled class="w-full bg-stone-900 border border-stone-800 rounded-lg px-3 py-2 text-stone-400 text-sm cursor-not-allowed">
+            </div>
+            <div>
+              <label class="block text-xs font-semibold uppercase text-stone-400 mb-1">Zip Code *</label>
+              <input type="text" id="deliveryZip" maxlength="5" class="w-full bg-charcoal-900 border border-stone-700 rounded-lg px-3 py-2 text-stone-100 text-sm focus:border-rust-500" placeholder="76301" oninput="calculateDeliveryDistance()">
+            </div>
+          </div>
+
+          <div id="distanceStatus" class="text-xs text-stone-400 pt-1 font-mono">
+            Enter your street address and 5-digit zip code to calculate mileage.
           </div>
         </div>
 
         <div class="border-t border-stone-800 pt-5">
-          <label class="block text-xs font-bold uppercase tracking-wider text-rust-400 mb-3">Select Items & Quantities</label>
-          <div class="grid gap-3">
+          <div class="flex justify-between items-center mb-3">
+            <label class="block text-xs font-bold uppercase tracking-wider text-rust-400">Select Items & Quantities</label>
+            <span class="text-[11px] text-stone-400 italic">3 for $24 applied on $9 items</span>
+          </div>
+          <div class="grid gap-2.5">
             <div class="flex items-center justify-between bg-charcoal-950 p-3 rounded-lg border border-stone-800">
               <span class="text-sm text-stone-200">El Padre's Salsa (16 oz) — $9</span>
-              <input type="number" name="Qty_El_Padres_Salsa_16oz" min="0" max="10" value="0" class="w-16 bg-charcoal-900 border border-stone-700 rounded px-2 py-1 text-center text-stone-100 focus:border-rust-500">
+              <input type="number" data-price="9" data-bundle="true" min="0" max="12" value="0" class="qty-input w-16 bg-charcoal-900 border border-stone-700 rounded px-2 py-1 text-center text-stone-100 focus:border-rust-500" onchange="updateCart()">
             </div>
             <div class="flex items-center justify-between bg-charcoal-950 p-3 rounded-lg border border-stone-800">
               <span class="text-sm text-stone-200">Paw-Paw's Jalapeño Relish (8 oz) — $9</span>
-              <input type="number" name="Qty_Jalapeno_Relish_8oz" min="0" max="10" value="0" class="w-16 bg-charcoal-900 border border-stone-700 rounded px-2 py-1 text-center text-stone-100 focus:border-rust-500">
+              <input type="number" data-price="9" data-bundle="true" min="0" max="12" value="0" class="qty-input w-16 bg-charcoal-900 border border-stone-700 rounded px-2 py-1 text-center text-stone-100 focus:border-rust-500" onchange="updateCart()">
             </div>
             <div class="flex items-center justify-between bg-charcoal-950 p-3 rounded-lg border border-stone-800">
               <span class="text-sm text-stone-200">Meme's Pear Preserves (8 oz) — $9</span>
-              <input type="number" name="Qty_Pear_Preserves_8oz" min="0" max="10" value="0" class="w-16 bg-charcoal-900 border border-stone-700 rounded px-2 py-1 text-center text-stone-100 focus:border-rust-500">
+              <input type="number" data-price="9" data-bundle="true" min="0" max="12" value="0" class="qty-input w-16 bg-charcoal-900 border border-stone-700 rounded px-2 py-1 text-center text-stone-100 focus:border-rust-500" onchange="updateCart()">
             </div>
             <div class="flex items-center justify-between bg-charcoal-950 p-3 rounded-lg border border-stone-800">
               <span class="text-sm text-stone-200">Mustard Caviar (4 oz) — $9</span>
-              <input type="number" name="Qty_Mustard_Caviar_4oz" min="0" max="10" value="0" class="w-16 bg-charcoal-900 border border-stone-700 rounded px-2 py-1 text-center text-stone-100 focus:border-rust-500">
+              <input type="number" data-price="9" data-bundle="true" min="0" max="12" value="0" class="qty-input w-16 bg-charcoal-900 border border-stone-700 rounded px-2 py-1 text-center text-stone-100 focus:border-rust-500" onchange="updateCart()">
             </div>
             <div class="flex items-center justify-between bg-charcoal-950 p-3 rounded-lg border border-stone-800">
-              <span class="text-sm text-stone-200">Shiner Bock Whole Grain Mustard (4 oz) — $9</span>
-              <input type="number" name="Qty_Shiner_Mustard_4oz" min="0" max="10" value="0" class="w-16 bg-charcoal-900 border border-stone-700 rounded px-2 py-1 text-center text-stone-100 focus:border-rust-500">
+              <span class="text-sm text-stone-200">Shiner Bock Mustard (4 oz) — $9</span>
+              <input type="number" data-price="9" data-bundle="true" min="0" max="12" value="0" class="qty-input w-16 bg-charcoal-900 border border-stone-700 rounded px-2 py-1 text-center text-stone-100 focus:border-rust-500" onchange="updateCart()">
             </div>
             <div class="flex items-center justify-between bg-charcoal-950 p-3 rounded-lg border border-stone-800">
               <span class="text-sm text-stone-200">Texas Agrodolce (4 oz) — $9</span>
-              <input type="number" name="Qty_Agrodolce_4oz" min="0" max="10" value="0" class="w-16 bg-charcoal-900 border border-stone-700 rounded px-2 py-1 text-center text-stone-100 focus:border-rust-500">
+              <input type="number" data-price="9" data-bundle="true" min="0" max="12" value="0" class="qty-input w-16 bg-charcoal-900 border border-stone-700 rounded px-2 py-1 text-center text-stone-100 focus:border-rust-500" onchange="updateCart()">
             </div>
             <div class="flex items-center justify-between bg-charcoal-950 p-3 rounded-lg border border-stone-800">
               <span class="text-sm text-stone-200">Craft Fruit Shrubs (5 oz) — $9</span>
-              <input type="number" name="Qty_Shrubs_5oz" min="0" max="10" value="0" class="w-16 bg-charcoal-900 border border-stone-700 rounded px-2 py-1 text-center text-stone-100 focus:border-rust-500">
+              <input type="number" data-price="9" data-bundle="true" min="0" max="12" value="0" class="qty-input w-16 bg-charcoal-900 border border-stone-700 rounded px-2 py-1 text-center text-stone-100 focus:border-rust-500" onchange="updateCart()">
             </div>
             <div class="flex items-center justify-between bg-charcoal-950 p-3 rounded-lg border border-stone-800">
               <span class="text-sm text-stone-200">Jalapeño Fire Salt (4 oz) — $6</span>
-              <input type="number" name="Qty_Fire_Salt_4oz" min="0" max="10" value="0" class="w-16 bg-charcoal-900 border border-stone-700 rounded px-2 py-1 text-center text-stone-100 focus:border-rust-500">
+              <input type="number" data-price="6" data-bundle="false" min="0" max="12" value="0" class="qty-input w-16 bg-charcoal-900 border border-stone-700 rounded px-2 py-1 text-center text-stone-100 focus:border-rust-500" onchange="updateCart()">
             </div>
           </div>
         </div>
 
         <div>
-          <label class="block text-xs font-semibold uppercase text-stone-400 mb-1">Notes / Custom Requests</label>
-          <textarea name="Notes" rows="2" class="w-full bg-charcoal-950 border border-stone-700 rounded-lg p-3 text-stone-100 focus:outline-none focus:border-rust-500" placeholder="Specific shrub flavors (Blackberry-Thyme or Peach-Ginger), estimated arrival time, etc."></textarea>
+          <label class="block text-xs font-semibold uppercase text-stone-400 mb-1">Notes / Flavor Selections / Instructions</label>
+          <textarea id="orderNotes" rows="2" class="w-full bg-charcoal-950 border border-stone-700 rounded-lg p-3 text-stone-100 focus:outline-none focus:border-rust-500" placeholder="Specific shrub flavor choices (Blackberry-Thyme or Peach-Ginger), gate codes, or porch instructions."></textarea>
         </div>
 
-        <div class="bg-charcoal-950 border border-rust-900/60 rounded-xl p-4 text-xs space-y-1.5">
-          <p class="text-rust-300 font-semibold flex items-center gap-1.5">
-            ⏱ Cutoff: Pre-orders close every Friday at 5:00 PM for Saturday pickup.
-          </p>
-          <p class="text-stone-400">
-            Payment collected at market table via <span class="text-stone-200 font-medium">Cash, Venmo, Cash App, or Card (Square)</span>.
-          </p>
+        <div class="bg-charcoal-950 border border-stone-800 rounded-xl p-4 space-y-2 text-sm">
+          <div class="flex justify-between text-stone-400">
+            <span>Provisions Subtotal</span>
+            <span id="subtotalDisplay" class="text-stone-200 font-mono">$0.00</span>
+          </div>
+          <div id="bundleDiscountRow" class="flex justify-between text-rust-400 hidden">
+            <span>3-for-$24 Bundle Savings</span>
+            <span id="bundleSavingsDisplay" class="font-mono">-$0.00</span>
+          </div>
+          <div class="flex justify-between text-stone-400">
+            <span id="fulfillmentLabel">Fulfillment (Pickup)</span>
+            <span id="deliveryFeeDisplay" class="text-stone-200 font-mono">$0.00</span>
+          </div>
+          <div class="border-t border-stone-800 pt-2 flex justify-between items-center text-base font-bold text-stone-100">
+            <span>Total to Charge</span>
+            <span id="totalDisplay" class="text-rust-400 text-xl font-mono">$0.00</span>
+          </div>
         </div>
 
-        <button type="submit" class="w-full bg-rust-600 hover:bg-rust-500 text-white font-bold py-3.5 rounded-lg transition shadow-lg tracking-wide uppercase text-sm">
-          Submit Pre-Order Reservation
+        <button type="button" onclick="initiateSquareCheckout()" id="checkoutBtn" class="w-full bg-rust-600 hover:bg-rust-500 disabled:opacity-50 disabled:cursor-not-allowed text-white font-bold py-3.5 rounded-lg transition shadow-lg tracking-wide uppercase text-sm flex items-center justify-center gap-2">
+          <span>💳</span> Pay Securely with Square
         </button>
       </form>
     </section>
@@ -325,5 +394,204 @@
     </p>
   </footer>
 
+  <script>
+    // BASE COORDINATES (Your home location coordinates, address is completely hidden from code & UI)
+    const BASE_LAT = 33.85614;
+    const BASE_LON = -98.54468;
+
+    let calculatedDeliveryFee = 0;
+    let isDeliveryValid = false;
+
+    // Populate the next 4 Saturdays automatically
+    function setupSaturdayDates() {
+      const select = document.getElementById('pickupDate');
+      select.innerHTML = '';
+      const today = new Date();
+      let count = 0;
+      let checkDate = new Date(today);
+
+      while (count < 4) {
+        checkDate.setDate(checkDate.getDate() + 1);
+        if (checkDate.getDay() === 6) { // 6 = Saturday
+          const dateStr = checkDate.toLocaleDateString('en-US', {
+            weekday: 'long', month: 'short', day: 'numeric', year: 'numeric'
+          });
+          const opt = document.createElement('option');
+          opt.value = dateStr;
+          opt.textContent = dateStr;
+          select.appendChild(opt);
+          count++;
+        }
+      }
+    }
+    setupSaturdayDates();
+
+    // Toggle Pickup vs Delivery View
+    function toggleFulfillment() {
+      const isDelivery = document.querySelector('input[name="fulfillment"]:checked').value === 'delivery';
+      const pickupSec = document.getElementById('pickupSection');
+      const deliverySec = document.getElementById('deliverySection');
+      const fulfillLabel = document.getElementById('fulfillmentLabel');
+
+      if (isDelivery) {
+        pickupSec.classList.add('hidden');
+        deliverySec.classList.remove('hidden');
+        fulfillLabel.textContent = 'Hand-Delivery Fee';
+        calculateDeliveryDistance();
+      } else {
+        pickupSec.classList.remove('hidden');
+        deliverySec.classList.add('hidden');
+        fulfillLabel.textContent = 'Farmers Market Pickup';
+        calculatedDeliveryFee = 0;
+        isDeliveryValid = true;
+        updateCart();
+      }
+    }
+
+    // Haversine formula (computes straight-line driving distance in miles)
+    function getDistanceInMiles(lat1, lon1, lat2, lon2) {
+      const R = 3958.8; // Radius of earth in miles
+      const dLat = (lat2 - lat1) * Math.PI / 180;
+      const dLon = (lon2 - lon1) * Math.PI / 180;
+      const a =
+        Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+        Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) *
+        Math.sin(dLon / 2) * Math.sin(dLon / 2);
+      const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+      return R * c;
+    }
+
+    // Geocoding and distance calculation
+    let debounceTimer;
+    function calculateDeliveryDistance() {
+      clearTimeout(debounceTimer);
+      debounceTimer = setTimeout(async () => {
+        const street = document.getElementById('deliveryStreet').value.trim();
+        const city = document.getElementById('deliveryCity').value.trim();
+        const zip = document.getElementById('deliveryZip').value.trim();
+        const statusEl = document.getElementById('distanceStatus');
+
+        if (!zip || zip.length < 5) {
+          statusEl.innerHTML = `<span class="text-stone-400">Please enter a valid 5-digit Texas zip code.</span>`;
+          calculatedDeliveryFee = 0;
+          isDeliveryValid = false;
+          updateCart();
+          return;
+        }
+
+        statusEl.innerHTML = `<span class="text-rust-400">Calculating distance from kitchen...</span>`;
+
+        try {
+          const query = encodeURIComponent(`${street ? street + ',' : ''} ${city}, TX ${zip}, USA`);
+          const res = await fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${query}&limit=1`);
+          const data = await res.json();
+
+          if (!data || data.length === 0) {
+            statusEl.innerHTML = `<span class="text-amber-400">Could not locate address in Texas. Please verify street & zip.</span>`;
+            calculatedDeliveryFee = 0;
+            isDeliveryValid = false;
+            updateCart();
+            return;
+          }
+
+          const custLat = parseFloat(data[0].lat);
+          const custLon = parseFloat(data[0].lon);
+          const distance = getDistanceInMiles(BASE_LAT, BASE_LON, custLat, custLon);
+
+          if (distance > 20) {
+            statusEl.innerHTML = `<span class="text-red-400">⚠️ Your location is ~${distance.toFixed(1)} miles away, which exceeds our 20-mile local delivery limit. Please select Saturday Market Pickup instead!</span>`;
+            calculatedDeliveryFee = 0;
+            isDeliveryValid = false;
+          } else {
+            // Fee rules: $5 for first 5 miles; $0.50/mile for each additional mile up to 20
+            if (distance <= 5) {
+              calculatedDeliveryFee = 5.00;
+            } else {
+              const extraMiles = distance - 5;
+              calculatedDeliveryFee = 5.00 + (extraMiles * 0.50);
+            }
+            statusEl.innerHTML = `<span class="text-emerald-400">✓ Distance: ~${distance.toFixed(1)} miles. Delivery Fee: $${calculatedDeliveryFee.toFixed(2)}</span>`;
+            isDeliveryValid = true;
+          }
+        } catch (e) {
+          // Fallback if geocoder rate limits
+          statusEl.innerHTML = `<span class="text-stone-400">Standard Wichita Falls metro delivery ($5.00 base fee applied).</span>`;
+          calculatedDeliveryFee = 5.00;
+          isDeliveryValid = true;
+        }
+        updateCart();
+      }, 500);
+    }
+
+    // Update totals and apply 3-for-$24 bundle pricing
+    function updateCart() {
+      let rawSubtotal = 0;
+      let bundleItemsCount = 0;
+
+      document.querySelectorAll('.qty-input').forEach(input => {
+        const qty = parseInt(input.value) || 0;
+        const price = parseFloat(input.getAttribute('data-price'));
+        const isBundleEligible = input.getAttribute('data-bundle') === 'true';
+
+        rawSubtotal += qty * price;
+        if (isBundleEligible) bundleItemsCount += qty;
+      });
+
+      // 3-for-$24 saves $3 for every full trio of $9 items
+      const bundles = Math.floor(bundleItemsCount / 3);
+      const discount = bundles * 3.00;
+
+      const subtotalAfterDiscount = rawSubtotal - discount;
+
+      const isDelivery = document.querySelector('input[name="fulfillment"]:checked').value === 'delivery';
+      const fee = isDelivery ? calculatedDeliveryFee : 0;
+      const total = subtotalAfterDiscount > 0 ? (subtotalAfterDiscount + fee) : 0;
+
+      // Update Screen
+      document.getElementById('subtotalDisplay').textContent = `$${rawSubtotal.toFixed(2)}`;
+      
+      const discountRow = document.getElementById('bundleDiscountRow');
+      if (discount > 0) {
+        discountRow.classList.remove('hidden');
+        document.getElementById('bundleSavingsDisplay').textContent = `-$${discount.toFixed(2)}`;
+      } else {
+        discountRow.classList.add('hidden');
+      }
+
+      document.getElementById('deliveryFeeDisplay').textContent = `$${fee.toFixed(2)}`;
+      document.getElementById('totalDisplay').textContent = `$${total.toFixed(2)}`;
+
+      const checkoutBtn = document.getElementById('checkoutBtn');
+      if (total <= 0 || (isDelivery && !isDeliveryValid)) {
+        checkoutBtn.disabled = true;
+      } else {
+        checkoutBtn.disabled = false;
+      }
+    }
+
+    // Trigger Square Payment
+    function initiateSquareCheckout() {
+      const name = document.getElementById('custName').value.trim();
+      const phone = document.getElementById('custPhone').value.trim();
+      const email = document.getElementById('custEmail').value.trim();
+      const total = document.getElementById('totalDisplay').textContent;
+
+      if (!name || !phone || !email) {
+        alert("Please fill in your name, phone number, and email address.");
+        return;
+      }
+
+      // VIBE CODING SQUARE CONNECTION:
+      // Replace the URL below with your Square Payment Link from your Square Dashboard
+      // (Square Dashboard > Payment Links > Create Link).
+      const SQUARE_PAYMENT_LINK = "https://square.link/u/YOUR_CUSTOM_LINK_HERE";
+
+      if (SQUARE_PAYMENT_LINK.includes("YOUR_CUSTOM_LINK_HERE")) {
+        alert(`Order logged for ${name}! Total: ${total}. \n\nTo enable automatic card charging, paste your Square Payment Link into the SQUARE_PAYMENT_LINK variable in the script tag.`);
+      } else {
+        window.location.href = SQUARE_PAYMENT_LINK;
+      }
+    }
+  </script>
 </body>
 </html>
