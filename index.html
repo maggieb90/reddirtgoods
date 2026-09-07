@@ -103,13 +103,13 @@
             <div>
               <div class="flex items-center justify-between gap-2 mb-4">
                 <span class="text-xs font-bold uppercase tracking-wider bg-rust-950 text-rust-400 border border-rust-800/60 px-2.5 py-1 rounded">
-                  Confirmed Market
+                  PENDING Market
                 </span>
                 <span class="text-xs text-stone-400 font-mono">Saturday, Oct 3</span>
               </div>
               <h3 class="font-serif text-xl font-bold text-stone-100">Downtown Wichita Falls Farmers Market</h3>
               <p class="text-stone-400 text-sm mt-2">
-                Join our season launch! We'll have fresh jars of pickled mustard caviar, seasonal salsas, and samples at the table.
+                Our application is in, and we're anxiously awaiting confirmation!
               </p>
             </div>
             <div class="mt-6 pt-4 border-t border-stone-900 text-xs text-stone-400 space-y-2">
@@ -133,26 +133,26 @@
             <div>
               <div class="flex items-center justify-between gap-2 mb-4">
                 <span class="text-xs font-bold uppercase tracking-wider bg-stone-800 text-stone-300 px-2.5 py-1 rounded">
-                  Upcoming Pop-Up
+                  No upcoming events planned at this time
                 </span>
                 <span class="text-xs text-stone-400 font-mono">Saturday, Oct 17</span>
               </div>
-              <h3 class="font-serif text-xl font-bold text-stone-100">Local Artisan Fall Fair</h3>
+              <h3 class="font-serif text-xl font-bold text-stone-100">Presently searching and applying for local vendor events</h3>
               <p class="text-stone-400 text-sm mt-2">
-                Catching the local vendor circuit! Full batch restocks and drinking vinegar samplers available.
+                Check back here for updates!
               </p>
             </div>
             <div class="mt-6 pt-4 border-t border-stone-900 text-xs text-stone-400 space-y-2">
               <div class="flex items-center gap-2">
-                <span class="text-stone-200 font-semibold">Hours:</span> 10:00 AM – 4:00 PM
+                <span class="text-stone-200 font-semibold">Hours:</span> n/a
               </div>
               <div class="flex items-start gap-2">
                 <span class="text-stone-200 font-semibold">Location:</span>
-                <span>Downtown District / Venue TBD, Wichita Falls, TX</span>
+                <span>Venue TBD, Wichita Falls, TX</span>
               </div>
               <div class="pt-2">
                 <a href="contact.html" class="text-stone-400 hover:text-rust-300 font-semibold inline-flex items-center gap-1">
-                  Check back for exact booth spot &rarr;
+                  Check back for information! &rarr;
                 </a>
               </div>
             </div>
@@ -199,8 +199,8 @@
       const minutes = now.getMinutes();
       const currentTime = hours + (minutes / 60);
 
-      // Check if it's Saturday between 8:30 AM and 1:15 PM
-      const isMarketLive = (day === 6 && currentTime >= 8.5 && currentTime <= 13.25);
+      // Check if it's Saturday between 9:00 AM and 1:00 PM
+      const isMarketLive = (day === 6 && currentTime >= 8 && currentTime <= 13);
 
       if (isMarketLive) {
         statusIndicator.className = "inline-block w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse";
