@@ -30,6 +30,15 @@
 </head>
 <body class="bg-charcoal-950 text-stone-200 font-sans antialiased flex flex-col min-h-screen">
 
+  <!-- DYNAMIC LIVE STATUS BAR -->
+  <div id="live-status-bar" class="bg-stone-900 border-b border-stone-800 text-xs py-2.5 px-4 text-center">
+    <div class="max-w-6xl mx-auto flex items-center justify-center gap-2">
+      <!-- Injected via JavaScript below -->
+      <span id="status-indicator" class="inline-block w-2 h-2 rounded-full bg-rust-500"></span>
+      <span id="status-text" class="text-stone-300 font-medium">Checking upcoming market schedules...</span>
+    </div>
+  </div>
+
   <header class="border-b border-stone-800 bg-charcoal-900/90 backdrop-blur sticky top-0 z-50">
     <div class="max-w-6xl mx-auto px-4 py-3 flex flex-wrap justify-between items-center gap-4">
       <a href="index.html" class="flex items-center gap-3">
@@ -40,15 +49,16 @@
       </a>
       <nav class="flex items-center gap-4 sm:gap-6 text-xs sm:text-sm font-medium">
         <a href="index.html" class="text-rust-400 font-semibold">Home</a>
+        <a href="#events" class="text-stone-300 hover:text-rust-400 transition">Events</a>
         <a href="products.html" class="text-stone-300 hover:text-rust-400 transition">Products</a>
         <a href="about.html" class="text-stone-300 hover:text-rust-400 transition">About Us</a>
-        <a href="market-memories.html" class="text-stone-300 hover:text-rust-400 transition">Market Memories</a>
         <a href="contact.html" class="text-stone-300 hover:text-rust-400 transition">Contact</a>
       </nav>
     </div>
   </header>
 
   <main class="flex-grow">
+    <!-- HERO -->
     <section class="py-16 sm:py-24 px-4 max-w-4xl mx-auto text-center">
       <div class="mb-6 flex justify-center">
         <img src="logo.png" alt="Red Dirt Goods Co." class="w-48 sm:w-60 h-auto drop-shadow-2xl">
@@ -69,32 +79,105 @@
         <a href="products.html" class="bg-rust-600 text-white font-semibold px-6 py-3 rounded-lg hover:bg-rust-500 transition shadow-md">
           Explore Provisions & Pre-Order
         </a>
-        <a href="market-memories.html" class="border border-stone-700 hover:border-stone-500 text-stone-300 px-6 py-3 rounded-lg transition">
-          See Us at the Market
+        <a href="#events" class="border border-stone-700 hover:border-stone-500 text-stone-300 px-6 py-3 rounded-lg transition">
+          Find Us at Upcoming Events
         </a>
       </div>
     </section>
 
-    <section class="border-y border-stone-800 bg-charcoal-900 py-10 px-4">
-      <div class="max-w-4xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-6 text-center sm:text-left">
-        <div>
-          <h2 class="font-serif text-xl font-bold text-stone-100">Catch us live every Saturday morning</h2>
-          <p class="text-sm text-stone-400 mt-1">Downtown Wichita Falls Farmers Market • 8th & Ohio Ave (9:00 AM – 1:00 PM)</p>
+    <!-- UPCOMING EVENTS SECTION -->
+    <section id="events" class="border-y border-stone-800 bg-charcoal-900 py-16 px-4">
+      <div class="max-w-5xl mx-auto">
+        <div class="text-center max-w-2xl mx-auto mb-12">
+          <span class="text-xs font-bold uppercase tracking-widest text-rust-400">Pop-Ups & Markets</span>
+          <h2 class="font-serif text-2xl sm:text-4xl font-bold text-stone-100 mt-2">Find Our Table in Person</h2>
+          <p class="text-sm sm:text-base text-stone-400 mt-2">
+            Stock up on fresh batches, sample our brines and pickles, or pick up your pre-orders at these upcoming vendor dates.
+          </p>
         </div>
-        <a href="contact.html#market-info" class="bg-stone-800 hover:bg-stone-700 text-stone-200 border border-stone-700 px-4 py-2.5 rounded-lg text-sm font-semibold transition whitespace-nowrap">
-          Location & Details
-        </a>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+
+          <!-- EVENT CARD 1 -->
+          <div class="bg-charcoal-950 border border-stone-800 rounded-xl p-6 flex flex-col justify-between hover:border-stone-700 transition">
+            <div>
+              <div class="flex items-center justify-between gap-2 mb-4">
+                <span class="text-xs font-bold uppercase tracking-wider bg-rust-950 text-rust-400 border border-rust-800/60 px-2.5 py-1 rounded">
+                  Confirmed Market
+                </span>
+                <span class="text-xs text-stone-400 font-mono">Saturday, Oct 3</span>
+              </div>
+              <h3 class="font-serif text-xl font-bold text-stone-100">Downtown Wichita Falls Farmers Market</h3>
+              <p class="text-stone-400 text-sm mt-2">
+                Join our season launch! We'll have fresh jars of pickled mustard caviar, seasonal salsas, and samples at the table.
+              </p>
+            </div>
+            <div class="mt-6 pt-4 border-t border-stone-900 text-xs text-stone-400 space-y-2">
+              <div class="flex items-center gap-2">
+                <span class="text-stone-200 font-semibold">Hours:</span> 9:00 AM – 1:00 PM
+              </div>
+              <div class="flex items-start gap-2">
+                <span class="text-stone-200 font-semibold">Location:</span>
+                <span>8th & Ohio Ave, Wichita Falls, TX 76301</span>
+              </div>
+              <div class="pt-2">
+                <a href="https://maps.google.com/?q=8th+and+Ohio+Ave+Wichita+Falls+TX" target="_blank" rel="noopener noreferrer" class="text-rust-400 hover:text-rust-300 font-semibold inline-flex items-center gap-1">
+                  Open in Google Maps &rarr;
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <!-- EVENT CARD 2 (Placeholder for your next pop-up / festival) -->
+          <div class="bg-charcoal-950 border border-stone-800 rounded-xl p-6 flex flex-col justify-between hover:border-stone-700 transition">
+            <div>
+              <div class="flex items-center justify-between gap-2 mb-4">
+                <span class="text-xs font-bold uppercase tracking-wider bg-stone-800 text-stone-300 px-2.5 py-1 rounded">
+                  Upcoming Pop-Up
+                </span>
+                <span class="text-xs text-stone-400 font-mono">Saturday, Oct 17</span>
+              </div>
+              <h3 class="font-serif text-xl font-bold text-stone-100">Local Artisan Fall Fair</h3>
+              <p class="text-stone-400 text-sm mt-2">
+                Catching the local vendor circuit! Full batch restocks and drinking vinegar samplers available.
+              </p>
+            </div>
+            <div class="mt-6 pt-4 border-t border-stone-900 text-xs text-stone-400 space-y-2">
+              <div class="flex items-center gap-2">
+                <span class="text-stone-200 font-semibold">Hours:</span> 10:00 AM – 4:00 PM
+              </div>
+              <div class="flex items-start gap-2">
+                <span class="text-stone-200 font-semibold">Location:</span>
+                <span>Downtown District / Venue TBD, Wichita Falls, TX</span>
+              </div>
+              <div class="pt-2">
+                <a href="contact.html" class="text-stone-400 hover:text-rust-300 font-semibold inline-flex items-center gap-1">
+                  Check back for exact booth spot &rarr;
+                </a>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- CALLOUT FOR EVENT ORGANIZERS -->
+        <div class="mt-10 text-center bg-stone-900/50 border border-stone-800/80 rounded-lg p-6">
+          <p class="text-sm text-stone-300">
+            Hosting a community market, culinary pop-up, or brewery vendor night? 
+            <a href="contact.html" class="text-rust-400 font-semibold hover:underline ml-1">Invite us to vend &rarr;</a>
+          </p>
+        </div>
       </div>
     </section>
   </main>
 
-<footer class="py-8 bg-charcoal-950 border-t border-stone-900 text-center px-4">
+  <footer class="py-8 bg-charcoal-950 border-t border-stone-900 text-center px-4">
     <div class="flex justify-center gap-6 mb-4 text-xs font-semibold uppercase tracking-wider text-stone-400">
       <a href="https://instagram.com/reddirtgoodsco" target="_blank" rel="noopener noreferrer" class="hover:text-rust-400 transition">Instagram</a>
       <span>•</span>
       <a href="https://facebook.com/reddirtgoodsco" target="_blank" rel="noopener noreferrer" class="hover:text-rust-400 transition">Facebook</a>
       <span>•</span>
-      <a href="contact.html" class="hover:text-rust-400 transition">Market Schedule</a>
+      <a href="#events" class="hover:text-rust-400 transition">Upcoming Events</a>
     </div>
     <p class="text-xs text-stone-500 max-w-2xl mx-auto uppercase tracking-wide leading-relaxed">
       THIS PRODUCT WAS PRODUCED IN A PRIVATE RESIDENCE THAT IS NOT SUBJECT TO GOVERNMENTAL LICENSING OR INSPECTION.
@@ -103,6 +186,31 @@
       © 2026 Red Dirt Goods Co. • Handcrafted in Texas
     </p>
   </footer>
+
+  <!-- LIVE STATUS BAR LOGIC -->
+  <script>
+    (function() {
+      const statusIndicator = document.getElementById('status-indicator');
+      const statusText = document.getElementById('status-text');
+
+      const now = new Date();
+      const day = now.getDay(); // 0 = Sun, 6 = Sat
+      const hours = now.getHours();
+      const minutes = now.getMinutes();
+      const currentTime = hours + (minutes / 60);
+
+      // Check if it's Saturday between 8:30 AM and 1:15 PM
+      const isMarketLive = (day === 6 && currentTime >= 8.5 && currentTime <= 13.25);
+
+      if (isMarketLive) {
+        statusIndicator.className = "inline-block w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse";
+        statusText.innerHTML = `<strong class="text-emerald-400">WE ARE LIVE AT THE BOOTH!</strong> Downtown Farmers Market (8th & Ohio) until 1:00 PM today. <a href="https://maps.google.com/?q=8th+and+Ohio+Ave+Wichita+Falls+TX" target="_blank" class="underline hover:text-white ml-1 font-semibold">Directions &rarr;</a>`;
+      } else {
+        statusIndicator.className = "inline-block w-2 h-2 rounded-full bg-rust-500";
+        statusText.innerHTML = `Next In-Person Event: <strong class="text-stone-200">Downtown Farmers Market Launch (Oct 3)</strong> • <a href="#events" class="underline hover:text-rust-400 ml-1">View Schedule &rarr;</a>`;
+      }
+    })();
+  </script>
 
 </body>
 </html>
