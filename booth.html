@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Market Table Exclusive | Red Dirt Goods Co.</title>
+  <link rel="icon" type="image/png" href="logo.png">
+  <meta name="description" content="Welcome to the Red Dirt Goods Co. market booth! Browse today's fresh table menu, claim your in-person perk, and view pairings.">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            rust: {
+              50: '#fdf6f3', 100: '#faeae4', 200: '#f6d5c9', 300: '#eeb4a1',
+              400: '#e3886e', 500: '#c85a32', 600: '#af4420', 700: '#8e3518',
+              800: '#752d18', 900: '#612818', 950: '#381308',
+            },
+            charcoal: { 800: '#211d1a', 900: '#171412', 950: '#0e0c0b' }
+          }
+        }
+      }
+    }
+  </script>
+</head>
+<body class="bg-charcoal-950 text-stone-200 font-sans antialiased flex flex-col min-h-screen">
+
+  <!-- 1. GENTLE EXIT BANNER -->
+  <aside class="bg-stone-900 border-b border-stone-800 text-xs py-2 px-4 text-center">
+    <div class="max-w-md mx-auto flex items-center justify-center gap-1.5 text-stone-300">
+      <span>Not at the booth today?</span>
+      <a href="index.html" class="text-rust-400 font-semibold underline hover:text-rust-300 ml-1">
+        Explore full pantry & ship home &rarr;
+      </a>
+    </div>
+  </aside>
+
+  <!-- COMPACT BOOTH HEADER -->
+  <header class="border-b border-stone-800/80 bg-charcoal-900/95 sticky top-0 z-40 backdrop-blur">
+    <div class="max-w-md mx-auto px-4 py-3 flex items-center justify-between">
+      <div class="flex items-center gap-3">
+        <img src="logo.png" alt="Red Dirt Goods Logo" class="h-8 w-auto object-contain">
+        <span class="font-serif font-bold text-sm tracking-wide text-stone-100">
+          RED DIRT GOODS <span class="text-rust-500 font-light">Co.</span>
+        </span>
+      </div>
+      <a href="index.html" class="text-xs font-semibold text-stone-400 hover:text-stone-200 border border-stone-700 px-2.5 py-1 rounded">
+        Main Site
+      </a>
+    </div>
+  </header>
+
+  <main class="flex-grow max-w-md mx-auto w-full px-4 py-6 space-y-6">
+
+    <!-- WELCOME & LIVE TABLE BADGE -->
+    <div class="text-center pt-2">
+      <div class="inline-flex items-center gap-2 bg-emerald-950/80 border border-emerald-800/60 text-emerald-400 text-xs font-semibold px-3 py-1 rounded-full mb-3">
+        <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+        Market Day Exclusive Screen
+      </div>
+      <h1 class="font-serif text-2xl sm:text-3xl font-extrabold text-stone-100 tracking-tight">
+        Welcome to the Table!
+      </h1>
+      <p class="text-xs sm:text-sm text-stone-400 mt-1 max-w-xs mx-auto">
+        Handcrafted small-batch brines, vinegars, and elevated Texas provisions in Wichita Falls.
+      </p>
+    </div>
+
+    <!-- DIGITAL VOUCHER CARD -->
+    <div class="bg-gradient-to-br from-charcoal-900 to-charcoal-950 border-2 border-dashed border-rust-500/70 rounded-2xl p-5 text-center shadow-lg relative overflow-hidden">
+      <div class="absolute -top-6 -right-6 w-20 h-20 bg-rust-500/10 rounded-full blur-xl pointer-events-none"></div>
+
+      <span class="text-[11px] font-bold uppercase tracking-widest text-rust-400">
+        In-Person Market Special
+      </span>
+      <h2 class="font-serif text-2xl font-black text-stone-100 mt-1">
+        $1.00 OFF
+      </h2>
+      <p class="text-xs text-stone-300 mt-1">
+        Any 2+ items purchased at our table today.
+      </p>
+
+      <div class="mt-4 bg-charcoal-950/90 border border-stone-800 rounded-lg p-3 inline-block w-full">
+        <p class="text-[10px] uppercase font-mono tracking-widest text-stone-400">Flash this code at checkout</p>
+        <p class="font-mono text-lg font-bold tracking-widest text-rust-400 mt-0.5">REDDIRTMKT</p>
+      </div>
+    </div>
+
+    <!-- ACCEPTED PAYMENT BADGES -->
+    <div class="bg-charcoal-900/60 border border-stone-800/80 rounded-xl p-3.5 flex items-center justify-between text-xs text-stone-400">
+      <span class="font-semibold text-stone-300">We Gladly Accept:</span>
+      <span class="font-medium text-stone-300">Cash • Cards • Apple Pay • Venmo</span>
+    </div>
+
+    <!-- TODAY'S TABLE MENU & PAIRINGS -->
+    <div class="space-y-3 pt-2">
+      <div class="flex items-center justify-between">
+        <h3 class="font-serif text-lg font-bold text-stone-100">Today's Fresh Provisions</h3>
+        <span class="text-[11px] text-stone-400">Small batches</span>
+      </div>
+
+      <!-- ITEM 1 -->
+      <div class="bg-charcoal-900 border border-stone-800 rounded-xl p-4">
+        <div class="flex justify-between items-start gap-2">
+          <div>
+            <h4 class="font-bold text-stone-100 text-sm">Pickled Mustard Caviar</h4>
+            <p class="text-xs text-stone-400 mt-0.5">
+              Whole mustard seeds brined until plump and caviar-like. Pops with tangy sweetness.
+            </p>
+          </div>
+          <span class="text-xs font-bold font-mono text-rust-400 whitespace-nowrap bg-rust-950/80 border border-rust-800/60 px-2 py-0.5 rounded">
+            Best Seller
+          </span>
+        </div>
+        <div class="mt-3 pt-2.5 border-t border-stone-800/70 text-[11px] text-stone-400 flex items-center justify-between">
+          <span><strong>Pairs with:</strong> Smoked brisket, cheddar, charcuterie</span>
+          <span class="text-stone-300">Ask for a sample!</span>
+        </div>
+      </div>
+
+      <!-- ITEM 2 -->
+      <div class="bg-charcoal-900 border border-stone-800 rounded-xl p-4">
+        <div class="flex justify-between items-start gap-2">
+          <div>
+            <h4 class="font-bold text-stone-100 text-sm">Cold-Crafted Drinking Vinegars</h4>
+            <p class="text-xs text-stone-400 mt-0.5">
+              Traditional shrubs made with fruit and natural cane sugar. Crisp, tart, and refreshing.
+            </p>
+          </div>
+          <span class="text-xs font-bold font-mono text-stone-300 whitespace-nowrap bg-stone-800 px-2 py-0.5 rounded">
+            Fresh
+          </span>
+        </div>
+        <div class="mt-3 pt-2.5 border-t border-stone-800/70 text-[11px] text-stone-400 flex items-center justify-between">
+          <span><strong>Mix with:</strong> Topo Chico, ginger beer, or bourbon</span>
+          <span class="text-stone-300">Zero artificial dyes</span>
+        </div>
+      </div>
+
+      <!-- ITEM 3 -->
+      <div class="bg-charcoal-900 border border-stone-800 rounded-xl p-4">
+        <div class="flex justify-between items-start gap-2">
+          <div>
+            <h4 class="font-bold text-stone-100 text-sm">Small-Batch Relish & Salsas</h4>
+            <p class="text-xs text-stone-400 mt-0.5">
+              Slow-cooked in micro-batches with roasted peppers and savory spice profiles.
+            </p>
+          </div>
+          <span class="text-xs font-bold font-mono text-stone-300 whitespace-nowrap bg-stone-800 px-2 py-0.5 rounded">
+            Limited
+          </span>
+        </div>
+        <div class="mt-3 pt-2.5 border-t border-stone-800/70 text-[11px] text-stone-400 flex items-center justify-between">
+          <span><strong>Pairs with:</strong> Breakfast tacos, cast-iron burgers</span>
+          <span class="text-stone-300">Seasonal heat</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- QUICK EMAIL CAPTURE (Stay connected after market) -->
+    <div class="bg-stone-900/90 border border-stone-800 rounded-xl p-5 text-center space-y-3">
+      <h3 class="font-serif text-base font-bold text-stone-100">Never Miss a Restock</h3>
+      <p class="text-xs text-stone-400 max-w-xs mx-auto">
+        Join our local VIP list for market date announcements and seasonal jar restocks.
+      </p>
+
+      <form id="market-signup-form" class="space-y-2 pt-1" onsubmit="handleFormSubmit(event)">
+        <input 
+          type="email" 
+          id="market-email" 
+          placeholder="Enter your email" 
+          required 
+          class="w-full bg-charcoal-950 border border-stone-700 rounded-lg px-3.5 py-3 text-sm text-stone-100 placeholder-stone-500 focus:outline-none focus:border-rust-500 transition text-center"
+        >
+        <button 
+          type="submit" 
+          class="w-full bg-rust-600 hover:bg-rust-500 active:scale-[0.98] text-white font-semibold py-3 px-4 rounded-lg text-sm transition shadow-md"
+        >
+          Keep Me Posted on Restocks
+        </button>
+      </form>
+      <div id="signup-confirmation" class="hidden text-xs text-emerald-400 font-semibold py-2">
+        ✓ You're on the VIP list! We'll see you at the next event.
+      </div>
+    </div>
+
+    <!-- BOTTOM JUMP TO MAIN SHOP -->
+    <div class="text-center pt-2 pb-4">
+      <a 
+        href="index.html" 
+        class="inline-block w-full border border-stone-700 hover:border-stone-500 text-stone-300 hover:text-white py-3.5 px-4 rounded-lg font-semibold text-sm transition"
+      >
+        View Full Brand Story & Main Catalog &rarr;
+      </a>
+    </div>
+
+  </main>
+
+  <!-- COMPLIANCE & FOOTER -->
+  <footer class="py-6 bg-charcoal-950 border-t border-stone-900 text-center px-4 mt-auto">
+    <div class="flex justify-center gap-4 mb-3 text-xs font-semibold uppercase tracking-wider text-stone-400">
+      <a href="https://instagram.com/reddirtgoodsco" target="_blank" rel="noopener noreferrer" class="hover:text-rust-400 transition">Instagram</a>
+      <span>•</span>
+      <a href="https://facebook.com/reddirtgoodsco" target="_blank" rel="noopener noreferrer" class="hover:text-rust-400 transition">Facebook</a>
+      <span>•</span>
+      <a href="index.html#events" class="hover:text-rust-400 transition">Upcoming Dates</a>
+    </div>
+    <p class="text-[10px] text-stone-500 max-w-sm mx-auto uppercase tracking-wide leading-relaxed">
+      THIS PRODUCT WAS PRODUCED IN A PRIVATE RESIDENCE THAT IS NOT SUBJECT TO GOVERNMENTAL LICENSING OR INSPECTION.
+    </p>
+    <p class="text-[10px] text-stone-600 mt-2">
+      © 2026 Red Dirt Goods Co. • Handcrafted in Wichita Falls, Texas
+    </p>
+  </footer>
+
+  <!-- FORM SIMULATION SCRIPT -->
+  <script>
+    function handleFormSubmit(e) {
+      e.preventDefault();
+      const form = document.getElementById('market-signup-form');
+      const confirmation = document.getElementById('signup-confirmation');
+      const email = document.getElementById('market-email').value;
+      
+      // Visual feedback for customer standing at the booth
+      form.classList.add('hidden');
+      confirmation.classList.remove('hidden');
+
+      // You can hook this up to Mailchimp, ConvertKit, Formspree, or Airtable later
+      console.log('Booth Subscriber Email:', email);
+    }
+  </script>
+
+</body>
+</html>
