@@ -28,12 +28,12 @@ export default async function handler(req, res) {
       return res.status(400).json({ error: 'Cart is empty.' });
     }
 
-    // 1. Build line items for Square
+    // 1. Build line items for Square (in cents)
     const lineItems = items.map((item) => ({
       name: item.name,
       quantity: String(item.qty),
       basePriceMoney: {
-        amount: BigInt(Math.round(item.price * 100)), // in cents
+        amount: Math.round(item.price * 100),
         currency: 'USD',
       },
     }));
@@ -53,7 +53,7 @@ export default async function handler(req, res) {
       discounts.push({
         name: `3-for-$24 Bundle Savings (${bundleSets} set${bundleSets > 1 ? 's' : ''})`,
         amountMoney: {
-          amount: BigInt(bundleSets * 300), // $3.00 in cents
+          amount: bundleSets * 300, // $3.00 in cents
           currency: 'USD',
         },
         scope: 'ORDER',
@@ -62,40 +62,51 @@ export default async function handler(req, res) {
 
     // 3. Add Delivery Fee as a service charge if applicable
     const serviceCharges = [];
-    if (deliveryFee && deliveryFee > 0) {
+    if (deliveryFee && Number(deliveryFee) > 0) {
       serviceCharges.push({
         name: 'Local Hand-Delivery Fee',
         amountMoney: {
-          amount: BigInt(Math.round(deliveryFee * 100)),
+          amount: Math.round(Number(deliveryFee) * 100),
           currency: 'USD',
         },
         calculationPhase: 'SUBTOTAL_PHASE',
       });
     }
 
-    // 4. Clean summary for order notification / notes
+    // 4. Format phone number to E.164 (+1XXXXXXXXXX) for Square
+    let formattedPhone = undefined;
+    if (phone) {
+      const digits = phone.replace(/\D/g, '');
+      if (digits.length === 10) {
+        formattedPhone = `+1${digits}`;
+      } else if (digits.length === 11 && digits.startsWith('1')) {
+        formattedPhone = `+${digits}`;
+      }
+    }
+
+    // 5. Order notes / summary for merchant dashboard
     const noteDetails = [
       `Customer: ${name}`,
-      `Phone: ${phone}`,
+      phone ? `Phone: ${phone}` : null,
       `Fulfillment: ${fulfillment}`,
       notes ? `Customer Notes: ${notes}` : null,
     ]
       .filter(Boolean)
       .join(' | ');
 
-    // 5. Create Payment Link / Checkout Session
+    // 6. Create Payment Link
     const idempotencyKey = crypto.randomUUID();
     const host = req.headers['x-forwarded-host'] || req.headers.host;
     const protocol = req.headers['x-forwarded-proto'] || 'https';
     const siteUrl = `${protocol}://${host}`;
 
-    const response = await client.checkoutApi.createPaymentLink({
+    const payload = {
       idempotencyKey,
       order: {
         locationId: process.env.SQUARE_LOCATION_ID,
         lineItems,
-        discounts,
-        serviceCharges,
+        discounts: discounts.length ? discounts : undefined,
+        serviceCharges: serviceCharges.length ? serviceCharges : undefined,
         pricingOptions: {
           autoApplyDiscounts: false,
         },
@@ -105,17 +116,25 @@ export default async function handler(req, res) {
         redirectUrl: `${siteUrl}/order-confirmation.html`,
       },
       prePopulatedData: {
-        buyerEmail: email,
-        buyerPhoneNumber: phone,
+        buyerEmail: email || undefined,
+        buyerPhoneNumber: formattedPhone,
       },
       description: noteDetails.substring(0, 500),
-    });
+    };
 
+    const response = await client.checkoutApi.createPaymentLink(payload);
     const checkoutUrl = response.result.paymentLink.url;
 
     return res.status(200).json({ checkoutUrl });
   } catch (error) {
     console.error('Square Checkout Error:', error);
+
+    // If Square provided structured API error details, pass back the exact reason
+    if (error.errors && error.errors.length) {
+      const detail = error.errors.map((e) => `${e.category}: ${e.detail}`).join('; ');
+      return res.status(400).json({ error: detail });
+    }
+
     return res.status(500).json({
       error: error.message || 'Unable to generate Square checkout link.',
     });
