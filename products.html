@@ -58,6 +58,7 @@
       </div>
 
       <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <!-- Salsa -->
         <div class="border border-stone-800 rounded-xl p-5 bg-charcoal-900 hover:border-rust-500/50 transition flex flex-col justify-between">
           <div>
             <div class="flex justify-between items-start">
@@ -77,6 +78,7 @@
           </p>
         </div>
 
+        <!-- Jalapeño Relish -->
         <div class="border border-stone-800 rounded-xl p-5 bg-charcoal-900 hover:border-rust-500/50 transition flex flex-col justify-between">
           <div>
             <div class="flex justify-between items-start">
@@ -96,6 +98,7 @@
           </p>
         </div>
 
+        <!-- Pear Preserves -->
         <div class="border border-stone-800 rounded-xl p-5 bg-charcoal-900 hover:border-rust-500/50 transition flex flex-col justify-between">
           <div>
             <div class="flex justify-between items-start">
@@ -115,6 +118,27 @@
           </p>
         </div>
 
+        <!-- Peach-Ginger Jam (NEW) -->
+        <div class="border border-stone-800 rounded-xl p-5 bg-charcoal-900 hover:border-rust-500/50 transition flex flex-col justify-between">
+          <div>
+            <div class="flex justify-between items-start">
+              <h2 class="font-serif font-bold text-lg text-stone-100">Peach-Ginger Jam (4 oz)</h2>
+              <span class="text-xs font-bold bg-rust-950 text-rust-300 border border-rust-800 px-2 py-1 rounded">$9.00</span>
+            </div>
+            <div class="flex gap-1.5 mt-2">
+              <span class="text-[10px] font-semibold uppercase tracking-wider bg-stone-800 text-stone-300 px-2 py-0.5 rounded border border-stone-700">Gluten-Free</span>
+              <span class="text-[10px] font-semibold uppercase tracking-wider bg-stone-800 text-stone-300 px-2 py-0.5 rounded border border-stone-700">Vegan</span>
+            </div>
+            <p class="text-sm text-stone-400 mt-2.5">
+              Ripe, sun-drenched peaches simmered slowly with fresh minced ginger root and pure cane sugar for a sweet spread with a gentle, warming bite.
+            </p>
+          </div>
+          <p class="text-xs text-rust-400 mt-4 pt-3 border-t border-stone-800/80 font-medium">
+            <span class="text-stone-300">Pair with:</span> Warm sourdough toast, Greek yogurt bowls, buttermilk biscuits, or goat cheese.
+          </p>
+        </div>
+
+        <!-- Mustard Caviar -->
         <div class="border border-stone-800 rounded-xl p-5 bg-charcoal-900 hover:border-rust-500/50 transition flex flex-col justify-between">
           <div>
             <div class="flex justify-between items-start">
@@ -134,6 +158,7 @@
           </p>
         </div>
 
+        <!-- Shiner Bock Mustard -->
         <div class="border border-stone-800 rounded-xl p-5 bg-charcoal-900 hover:border-rust-500/50 transition flex flex-col justify-between">
           <div>
             <div class="flex justify-between items-start">
@@ -153,6 +178,7 @@
           </p>
         </div>
 
+        <!-- Texas Agrodolce -->
         <div class="border border-stone-800 rounded-xl p-5 bg-charcoal-900 hover:border-rust-500/50 transition flex flex-col justify-between">
           <div>
             <div class="flex justify-between items-start">
@@ -172,6 +198,7 @@
           </p>
         </div>
 
+        <!-- Craft Fruit Shrubs -->
         <div class="border border-stone-800 rounded-xl p-5 bg-charcoal-900 hover:border-rust-500/50 transition flex flex-col justify-between">
           <div>
             <div class="flex justify-between items-start">
@@ -191,6 +218,7 @@
           </p>
         </div>
 
+        <!-- Fire Salt -->
         <div class="border border-stone-800 rounded-xl p-5 bg-charcoal-900 hover:border-rust-500/50 transition flex flex-col justify-between">
           <div>
             <div class="flex justify-between items-start">
@@ -202,7 +230,7 @@
               <span class="text-[10px] font-semibold uppercase tracking-wider bg-stone-800 text-stone-300 px-2 py-0.5 rounded border border-stone-700">Vegan</span>
             </div>
             <p class="text-sm text-stone-400 mt-2.5">
-              Course salt ground together with dehydrated jalapeño flakes, smoked paprika, and garlic for a savory, slightly spicy artisanal spice.
+              Coarse salt ground together with dehydrated jalapeño flakes, smoked paprika, and garlic for a savory, slightly spicy artisanal spice.
             </p>
           </div>
           <p class="text-xs text-rust-400 mt-4 pt-3 border-t border-stone-800/80 font-medium">
@@ -212,6 +240,7 @@
       </div>
     </section>
 
+    <!-- DIRECT ORDERING -->
     <section id="order" class="py-16 px-4 max-w-3xl mx-auto border-t border-stone-800">
       <div class="text-center mb-10">
         <span class="text-xs font-bold uppercase tracking-widest text-rust-400 bg-rust-950/60 px-3 py-1 rounded-full border border-rust-900">
@@ -273,7 +302,7 @@
           <div>
             <label class="block text-xs font-semibold uppercase text-stone-400 mb-1">Select Pickup Saturday *</label>
             <select id="pickupDate" class="w-full bg-charcoal-900 border border-stone-700 rounded-lg px-3.5 py-2.5 text-stone-100 focus:outline-none focus:border-rust-500">
-              </select>
+            </select>
           </div>
           <p class="text-xs text-stone-400">Booth location: Downtown Farmers Market, 8:00 AM – 1:00 PM.</p>
         </div>
@@ -314,35 +343,40 @@
           <div class="grid gap-2.5">
             <div class="flex items-center justify-between bg-charcoal-950 p-3 rounded-lg border border-stone-800">
               <span class="text-sm text-stone-200">El Padre's Salsa (16 oz) — $9</span>
-              <input type="number" data-price="9" data-bundle="true" min="0" max="12" value="0" class="qty-input w-16 bg-charcoal-900 border border-stone-700 rounded px-2 py-1 text-center text-stone-100 focus:border-rust-500" onchange="updateCart()">
+              <input type="number" data-name="El Padre's Salsa (16 oz)" data-price="9" data-bundle="true" min="0" max="12" value="0" class="qty-input w-16 bg-charcoal-900 border border-stone-700 rounded px-2 py-1 text-center text-stone-100 focus:border-rust-500" onchange="updateCart()">
             </div>
             <div class="flex items-center justify-between bg-charcoal-950 p-3 rounded-lg border border-stone-800">
               <span class="text-sm text-stone-200">Paw-Paw's Jalapeño Relish (8 oz) — $9</span>
-              <input type="number" data-price="9" data-bundle="true" min="0" max="12" value="0" class="qty-input w-16 bg-charcoal-900 border border-stone-700 rounded px-2 py-1 text-center text-stone-100 focus:border-rust-500" onchange="updateCart()">
+              <input type="number" data-name="Paw-Paw's Jalapeño Relish (8 oz)" data-price="9" data-bundle="true" min="0" max="12" value="0" class="qty-input w-16 bg-charcoal-900 border border-stone-700 rounded px-2 py-1 text-center text-stone-100 focus:border-rust-500" onchange="updateCart()">
             </div>
             <div class="flex items-center justify-between bg-charcoal-950 p-3 rounded-lg border border-stone-800">
               <span class="text-sm text-stone-200">Meme's Pear Preserves (8 oz) — $9</span>
-              <input type="number" data-price="9" data-bundle="true" min="0" max="12" value="0" class="qty-input w-16 bg-charcoal-900 border border-stone-700 rounded px-2 py-1 text-center text-stone-100 focus:border-rust-500" onchange="updateCart()">
+              <input type="number" data-name="Meme's Pear Preserves (8 oz)" data-price="9" data-bundle="true" min="0" max="12" value="0" class="qty-input w-16 bg-charcoal-900 border border-stone-700 rounded px-2 py-1 text-center text-stone-100 focus:border-rust-500" onchange="updateCart()">
+            </div>
+            <!-- Peach-Ginger Jam in Cart -->
+            <div class="flex items-center justify-between bg-charcoal-950 p-3 rounded-lg border border-stone-800">
+              <span class="text-sm text-stone-200">Peach-Ginger Jam (4 oz) — $9</span>
+              <input type="number" data-name="Peach-Ginger Jam (4 oz)" data-price="9" data-bundle="true" min="0" max="12" value="0" class="qty-input w-16 bg-charcoal-900 border border-stone-700 rounded px-2 py-1 text-center text-stone-100 focus:border-rust-500" onchange="updateCart()">
             </div>
             <div class="flex items-center justify-between bg-charcoal-950 p-3 rounded-lg border border-stone-800">
               <span class="text-sm text-stone-200">Mustard Caviar (4 oz) — $9</span>
-              <input type="number" data-price="9" data-bundle="true" min="0" max="12" value="0" class="qty-input w-16 bg-charcoal-900 border border-stone-700 rounded px-2 py-1 text-center text-stone-100 focus:border-rust-500" onchange="updateCart()">
+              <input type="number" data-name="Mustard Caviar (4 oz)" data-price="9" data-bundle="true" min="0" max="12" value="0" class="qty-input w-16 bg-charcoal-900 border border-stone-700 rounded px-2 py-1 text-center text-stone-100 focus:border-rust-500" onchange="updateCart()">
             </div>
             <div class="flex items-center justify-between bg-charcoal-950 p-3 rounded-lg border border-stone-800">
               <span class="text-sm text-stone-200">Shiner Bock Mustard (4 oz) — $9</span>
-              <input type="number" data-price="9" data-bundle="true" min="0" max="12" value="0" class="qty-input w-16 bg-charcoal-900 border border-stone-700 rounded px-2 py-1 text-center text-stone-100 focus:border-rust-500" onchange="updateCart()">
+              <input type="number" data-name="Shiner Bock Mustard (4 oz)" data-price="9" data-bundle="true" min="0" max="12" value="0" class="qty-input w-16 bg-charcoal-900 border border-stone-700 rounded px-2 py-1 text-center text-stone-100 focus:border-rust-500" onchange="updateCart()">
             </div>
             <div class="flex items-center justify-between bg-charcoal-950 p-3 rounded-lg border border-stone-800">
               <span class="text-sm text-stone-200">Texas Agrodolce (4 oz) — $9</span>
-              <input type="number" data-price="9" data-bundle="true" min="0" max="12" value="0" class="qty-input w-16 bg-charcoal-900 border border-stone-700 rounded px-2 py-1 text-center text-stone-100 focus:border-rust-500" onchange="updateCart()">
+              <input type="number" data-name="Texas Agrodolce (4 oz)" data-price="9" data-bundle="true" min="0" max="12" value="0" class="qty-input w-16 bg-charcoal-900 border border-stone-700 rounded px-2 py-1 text-center text-stone-100 focus:border-rust-500" onchange="updateCart()">
             </div>
             <div class="flex items-center justify-between bg-charcoal-950 p-3 rounded-lg border border-stone-800">
               <span class="text-sm text-stone-200">Craft Fruit Shrubs (5 oz) — $9</span>
-              <input type="number" data-price="9" data-bundle="true" min="0" max="12" value="0" class="qty-input w-16 bg-charcoal-900 border border-stone-700 rounded px-2 py-1 text-center text-stone-100 focus:border-rust-500" onchange="updateCart()">
+              <input type="number" data-name="Craft Fruit Shrubs (5 oz)" data-price="9" data-bundle="true" min="0" max="12" value="0" class="qty-input w-16 bg-charcoal-900 border border-stone-700 rounded px-2 py-1 text-center text-stone-100 focus:border-rust-500" onchange="updateCart()">
             </div>
             <div class="flex items-center justify-between bg-charcoal-950 p-3 rounded-lg border border-stone-800">
               <span class="text-sm text-stone-200">Jalapeño Fire Salt (4 oz) — $6</span>
-              <input type="number" data-price="6" data-bundle="false" min="0" max="12" value="0" class="qty-input w-16 bg-charcoal-900 border border-stone-700 rounded px-2 py-1 text-center text-stone-100 focus:border-rust-500" onchange="updateCart()">
+              <input type="number" data-name="Jalapeño Fire Salt (4 oz)" data-price="6" data-bundle="false" min="0" max="12" value="0" class="qty-input w-16 bg-charcoal-900 border border-stone-700 rounded px-2 py-1 text-center text-stone-100 focus:border-rust-500" onchange="updateCart()">
             </div>
           </div>
         </div>
@@ -371,7 +405,7 @@
           </div>
         </div>
 
-        <button type="button" onclick="initiateSquareCheckout()" id="checkoutBtn" class="w-full bg-rust-600 hover:bg-rust-500 disabled:opacity-50 disabled:cursor-not-allowed text-white font-bold py-3.5 rounded-lg transition shadow-lg tracking-wide uppercase text-sm flex items-center justify-center gap-2">
+        <button type="button" onclick="initiateSquareCheckout()" id="checkoutBtn" disabled class="w-full bg-rust-600 hover:bg-rust-500 disabled:opacity-50 disabled:cursor-not-allowed text-white font-bold py-3.5 rounded-lg transition shadow-lg tracking-wide uppercase text-sm flex items-center justify-center gap-2">
           <span>💳</span> Pay Securely with Square
         </button>
       </form>
@@ -395,7 +429,6 @@
   </footer>
 
   <script>
-    // BASE COORDINATES (Your home location coordinates, address is completely hidden from code & UI)
     const BASE_LAT = 33.85614;
     const BASE_LON = -98.54468;
 
@@ -412,7 +445,7 @@
 
       while (count < 4) {
         checkDate.setDate(checkDate.getDate() + 1);
-        if (checkDate.getDay() === 6) { // 6 = Saturday
+        if (checkDate.getDay() === 6) {
           const dateStr = checkDate.toLocaleDateString('en-US', {
             weekday: 'long', month: 'short', day: 'numeric', year: 'numeric'
           });
@@ -448,9 +481,8 @@
       }
     }
 
-    // Haversine formula (computes straight-line driving distance in miles)
     function getDistanceInMiles(lat1, lon1, lat2, lon2) {
-      const R = 3958.8; // Radius of earth in miles
+      const R = 3958.8;
       const dLat = (lat2 - lat1) * Math.PI / 180;
       const dLon = (lon2 - lon1) * Math.PI / 180;
       const a =
@@ -461,7 +493,6 @@
       return R * c;
     }
 
-    // Geocoding and distance calculation
     let debounceTimer;
     function calculateDeliveryDistance() {
       clearTimeout(debounceTimer);
@@ -503,7 +534,6 @@
             calculatedDeliveryFee = 0;
             isDeliveryValid = false;
           } else {
-            // Fee rules: $5 for first 5 miles; $0.50/mile for each additional mile up to 20
             if (distance <= 5) {
               calculatedDeliveryFee = 5.00;
             } else {
@@ -514,7 +544,6 @@
             isDeliveryValid = true;
           }
         } catch (e) {
-          // Fallback if geocoder rate limits
           statusEl.innerHTML = `<span class="text-stone-400">Standard Wichita Falls metro delivery ($5.00 base fee applied).</span>`;
           calculatedDeliveryFee = 5.00;
           isDeliveryValid = true;
@@ -523,10 +552,10 @@
       }, 500);
     }
 
-    // Update totals and apply 3-for-$24 bundle pricing
     function updateCart() {
       let rawSubtotal = 0;
       let bundleItemsCount = 0;
+      let totalQty = 0;
 
       document.querySelectorAll('.qty-input').forEach(input => {
         const qty = parseInt(input.value) || 0;
@@ -534,20 +563,18 @@
         const isBundleEligible = input.getAttribute('data-bundle') === 'true';
 
         rawSubtotal += qty * price;
+        totalQty += qty;
         if (isBundleEligible) bundleItemsCount += qty;
       });
 
-      // 3-for-$24 saves $3 for every full trio of $9 items
       const bundles = Math.floor(bundleItemsCount / 3);
       const discount = bundles * 3.00;
-
       const subtotalAfterDiscount = rawSubtotal - discount;
 
       const isDelivery = document.querySelector('input[name="fulfillment"]:checked').value === 'delivery';
       const fee = isDelivery ? calculatedDeliveryFee : 0;
-      const total = subtotalAfterDiscount > 0 ? (subtotalAfterDiscount + fee) : 0;
+      const total = totalQty > 0 ? (subtotalAfterDiscount + fee) : 0;
 
-      // Update Screen
       document.getElementById('subtotalDisplay').textContent = `$${rawSubtotal.toFixed(2)}`;
       
       const discountRow = document.getElementById('bundleDiscountRow');
@@ -562,33 +589,86 @@
       document.getElementById('totalDisplay').textContent = `$${total.toFixed(2)}`;
 
       const checkoutBtn = document.getElementById('checkoutBtn');
-      if (total <= 0 || (isDelivery && !isDeliveryValid)) {
+      if (totalQty === 0 || (isDelivery && !isDeliveryValid)) {
         checkoutBtn.disabled = true;
       } else {
         checkoutBtn.disabled = false;
       }
     }
 
-    // Trigger Square Payment
-    function initiateSquareCheckout() {
+    // ==========================================
+    // 💳 SQUARE CHECKOUT HANDLER
+    // ==========================================
+    async function initiateSquareCheckout() {
       const name = document.getElementById('custName').value.trim();
       const phone = document.getElementById('custPhone').value.trim();
       const email = document.getElementById('custEmail').value.trim();
-      const total = document.getElementById('totalDisplay').textContent;
+      const notes = document.getElementById('orderNotes').value.trim();
+      const fulfillment = document.querySelector('input[name="fulfillment"]:checked').value;
+      const pickupDate = fulfillment === 'pickup' ? document.getElementById('pickupDate').value : '';
+      const street = document.getElementById('deliveryStreet').value.trim();
+      const city = document.getElementById('deliveryCity').value.trim();
+      const zip = document.getElementById('deliveryZip').value.trim();
+      const totalStr = document.getElementById('totalDisplay').textContent;
 
       if (!name || !phone || !email) {
-        alert("Please fill in your name, phone number, and email address.");
+        alert("Please provide your full name, phone number, and email address.");
         return;
       }
 
-      // VIBE CODING SQUARE CONNECTION:
-      // Replace the URL below with your Square Payment Link from your Square Dashboard
-      // (Square Dashboard > Payment Links > Create Link).
+      // Collect item breakdown
+      const orderedItems = [];
+      document.querySelectorAll('.qty-input').forEach(input => {
+        const qty = parseInt(input.value) || 0;
+        if (qty > 0) {
+          orderedItems.push(`${qty}x ${input.getAttribute('data-name')}`);
+        }
+      });
+
+      const orderSummary = {
+        name,
+        phone,
+        email,
+        fulfillment: fulfillment === 'pickup' ? `Market Pickup (${pickupDate})` : `Hand-Delivery (${street}, ${city}, TX ${zip})`,
+        items: orderedItems,
+        notes,
+        total: totalStr
+      };
+
+      // --------------------------------------------------------------------------
+      // OPTION 1: SQUARE PAYMENT LINK (Easiest, no backend required)
+      // Paste your Square Payment Link created from your Square Dashboard below.
+      // --------------------------------------------------------------------------
       const SQUARE_PAYMENT_LINK = "https://square.link/u/YOUR_CUSTOM_LINK_HERE";
 
+      // If you are setting up a custom backend API route (e.g. /api/checkout), call it here:
+      /*
+      try {
+        const res = await fetch('/api/checkout', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(orderSummary)
+        });
+        const data = await res.json();
+        if (data.checkoutUrl) {
+          window.location.href = data.checkoutUrl;
+          return;
+        }
+      } catch (err) {
+        console.error(err);
+      }
+      */
+
       if (SQUARE_PAYMENT_LINK.includes("YOUR_CUSTOM_LINK_HERE")) {
-        alert(`Order logged for ${name}! Total: ${total}. \n\nTo enable automatic card charging, paste your Square Payment Link into the SQUARE_PAYMENT_LINK variable in the script tag.`);
+        alert(
+          `Order Summary for ${name}:\n\n` +
+          `• Items: ${orderedItems.join(', ')}\n` +
+          `• Fulfillment: ${orderSummary.fulfillment}\n` +
+          `• Total: ${totalStr}\n\n` +
+          `Next step: Paste your Square Payment Link into the SQUARE_PAYMENT_LINK variable in the script tag to activate card payments.`
+        );
       } else {
+        // Redirect to your Square checkout page
         window.location.href = SQUARE_PAYMENT_LINK;
       }
     }
