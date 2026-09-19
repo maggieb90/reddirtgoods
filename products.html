@@ -596,7 +596,7 @@
       }
     }
 
-    // ==========================================
+// ==========================================
     // 💳 SQUARE CHECKOUT HANDLER
     // ==========================================
     async function initiateSquareCheckout() {
@@ -604,72 +604,73 @@
       const phone = document.getElementById('custPhone').value.trim();
       const email = document.getElementById('custEmail').value.trim();
       const notes = document.getElementById('orderNotes').value.trim();
-      const fulfillment = document.querySelector('input[name="fulfillment"]:checked').value;
-      const pickupDate = fulfillment === 'pickup' ? document.getElementById('pickupDate').value : '';
+      const fulfillmentType = document.querySelector('input[name="fulfillment"]:checked').value;
+      const pickupDate = fulfillmentType === 'pickup' ? document.getElementById('pickupDate').value : '';
       const street = document.getElementById('deliveryStreet').value.trim();
       const city = document.getElementById('deliveryCity').value.trim();
       const zip = document.getElementById('deliveryZip').value.trim();
-      const totalStr = document.getElementById('totalDisplay').textContent;
 
       if (!name || !phone || !email) {
         alert("Please provide your full name, phone number, and email address.");
         return;
       }
 
-      // Collect item breakdown
-      const orderedItems = [];
+      // Collect items from the cart
+      const items = [];
       document.querySelectorAll('.qty-input').forEach(input => {
         const qty = parseInt(input.value) || 0;
         if (qty > 0) {
-          orderedItems.push(`${qty}x ${input.getAttribute('data-name')}`);
+          items.push({
+            name: input.getAttribute('data-name'),
+            qty: qty,
+            price: parseFloat(input.getAttribute('data-price')),
+            isBundle: input.getAttribute('data-bundle') === 'true'
+          });
         }
       });
 
-      const orderSummary = {
-        name,
-        phone,
-        email,
-        fulfillment: fulfillment === 'pickup' ? `Market Pickup (${pickupDate})` : `Hand-Delivery (${street}, ${city}, TX ${zip})`,
-        items: orderedItems,
-        notes,
-        total: totalStr
-      };
+      if (items.length === 0) {
+        alert("Please add at least one provision to your order.");
+        return;
+      }
 
-      // --------------------------------------------------------------------------
-      // OPTION 1: SQUARE PAYMENT LINK (Easiest, no backend required)
-      // Paste your Square Payment Link created from your Square Dashboard below.
-      // --------------------------------------------------------------------------
-      const SQUARE_PAYMENT_LINK = "https://square.link/u/YOUR_CUSTOM_LINK_HERE";
+      const fulfillmentSummary = fulfillmentType === 'pickup' 
+        ? `Farmers Market Pickup (${pickupDate})` 
+        : `Hand-Delivery to ${street}, ${city}, TX ${zip}`;
 
-      // If you are setting up a custom backend API route (e.g. /api/checkout), call it here:
-      /*
+      const checkoutBtn = document.getElementById('checkoutBtn');
+      const originalText = checkoutBtn.innerHTML;
+      checkoutBtn.disabled = true;
+      checkoutBtn.innerHTML = `<span>⏳</span> Connecting to Square...`;
+
       try {
-        const res = await fetch('/api/checkout', {
+        const response = await fetch('/api/checkout', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(orderSummary)
+          body: JSON.stringify({
+            name,
+            phone,
+            email,
+            fulfillment: fulfillmentSummary,
+            items,
+            deliveryFee: fulfillmentType === 'delivery' ? calculatedDeliveryFee : 0,
+            notes
+          })
         });
-        const data = await res.json();
-        if (data.checkoutUrl) {
-          window.location.href = data.checkoutUrl;
-          return;
+
+        const data = await response.json();
+
+        if (!response.ok || !data.checkoutUrl) {
+          throw new Error(data.error || 'Failed to initialize Square Checkout.');
         }
+
+        // Redirect directly to Square hosted checkout page
+        window.location.href = data.checkoutUrl;
       } catch (err) {
         console.error(err);
-      }
-      */
-
-      if (SQUARE_PAYMENT_LINK.includes("YOUR_CUSTOM_LINK_HERE")) {
-        alert(
-          `Order Summary for ${name}:\n\n` +
-          `• Items: ${orderedItems.join(', ')}\n` +
-          `• Fulfillment: ${orderSummary.fulfillment}\n` +
-          `• Total: ${totalStr}\n\n` +
-          `Next step: Paste your Square Payment Link into the SQUARE_PAYMENT_LINK variable in the script tag to activate card payments.`
-        );
-      } else {
-        // Redirect to your Square checkout page
-        window.location.href = SQUARE_PAYMENT_LINK;
+        alert(`Checkout could not be started: ${err.message}`);
+        checkoutBtn.disabled = false;
+        checkoutBtn.innerHTML = originalText;
       }
     }
   </script>
