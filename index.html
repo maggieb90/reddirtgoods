@@ -96,69 +96,8 @@
           </p>
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-
-          <!-- EVENT CARD 1 -->
-          <div class="bg-charcoal-950 border border-stone-800 rounded-xl p-6 flex flex-col justify-between hover:border-stone-700 transition">
-            <div>
-              <div class="flex items-center justify-between gap-2 mb-4">
-                <span class="text-xs font-bold uppercase tracking-wider bg-rust-950 text-rust-400 border border-rust-800/60 px-2.5 py-1 rounded">
-                  Farmers Market
-                </span>
-                <span class="text-xs text-stone-400 font-mono">Saturday, Sept 19</span>
-              </div>
-              <h3 class="font-serif text-xl font-bold text-stone-100">Downtown Wichita Falls Farmers Market</h3>
-              <p class="text-stone-400 text-sm mt-2">
-                Come visit us at our launch! We're excited to meet you and show you what Red Dirt is all about!
-              </p>
-            </div>
-            <div class="mt-6 pt-4 border-t border-stone-900 text-xs text-stone-400 space-y-2">
-              <div class="flex items-center gap-2">
-                <span class="text-stone-200 font-semibold">Hours:</span> 9:00 AM – 1:00 PM
-              </div>
-              <div class="flex items-start gap-2">
-                <span class="text-stone-200 font-semibold">Location:</span>
-                <span>8th & Ohio Ave, Wichita Falls, TX 76301</span>
-              </div>
-              <div class="pt-2">
-                <a href="https://maps.google.com/?q=8th+and+Ohio+Ave+Wichita+Falls+TX" target="_blank" rel="noopener noreferrer" class="text-rust-400 hover:text-rust-300 font-semibold inline-flex items-center gap-1">
-                  Open in Google Maps &rarr;
-                </a>
-              </div>
-            </div>
-          </div>
-
-          <!-- EVENT CARD 2 (Placeholder for your next pop-up / festival) -->
-          <div class="bg-charcoal-950 border border-stone-800 rounded-xl p-6 flex flex-col justify-between hover:border-stone-700 transition">
-            <div>
-              <div class="flex items-center justify-between gap-2 mb-4">
-                <span class="text-xs font-bold uppercase tracking-wider bg-stone-800 text-stone-300 px-2.5 py-1 rounded">
-                  Farmers Market
-                </span>
-                <span class="text-xs text-stone-400 font-mono">Saturday, Sept 26</span>
-              </div>
-              <h3 class="font-serif text-xl font-bold text-stone-100">Downtown Wichita Falls Farmers Market</h3>
-              <p class="text-stone-400 text-sm mt-2">
-                Check back here for updates!
-              </p>
-            </div>
-            <div class="mt-6 pt-4 border-t border-stone-900 text-xs text-stone-400 space-y-2">
-              <div class="flex items-center gap-2">
-                <span class="text-stone-200 font-semibold">Hours:</span> 9:00 AM – 1:00 PM
-              </div>
-              <div class="flex items-start gap-2">
-                <span class="text-stone-200 font-semibold">Location:</span>
-                <span>8th & Ohio Ave, Wichita Falls, TX 76301</span>
-              </div>
-              <div class="pt-2">
-                <a href="contact.html" class="text-stone-400 hover:text-rust-300 font-semibold inline-flex items-center gap-1">
-                  Check back for information! &rarr;
-                </a>
-              </div>
-            </div>
-          </div>
-
-        </div>
+        <!-- Event Cards Inject Here Automatically -->
+        <div id="events-grid" class="grid grid-cols-1 md:grid-cols-2 gap-6"></div>
 
         <!-- CALLOUT FOR EVENT ORGANIZERS -->
         <div class="mt-10 text-center bg-stone-900/50 border border-stone-800/80 rounded-lg p-6">
@@ -187,28 +126,110 @@
     </p>
   </footer>
 
-  <!-- LIVE STATUS BAR LOGIC -->
+  <!-- DYNAMIC EVENTS & STATUS BAR LOGIC -->
   <script>
-    (function() {
+    // ==========================================
+    // 🗓️ YOUR UPCOMING MARKET SCHEDULE 🗓️
+    // Keep them in order. Dates formatted as YYYY-MM-DD
+    // ==========================================
+    const events = [
+      {
+        title: "Downtown Wichita Falls Farmers Market",
+        tag: "Farmers Market",
+        dateString: "Saturday, Sept 19",
+        dateISO: "2026-09-19",
+        startHour: 9,   // 9:00 AM
+        endHour: 13,    // 1:00 PM
+        description: "Come visit us at our launch! We're excited to meet you and show you what Red Dirt is all about!",
+        hoursText: "9:00 AM – 1:00 PM",
+        locationText: "8th & Ohio Ave, Wichita Falls, TX 76301",
+        mapLink: "https://maps.google.com/?q=8th+and+Ohio+Ave+Wichita+Falls+TX",
+        linkText: "Open in Google Maps &rarr;"
+      },
+      {
+        title: "Downtown Wichita Falls Farmers Market",
+        tag: "Farmers Market",
+        dateString: "Saturday, Sept 26",
+        dateISO: "2026-09-26",
+        startHour: 9,
+        endHour: 13,
+        description: "Check back here for weekly batch updates and market specials!",
+        hoursText: "9:00 AM – 1:00 PM",
+        locationText: "8th & Ohio Ave, Wichita Falls, TX 76301",
+        mapLink: "https://maps.google.com/?q=8th+and+Ohio+Ave+Wichita+Falls+TX",
+        linkText: "Open in Google Maps &rarr;"
+      }
+    ];
+
+    // ==========================================
+    // AUTOMATIC LOGIC: Banner Sync & Card Generator
+    // ==========================================
+    (function initMarketSchedule() {
+      const now = new Date();
+      // Format today's local date as YYYY-MM-DD
+      const year = now.getFullYear();
+      const month = String(now.getMonth() + 1).padStart(2, '0');
+      const day = String(now.getDate()).padStart(2, '0');
+      const todayISO = `${year}-${month}-${day}`;
+      
+      const currentHour = now.getHours() + (now.getMinutes() / 60);
+
       const statusIndicator = document.getElementById('status-indicator');
       const statusText = document.getElementById('status-text');
+      const eventsGrid = document.getElementById('events-grid');
 
-      const now = new Date();
-      const day = now.getDay(); // 0 = Sun, 6 = Sat
-      const hours = now.getHours();
-      const minutes = now.getMinutes();
-      const currentTime = hours + (minutes / 60);
+      // 1. Check if we are actively at a market today
+      const todayEvent = events.find(e => e.dateISO === todayISO);
+      const isLiveNow = todayEvent && (currentHour >= todayEvent.startHour && currentHour < todayEvent.endHour);
 
-      // Check if it's Saturday between 9:00 AM and 1:00 PM
-      const isMarketLive = (day === 6 && currentTime >= 8 && currentTime <= 13);
+      // 2. Find the next upcoming event (today or future)
+      const nextEvent = events.find(e => {
+        if (e.dateISO > todayISO) return true;
+        if (e.dateISO === todayISO && currentHour < e.endHour) return true;
+        return false;
+      });
 
-      if (isMarketLive) {
+      // 3. Update the Top Status Bar
+      if (isLiveNow) {
         statusIndicator.className = "inline-block w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse";
-        statusText.innerHTML = `<strong class="text-emerald-400">WE ARE LIVE AT THE BOOTH!</strong> Downtown Farmers Market (8th & Ohio) until 1:00 PM today. <a href="https://maps.google.com/?q=8th+and+Ohio+Ave+Wichita+Falls+TX" target="_blank" class="underline hover:text-white ml-1 font-semibold">Directions &rarr;</a>`;
-      } else {
+        statusText.innerHTML = `<strong class="text-emerald-400">WE ARE LIVE AT THE BOOTH!</strong> ${todayEvent.title} until ${todayEvent.hoursText.split('–')[1] || '1:00 PM'} today. <a href="${todayEvent.mapLink}" target="_blank" class="underline hover:text-white ml-1 font-semibold">Directions &rarr;</a>`;
+      } else if (nextEvent) {
         statusIndicator.className = "inline-block w-2 h-2 rounded-full bg-rust-500";
-        statusText.innerHTML = `Next In-Person Event: <strong class="text-stone-200">Downtown Farmers Market Launch (Oct 3)</strong> • <a href="#events" class="underline hover:text-rust-400 ml-1">View Schedule &rarr;</a>`;
+        statusText.innerHTML = `Next In-Person Event: <strong class="text-stone-200">${nextEvent.title} (${nextEvent.dateString})</strong> • <a href="#events" class="underline hover:text-rust-400 ml-1">View Schedule &rarr;</a>`;
+      } else {
+        statusIndicator.className = "inline-block w-2 h-2 rounded-full bg-stone-500";
+        statusText.innerHTML = `New market dates coming soon! • <a href="contact.html" class="underline hover:text-rust-400 ml-1">Get in touch &rarr;</a>`;
       }
+
+      // 4. Render Event Cards
+      eventsGrid.innerHTML = events.map(evt => `
+        <div class="bg-charcoal-950 border border-stone-800 rounded-xl p-6 flex flex-col justify-between hover:border-stone-700 transition">
+          <div>
+            <div class="flex items-center justify-between gap-2 mb-4">
+              <span class="text-xs font-bold uppercase tracking-wider bg-rust-950 text-rust-400 border border-rust-800/60 px-2.5 py-1 rounded">
+                ${evt.tag}
+              </span>
+              <span class="text-xs text-stone-400 font-mono">${evt.dateString}</span>
+            </div>
+            <h3 class="font-serif text-xl font-bold text-stone-100">${evt.title}</h3>
+            <p class="text-stone-400 text-sm mt-2">${evt.description}</p>
+          </div>
+          <div class="mt-6 pt-4 border-t border-stone-900 text-xs text-stone-400 space-y-2">
+            <div class="flex items-center gap-2">
+              <span class="text-stone-200 font-semibold">Hours:</span> ${evt.hoursText}
+            </div>
+            <div class="flex items-start gap-2">
+              <span class="text-stone-200 font-semibold">Location:</span>
+              <span>${evt.locationText}</span>
+            </div>
+            <div class="pt-2">
+              <a href="${evt.mapLink}" target="_blank" rel="noopener noreferrer" class="text-rust-400 hover:text-rust-300 font-semibold inline-flex items-center gap-1">
+                ${evt.linkText}
+              </a>
+            </div>
+          </div>
+        </div>
+      `).join('');
     })();
   </script>
 
