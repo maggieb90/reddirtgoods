@@ -578,8 +578,8 @@
       let rawSubtotal = 0;
       let shrubCount = 0;
       let relishCount = 0;
-      let jarTrioCount = 0;
       let totalQty = 0;
+      const jarTrioPrices = [];
 
       document.querySelectorAll('.qty-input').forEach(input => {
         const qty = parseInt(input.value) || 0;
@@ -591,18 +591,31 @@
 
         if (category === 'shrub') shrubCount += qty;
         if (category === 'relish') relishCount += qty;
-        if (category === 'jar_trio') jarTrioCount += qty;
+        if (category === 'jar_trio') {
+          for (let i = 0; i < qty; i++) {
+            jarTrioPrices.push(price);
+          }
+        }
       });
 
-      // Bundles calculation:
-      // 1. Shrubs: 2 for $18 (Normally 2 x $10 = $20 -> Saves $2 per pair)
+      // 1. Shrubs: 2 for $18 ($2 off per pair)
       const shrubDiscounts = Math.floor(shrubCount / 2) * 2.00;
 
-      // 2. Relish: 2 for $15 (Normally 2 x $8 = $16 -> Saves $1 per pair)
+      // 2. Relish: 2 for $15 ($1 off per pair)
       const relishDiscounts = Math.floor(relishCount / 2) * 1.00;
 
-      // 3. Any three 4oz/2oz jars for $18 (Normally 3 x $7 = $21 -> Saves $3 per trio)
-      const jarTrioDiscounts = Math.floor(jarTrioCount / 3) * 3.00;
+      // 3. Any three 4oz/2oz jars for $18:
+      jarTrioPrices.sort((a, b) => b - a);
+      let jarTrioDiscounts = 0;
+      const fullTrios = Math.floor(jarTrioPrices.length / 3);
+
+      for (let t = 0; t < fullTrios; t++) {
+        const trioSum = jarTrioPrices[t * 3] + jarTrioPrices[t * 3 + 1] + jarTrioPrices[t * 3 + 2];
+        const savings = trioSum - 18.00;
+        if (savings > 0) {
+          jarTrioDiscounts += savings;
+        }
+      }
 
       const totalDiscount = shrubDiscounts + relishDiscounts + jarTrioDiscounts;
       const subtotalAfterDiscount = rawSubtotal - totalDiscount;
