@@ -93,7 +93,7 @@
       <span class="font-medium text-stone-300">Cash • Cards • Venmo • CashApp</span>
     </div>
 
-  <!-- TODAY'S TABLE MENU & SPECIALS -->
+    <!-- TODAY'S TABLE MENU & SPECIALS -->
     <div class="space-y-3 pt-2">
       <div class="flex items-center justify-between">
         <h3 class="font-serif text-lg font-bold text-stone-100">Today's Fresh Provisions</h3>
@@ -107,7 +107,7 @@
       <div id="bundles-container"></div>
     </div>
 
-    <!-- QUICK EMAIL CAPTURE (Stay connected after market) -->
+    <!-- QUICK EMAIL CAPTURE -->
     <div class="bg-stone-900/90 border border-stone-800 rounded-xl p-5 text-center space-y-3">
       <h3 class="font-serif text-base font-bold text-stone-100">Never Miss a Restock</h3>
       <p class="text-xs text-stone-400 max-w-xs mx-auto">
@@ -124,7 +124,8 @@
         >
         <button 
           type="submit" 
-          class="w-full bg-rust-600 hover:bg-rust-500 active:scale-[0.98] text-white font-semibold py-3 px-4 rounded-lg text-sm transition shadow-md"
+          id="signup-btn"
+          class="w-full bg-rust-600 hover:bg-rust-500 active:scale-[0.98] disabled:opacity-50 text-white font-semibold py-3 px-4 rounded-lg text-sm transition shadow-md"
         >
           Keep Me Posted on Restocks
         </button>
@@ -163,27 +164,50 @@
     </p>
   </footer>
 
-  <!-- FORM SIMULATION SCRIPT -->
   <script>
-    function handleFormSubmit(e) {
+    // =========================================================================
+    // 🔗 1. GOOGLE APPS SCRIPT WEBHOOK CONFIGURATION
+    // Paste your Google Web App URL between the quotes below once deployed:
+    // =========================================================================
+    const GOOGLE_SHEET_WEBHOOK_URL = "PASTE_YOUR_GOOGLE_SCRIPT_EXEC_URL_HERE";
+
+    async function handleFormSubmit(e) {
       e.preventDefault();
       const form = document.getElementById('market-signup-form');
       const confirmation = document.getElementById('signup-confirmation');
-      const email = document.getElementById('market-email').value;
-      
-      // Visual feedback for customer standing at the booth
+      const emailInput = document.getElementById('market-email');
+      const signupBtn = document.getElementById('signup-btn');
+      const email = emailInput.value.trim();
+
+      if (!email) return;
+
+      signupBtn.disabled = true;
+      signupBtn.textContent = "Joining...";
+
+      // Deliver instant visual gratification to the customer standing at your booth
       form.classList.add('hidden');
       confirmation.classList.remove('hidden');
 
-      // You can hook this up to Mailchimp, ConvertKit, Formspree, or Airtable later
-      console.log('Booth Subscriber Email:', email);
+      // Send directly to your Google Sheet in the background
+      if (GOOGLE_SHEET_WEBHOOK_URL && !GOOGLE_SHEET_WEBHOOK_URL.includes("PASTE_YOUR_GOOGLE_SCRIPT")) {
+        try {
+          await fetch(GOOGLE_SHEET_WEBHOOK_URL, {
+            method: 'POST',
+            mode: 'no-cors', // Essential for Google Apps Script redirects
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ email: email })
+          });
+        } catch (err) {
+          console.error("Error logging subscriber to Google Sheet:", err);
+        }
+      } else {
+        console.warn("Subscriber email recorded in console. Add your Google Apps Script URL to save to Sheets:", email);
+      }
     }
-  </script>
 
-  <script>
-    // ==========================================
-    // 🌾 EDIT THIS SECTION WEEK TO WEEK ONLY 🌾
-    // ==========================================
+    // =========================================================================
+    // 🌾 2. EDIT THIS SECTION WEEK TO WEEK ONLY 🌾
+    // =========================================================================
     const marketDay = "Market Day: September 19, 2026";
 
     const provisions = [
@@ -237,9 +261,9 @@
       "Jalapeño Relish: 2 for $15"
     ];
 
-    // ==========================================
-    // AUTOMATIC RENDERER (Do not edit below)
-    // ==========================================
+    // =========================================================================
+    // ⚙️ 3. AUTOMATIC RENDERER (Do not edit below)
+    // =========================================================================
     document.getElementById('market-date-badge').textContent = marketDay;
 
     const listContainer = document.getElementById('provisions-list');
