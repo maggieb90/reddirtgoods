@@ -47,7 +47,7 @@
           RED DIRT GOODS <span class="text-rust-500 font-light">Co.</span>
         </span>
       </a>
-<nav class="flex items-center gap-4 sm:gap-6 text-xs sm:text-sm font-medium">
+      <nav class="flex items-center gap-4 sm:gap-6 text-xs sm:text-sm font-medium">
         <a href="index.html" class="text-rust-400 font-semibold">Home</a>
         <a href="#events" class="text-stone-300 hover:text-rust-400 transition">Events</a>
         <a href="products.html" class="text-stone-300 hover:text-rust-400 transition">Products</a>
@@ -129,71 +129,135 @@
 
   <!-- DYNAMIC EVENTS & STATUS BAR LOGIC -->
   <script>
-    // ==========================================
-    // 🗓️ YOUR UPCOMING MARKET SCHEDULE 🗓️
-    // Keep them in order. Dates formatted as YYYY-MM-DD
-    // ==========================================
-    const events = [
-      {
-        title: "Downtown Wichita Falls Farmers Market",
-        tag: "Farmers Market",
-        dateString: "Saturday, Sept 19",
-        dateISO: "2026-09-19",
-        startHour: 9,   // 9:00 AM
-        endHour: 13,    // 1:00 PM
-        description: "Come visit us at our launch! We're excited to meet you and show you what Red Dirt is all about!",
-        hoursText: "9:00 AM – 1:00 PM",
-        locationText: "8th & Ohio Ave, Wichita Falls, TX 76301",
-        mapLink: "https://maps.google.com/?q=8th+and+Ohio+Ave+Wichita+Falls+TX",
-        linkText: "Open in Google Maps &rarr;"
-      },
-      {
-        title: "Downtown Wichita Falls Farmers Market",
-        tag: "Farmers Market",
-        dateString: "Saturday, Sept 26",
-        dateISO: "2026-09-26",
-        startHour: 9,
-        endHour: 13,
-        description: "Check back here for weekly batch updates and market specials!",
-        hoursText: "9:00 AM – 1:00 PM",
-        locationText: "8th & Ohio Ave, Wichita Falls, TX 76301",
-        mapLink: "https://maps.google.com/?q=8th+and+Ohio+Ave+Wichita+Falls+TX",
-        linkText: "Open in Google Maps &rarr;"
-      }
+    // =========================================================================
+    // 🗓️ VENDOR SCHEDULE CONTROL CENTER 🗓️
+    // (This is the ONLY section you ever need to edit!)
+    // =========================================================================
+
+    // 1. DATES TO SKIP:
+    // If you won't be at the Farmers Market on a certain Saturday, add the date
+    // between quotes inside the brackets below in "YYYY-MM-DD" format.
+    // Example: const SKIP_SATURDAYS = ["2026-11-28", "2026-12-26"];
+    const SKIP_SATURDAYS = [
+      // "2026-10-31", // Add dates to skip here
     ];
 
-    // ==========================================
-    // AUTOMATIC LOGIC: Banner Sync & Card Generator
-    // ==========================================
+    // 2. ADDITIONAL POP-UPS & SPECIAL EVENTS:
+    // When you book extra events (brewery pop-ups, holiday craft fairs, evening markets),
+    // add them here. They will automatically be sorted by date into your schedule!
+    const SPECIAL_POPUP_EVENTS = [
+      /* Example event entry:
+      {
+        title: "Fall Harvest Night at the Brewery",
+        tag: "Special Pop-Up",
+        dateISO: "2026-10-16",
+        dateString: "Friday, Oct 16",
+        startHour: 17, // 5:00 PM (24-hr format)
+        endHour: 21,   // 9:00 PM
+        hoursText: "5:00 PM – 9:00 PM",
+        locationText: "Wichita Falls Brewing Co., 701 Indiana Ave",
+        mapLink: "https://maps.google.com/?q=Wichita+Falls+Brewing+Co+TX",
+        linkText: "Open in Google Maps &rarr;",
+        description: "Join us for local beer and small-batch provisions! Pre-order pickups available."
+      }
+      */
+    ];
+
+    // 3. DEFAULT SATURDAY FARMERS MARKET DETAILS:
+    const DEFAULT_FARMERS_MARKET = {
+      title: "Downtown Wichita Falls Farmers Market",
+      tag: "Farmers Market",
+      startHour: 9,  // 9:00 AM
+      endHour: 13,   // 1:00 PM
+      hoursText: "9:00 AM – 1:00 PM",
+      locationText: "8th & Ohio Ave, Wichita Falls, TX 76301",
+      mapLink: "https://maps.google.com/?q=8th+and+Ohio+Ave+Wichita+Falls+TX",
+      linkText: "Open in Google Maps &rarr;",
+      description: "Stock up on fresh batches, sample our brines and provisions, or pick up your pre-orders!"
+    };
+
+    // =========================================================================
+    // ⚙️ AUTOMATIC GENERATOR LOGIC (Do not edit below this line)
+    // =========================================================================
     (function initMarketSchedule() {
       const now = new Date();
-      // Format today's local date as YYYY-MM-DD
-      const year = now.getFullYear();
-      const month = String(now.getMonth() + 1).padStart(2, '0');
-      const day = String(now.getDate()).padStart(2, '0');
-      const todayISO = `${year}-${month}-${day}`;
-      
+      const currentYear = now.getFullYear();
+      const currentMonth = String(now.getMonth() + 1).padStart(2, '0');
+      const currentDay = String(now.getDate()).padStart(2, '0');
+      const todayISO = `${currentYear}-${currentMonth}-${currentDay}`;
       const currentHour = now.getHours() + (now.getMinutes() / 60);
+
+      // 1. Generate the next 3 available Saturday Farmers Markets automatically
+      const autoSaturdays = [];
+      let checkDate = new Date(now);
+
+      // If it's Saturday after 1:00 PM, advance past today
+      if (now.getDay() === 6 && currentHour >= DEFAULT_FARMERS_MARKET.endHour) {
+        checkDate.setDate(checkDate.getDate() + 1);
+      }
+
+      while (autoSaturdays.length < 3) {
+        if (checkDate.getDay() === 6) { // It's Saturday
+          const y = checkDate.getFullYear();
+          const m = String(checkDate.getMonth() + 1).padStart(2, '0');
+          const d = String(checkDate.getDate()).padStart(2, '0');
+          const dateISO = `${y}-${m}-${d}`;
+
+          if (!SKIP_SATURDAYS.includes(dateISO)) {
+            const dateString = checkDate.toLocaleDateString('en-US', {
+              weekday: 'long',
+              month: 'short',
+              day: 'numeric'
+            });
+
+            autoSaturdays.push({
+              title: DEFAULT_FARMERS_MARKET.title,
+              tag: DEFAULT_FARMERS_MARKET.tag,
+              dateISO: dateISO,
+              dateString: dateString,
+              startHour: DEFAULT_FARMERS_MARKET.startHour,
+              endHour: DEFAULT_FARMERS_MARKET.endHour,
+              hoursText: DEFAULT_FARMERS_MARKET.hoursText,
+              locationText: DEFAULT_FARMERS_MARKET.locationText,
+              mapLink: DEFAULT_FARMERS_MARKET.mapLink,
+              linkText: DEFAULT_FARMERS_MARKET.linkText,
+              description: DEFAULT_FARMERS_MARKET.description
+            });
+          }
+        }
+        checkDate.setDate(checkDate.getDate() + 1);
+      }
+
+      // 2. Combine auto Saturdays with any special pop-ups
+      const allEvents = [...autoSaturdays, ...SPECIAL_POPUP_EVENTS];
+
+      // 3. Filter out events that already passed and sort chronologically
+      const upcomingEvents = allEvents
+        .filter(e => {
+          if (e.dateISO > todayISO) return true;
+          if (e.dateISO === todayISO && currentHour < e.endHour) return true;
+          return false;
+        })
+        .sort((a, b) => a.dateISO.localeCompare(b.dateISO))
+        .slice(0, 2); // Show the next 2 upcoming events
+
+      // 4. Determine if actively live at a booth right now
+      const activeEvent = allEvents.find(e => 
+        e.dateISO === todayISO && 
+        currentHour >= e.startHour && 
+        currentHour < e.endHour &&
+        !SKIP_SATURDAYS.includes(todayISO)
+      );
 
       const statusIndicator = document.getElementById('status-indicator');
       const statusText = document.getElementById('status-text');
       const eventsGrid = document.getElementById('events-grid');
+      const nextEvent = upcomingEvents[0];
 
-      // 1. Check if we are actively at a market today
-      const todayEvent = events.find(e => e.dateISO === todayISO);
-      const isLiveNow = todayEvent && (currentHour >= todayEvent.startHour && currentHour < todayEvent.endHour);
-
-      // 2. Find the next upcoming event (today or future)
-      const nextEvent = events.find(e => {
-        if (e.dateISO > todayISO) return true;
-        if (e.dateISO === todayISO && currentHour < e.endHour) return true;
-        return false;
-      });
-
-      // 3. Update the Top Status Bar
-      if (isLiveNow) {
+      // 5. Update Status Banner
+      if (activeEvent) {
         statusIndicator.className = "inline-block w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse";
-        statusText.innerHTML = `<strong class="text-emerald-400">WE ARE LIVE AT THE BOOTH!</strong> ${todayEvent.title} until ${todayEvent.hoursText.split('–')[1] || '1:00 PM'} today. <a href="${todayEvent.mapLink}" target="_blank" class="underline hover:text-white ml-1 font-semibold">Directions &rarr;</a>`;
+        statusText.innerHTML = `<strong class="text-emerald-400">WE ARE LIVE AT THE BOOTH!</strong> ${activeEvent.title} until ${activeEvent.hoursText.split('–')[1] || 'close'} today. <a href="${activeEvent.mapLink}" target="_blank" class="underline hover:text-white ml-1 font-semibold">Directions &rarr;</a>`;
       } else if (nextEvent) {
         statusIndicator.className = "inline-block w-2 h-2 rounded-full bg-rust-500";
         statusText.innerHTML = `Next In-Person Event: <strong class="text-stone-200">${nextEvent.title} (${nextEvent.dateString})</strong> • <a href="#events" class="underline hover:text-rust-400 ml-1">View Schedule &rarr;</a>`;
@@ -202,8 +266,8 @@
         statusText.innerHTML = `New market dates coming soon! • <a href="contact.html" class="underline hover:text-rust-400 ml-1">Get in touch &rarr;</a>`;
       }
 
-      // 4. Render Event Cards
-      eventsGrid.innerHTML = events.map(evt => `
+      // 6. Render Event Cards
+      eventsGrid.innerHTML = upcomingEvents.map(evt => `
         <div class="bg-charcoal-950 border border-stone-800 rounded-xl p-6 flex flex-col justify-between hover:border-stone-700 transition">
           <div>
             <div class="flex items-center justify-between gap-2 mb-4">
@@ -233,6 +297,5 @@
       `).join('');
     })();
   </script>
-
 </body>
 </html>
