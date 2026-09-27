@@ -1,7 +1,9 @@
 BEGIN:VCARD
 VERSION:2.1
-EMAIL;HOME:info@reddirtgoods.com
-ADR;HOME:;;;Wichita Falls;Texas;;
+N:Co;Red Dirt;Goods;;
+FN:Red Dirt Goods Co.
+EMAIL;X-CUSTOM(CHARSET=UTF-8,ENCODING=QUOTED-PRINTABLE,=45=6D=61=69=6C=20=55=73=21):info@reddirtgoods.com
+ADR;X-Location:;;;Wichita Falls;Texas;;
 ORG:Red Dirt Goods Co.
 URL:https://reddirtgoods.com
 URL:https://instagram.com/reddirtgoodsco
