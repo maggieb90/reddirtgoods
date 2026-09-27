@@ -76,12 +76,23 @@
         Elevated pantry staples, cold-crafted drinking vinegars, pickled mustard caviar, small-batch relish, salsas, preserves, and more, made for smokehouse barbecues and weekend boards. Locally created in Wichita Falls, Texas.
       </p>
 
-      <div class="mt-8 flex flex-wrap justify-center gap-4">
+      <!-- BUTTON ROW -->
+      <div class="mt-8 flex flex-wrap justify-center gap-4 items-center">
         <a href="products.html" class="bg-rust-600 text-white font-semibold px-6 py-3 rounded-lg hover:bg-rust-500 transition shadow-md">
           Explore Provisions & Pre-Order
         </a>
-        <a href="#events" class="border border-stone-700 hover:border-stone-500 text-stone-300 px-6 py-3 rounded-lg transition">
+        <a href="#events" class="border border-stone-700 hover:border-stone-500 text-stone-300 hover:text-white px-6 py-3 rounded-lg transition">
           Find Us at Upcoming Events
+        </a>
+        <a 
+          href="/contact.vcf" 
+          download="Red_Dirt_Goods.vcf" 
+          class="contact-safe-button inline-flex items-center justify-center gap-2 bg-charcoal-900 hover:bg-stone-900 border border-stone-700 hover:border-rust-500 text-stone-200 hover:text-white px-5 py-3 rounded-lg text-sm font-medium transition shadow-sm active:scale-[0.98]"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-rust-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+          </svg>
+          <span>Download Our Business Card!</span>
         </a>
       </div>
     </section>
@@ -135,16 +146,11 @@
     // =========================================================================
 
     // 1. DATES TO SKIP:
-    // If you won't be at the Farmers Market on a certain Saturday, add the date
-    // between quotes inside the brackets below in "YYYY-MM-DD" format.
-    // Example: const SKIP_SATURDAYS = ["2026-11-28", "2026-12-26"];
     const SKIP_SATURDAYS = [
       // "2026-10-31", // Add dates to skip here
     ];
 
     // 2. ADDITIONAL POP-UPS & SPECIAL EVENTS:
-    // When you book extra events (brewery pop-ups, holiday craft fairs, evening markets),
-    // add them here. They will automatically be sorted by date into your schedule!
     const SPECIAL_POPUP_EVENTS = [
       /* Example event entry:
       {
