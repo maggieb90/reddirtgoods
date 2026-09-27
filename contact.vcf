@@ -1,0 +1,11 @@
+BEGIN:VCARD
+VERSION: 3.0
+N : ;Red Dirt Goods Co.; ; ;
+FN : Red Dirt Goods Co.
+ORG : Red Dirt Goods Co.
+URL ; TYPE=WORK : https://reddirtgoods.com
+X-SOCIALPROFILE ; TYPE=Facebook:https://facebook.com/reddirtgoodsco
+X-SOCIALPROFILE ; TYPE=Instagram:https://instagram.com/reddirtgoodsco
+PHOTO ; TYPE=WEBP ; ENCODING=b : [PASTE_YOUR_BASE64_STRING_HERE]
+NOTE : Handcrafted Small-Batch Texas Brine & Provisions.
+END : VCARD
