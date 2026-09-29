@@ -12,7 +12,7 @@ export default async function handler(req, res) {
   }
 
   try {
-    // 1. Fetch all items and variations from Square
+    // 1. Fetch catalog items from Square
     const catalogRes = await fetch('https://connect.squareup.com/v2/catalog/list?types=ITEM', {
       headers: {
         'Square-Version': '2024-09-19',
@@ -24,17 +24,17 @@ export default async function handler(req, res) {
     const catalogData = await catalogRes.json();
     if (!catalogRes.ok) throw new Error(catalogData.errors?.[0]?.detail || 'Failed to fetch catalog.');
 
-    const items = (catalogData.objects || []).filter(obj => !obj.is_deleted);
+    // Filter out deleted or inactive items
+    const rawItems = (catalogData.objects || []).filter(obj => !obj.is_deleted && !obj.item_data?.is_archived);
     const variationIds = [];
 
-    // Collect all variation IDs across all product bundles
-    items.forEach(item => {
+    rawItems.forEach(item => {
       item.item_data?.variations?.forEach(v => {
         if (!v.is_deleted) variationIds.push(v.id);
       });
     });
 
-    // 2. Fetch live inventory counts for every specific variation
+    // 2. Fetch live inventory counts
     let stockMap = {};
     if (variationIds.length > 0) {
       const invRes = await fetch('https://connect.squareup.com/v2/inventory/counts/batch-retrieve', {
@@ -60,44 +60,58 @@ export default async function handler(req, res) {
       }
     }
 
-    // 3. Unroll variations into individual product listings
-    const individualProducts = [];
+    // 3. Process and format products cleanly
+    const products = [];
 
-    items.forEach(item => {
+    rawItems.forEach(item => {
       const parentData = item.item_data;
-      const parentName = parentData.name || '';
-      const parentDesc = parentData.description || '';
+      const parentName = (parentData.name || '').trim();
+      const parentDesc = (parentData.description || '').trim();
       const variations = parentData.variations || [];
+
+      // Extract "Pair with:" helper text if you added it to the item description
+      const pairMatch = parentDesc.match(/Pair with:\s*(.*)/i);
+      const pairWith = pairMatch ? pairMatch[1].trim() : '';
+      const cleanDesc = parentDesc.replace(/Pair with:\s*.*$/i, '').trim();
 
       variations.forEach(v => {
         if (v.is_deleted) return;
 
         const vData = v.item_variation_data || {};
-        const varName = vData.name || '';
+        const varName = (vData.name || '').trim();
         const priceCents = vData.price_money?.amount || 0;
+
+        // Skip any ghost items with no price set
+        if (priceCents <= 0) return;
+
         const stock = stockMap[v.id] !== undefined ? stockMap[v.id] : 0;
 
-        // Build clean display name:
-        // If variation is named "Regular", use parent name.
-        // Otherwise, combine them cleanly (e.g. "Spiced Cranberry-Apple Jam (4 oz)")
-        let displayName = '';
-        if (!varName || varName.toLowerCase() === 'regular') {
-          displayName = parentName;
-        } else if (parentName.toLowerCase().includes('jam') || parentName.toLowerCase().includes('bundle') || parentName.toLowerCase().includes('provision')) {
-          displayName = varName;
-        } else {
-          displayName = `${parentName} - ${varName}`;
+        // Construct a clean, human-readable display name
+        let displayName = parentName;
+
+        // If variation has a real name that isn't generic "Regular"
+        if (varName && varName.toLowerCase() !== 'regular') {
+          // If parent name is generic like "Jams & Compotes", use the flavor/variation name directly
+          if (parentName.toLowerCase().includes('&') || parentName.toLowerCase() === 'provisions' || parentName.toLowerCase() === 'jams') {
+            displayName = varName;
+          } 
+          // If parent name already includes the variation name, don't repeat it
+          else if (parentName.toLowerCase().includes(varName.toLowerCase())) {
+            displayName = parentName;
+          } 
+          // Otherwise, nicely format as "Item Name (Variation/Size)"
+          else {
+            displayName = `${parentName} (${varName})`;
+          }
         }
 
-        // Determine if this item qualifies for the 3 for $18 trio (4oz or 2oz items)
-        const isTrio = displayName.includes('4 oz') || displayName.includes('2 oz') || displayName.includes('4oz') || displayName.includes('2oz');
+        // Clean up any double-parentheses like "Item (4 oz) (4 oz)"
+        displayName = displayName.replace(/\(([^)]+)\)\s*\(\1\)/gi, '($1)').trim();
 
-        // Extract pair-with notes if included in variation or item description
-        const pairMatch = parentDesc.match(/Pair with:\s*(.*)/i);
-        const pairWith = pairMatch ? pairMatch[1].trim() : '';
-        const cleanDesc = parentDesc.replace(/Pair with:\s*.*$/i, '').trim();
+        // 3 for $18 eligibility (any 4oz or 2oz items)
+        const isTrio = /4\s*oz|2\s*oz/i.test(displayName);
 
-        individualProducts.push({
+        products.push({
           id: item.id,
           variationId: v.id,
           sku: vData.sku || '',
@@ -112,12 +126,12 @@ export default async function handler(req, res) {
       });
     });
 
-    // Sort alphabetically by name
-    individualProducts.sort((a, b) => a.name.localeCompare(b.name));
+    // Sort alphabetically
+    products.sort((a, b) => a.name.localeCompare(b.name));
 
-    // Cache on Vercel for 60 seconds
-    res.setHeader('Cache-Control', 's-maxage=60, stale-while-revalidate');
-    return res.status(200).json(individualProducts);
+    // Cache on Vercel for 30 seconds
+    res.setHeader('Cache-Control', 's-maxage=30, stale-while-revalidate');
+    return res.status(200).json(products);
 
   } catch (err) {
     console.error('Square Sync Error:', err);
