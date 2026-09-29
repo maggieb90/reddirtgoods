@@ -24,7 +24,6 @@ export default async function handler(req, res) {
     const catalogData = await catalogRes.json();
     if (!catalogRes.ok) throw new Error(catalogData.errors?.[0]?.detail || 'Failed to fetch catalog.');
 
-    // Filter out deleted or inactive items
     const rawItems = (catalogData.objects || []).filter(obj => !obj.is_deleted && !obj.item_data?.is_archived);
     const variationIds = [];
 
@@ -60,8 +59,8 @@ export default async function handler(req, res) {
       }
     }
 
-    // 3. Process and format products cleanly
-    const products = [];
+    // 3. Group by parent product
+    const groupedProducts = [];
 
     rawItems.forEach(item => {
       const parentData = item.item_data;
@@ -69,69 +68,67 @@ export default async function handler(req, res) {
       const parentDesc = (parentData.description || '').trim();
       const variations = parentData.variations || [];
 
-      // Extract "Pair with:" helper text if you added it to the item description
       const pairMatch = parentDesc.match(/Pair with:\s*(.*)/i);
       const pairWith = pairMatch ? pairMatch[1].trim() : '';
       const cleanDesc = parentDesc.replace(/Pair with:\s*.*$/i, '').trim();
+
+      const validVariations = [];
+      let totalStock = 0;
 
       variations.forEach(v => {
         if (v.is_deleted) return;
 
         const vData = v.item_variation_data || {};
-        const varName = (vData.name || '').trim();
         const priceCents = vData.price_money?.amount || 0;
-
-        // Skip any ghost items with no price set
-        if (priceCents <= 0) return;
+        if (priceCents <= 0) return; // Skip dummy/unpriced variations
 
         const stock = stockMap[v.id] !== undefined ? stockMap[v.id] : 0;
+        totalStock += stock;
 
-        // Construct a clean, human-readable display name
-        let displayName = parentName;
-
-        // If variation has a real name that isn't generic "Regular"
-        if (varName && varName.toLowerCase() !== 'regular') {
-          // If parent name is generic like "Jams & Compotes", use the flavor/variation name directly
-          if (parentName.toLowerCase().includes('&') || parentName.toLowerCase() === 'provisions' || parentName.toLowerCase() === 'jams') {
-            displayName = varName;
-          } 
-          // If parent name already includes the variation name, don't repeat it
-          else if (parentName.toLowerCase().includes(varName.toLowerCase())) {
-            displayName = parentName;
-          } 
-          // Otherwise, nicely format as "Item Name (Variation/Size)"
-          else {
-            displayName = `${parentName} (${varName})`;
-          }
+        let varName = (vData.name || '').trim();
+        if (!varName || varName.toLowerCase() === 'regular') {
+          varName = 'Standard';
         }
 
-        // Clean up any double-parentheses like "Item (4 oz) (4 oz)"
-        displayName = displayName.replace(/\(([^)]+)\)\s*\(\1\)/gi, '($1)').trim();
+        const isTrio = /4\s*oz|2\s*oz/i.test(varName) || /4\s*oz|2\s*oz/i.test(parentName);
 
-        // 3 for $18 eligibility (any 4oz or 2oz items)
-        const isTrio = /4\s*oz|2\s*oz/i.test(displayName);
-
-        products.push({
-          id: item.id,
+        validVariations.push({
           variationId: v.id,
+          name: varName,
           sku: vData.sku || '',
-          name: displayName,
           price: priceCents / 100,
           stock: stock,
           isAvailable: stock > 0,
-          description: cleanDesc,
-          pairWith: pairWith,
           category: isTrio ? 'jar_trio' : 'standard'
         });
       });
+
+      if (validVariations.length === 0) return;
+
+      // Sort variations lowest price to highest
+      validVariations.sort((a, b) => a.price - b.price);
+
+      groupedProducts.push({
+        id: item.id,
+        name: parentName,
+        description: cleanDesc,
+        pairWith: pairWith,
+        totalStock: totalStock,
+        isAvailable: totalStock > 0,
+        variations: validVariations
+      });
     });
 
-    // Sort alphabetically
-    products.sort((a, b) => a.name.localeCompare(b.name));
+    // In-stock items first, then alphabetically
+    groupedProducts.sort((a, b) => {
+      if (a.isAvailable === b.isAvailable) {
+        return a.name.localeCompare(b.name);
+      }
+      return a.isAvailable ? -1 : 1;
+    });
 
-    // Cache on Vercel for 30 seconds
     res.setHeader('Cache-Control', 's-maxage=30, stale-while-revalidate');
-    return res.status(200).json(products);
+    return res.status(200).json(groupedProducts);
 
   } catch (err) {
     console.error('Square Sync Error:', err);
