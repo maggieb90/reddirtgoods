@@ -12,19 +12,33 @@ export default async function handler(req, res) {
   }
 
   try {
-    // 1. Fetch catalog items from Square
-    const catalogRes = await fetch('https://connect.squareup.com/v2/catalog/list?types=ITEM', {
-      headers: {
-        'Square-Version': '2024-09-19',
-        'Authorization': `Bearer ${token}`,
-        'Content-Type': 'application/json'
+    // 1. Fetch ALL catalog items from Square using pagination cursor
+    let allObjects = [];
+    let cursor = null;
+
+    do {
+      const url = new URL('https://connect.squareup.com/v2/catalog/list');
+      url.searchParams.set('types', 'ITEM');
+      if (cursor) url.searchParams.set('cursor', cursor);
+
+      const catalogRes = await fetch(url.toString(), {
+        headers: {
+          'Square-Version': '2024-09-19',
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json'
+        }
+      });
+
+      const catalogData = await catalogRes.json();
+      if (!catalogRes.ok) throw new Error(catalogData.errors?.[0]?.detail || 'Failed to fetch catalog.');
+
+      if (catalogData.objects) {
+        allObjects = allObjects.concat(catalogData.objects);
       }
-    });
+      cursor = catalogData.cursor || null;
+    } while (cursor);
 
-    const catalogData = await catalogRes.json();
-    if (!catalogRes.ok) throw new Error(catalogData.errors?.[0]?.detail || 'Failed to fetch catalog.');
-
-    const rawItems = (catalogData.objects || []).filter(obj => !obj.is_deleted && !obj.item_data?.is_archived);
+    const rawItems = allObjects.filter(obj => !obj.is_deleted && !obj.item_data?.is_archived);
     const variationIds = [];
 
     rawItems.forEach(item => {
@@ -33,9 +47,12 @@ export default async function handler(req, res) {
       });
     });
 
-    // 2. Fetch live inventory counts
+    // 2. Fetch live inventory counts in chunks of 100
     let stockMap = {};
-    if (variationIds.length > 0) {
+    const chunkSize = 100;
+
+    for (let i = 0; i < variationIds.length; i += chunkSize) {
+      const batchIds = variationIds.slice(i, i + chunkSize);
       const invRes = await fetch('https://connect.squareup.com/v2/inventory/counts/batch-retrieve', {
         method: 'POST',
         headers: {
@@ -44,7 +61,7 @@ export default async function handler(req, res) {
           'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-          catalog_object_ids: variationIds,
+          catalog_object_ids: batchIds,
           location_ids: [locationId]
         })
       });
@@ -80,9 +97,28 @@ export default async function handler(req, res) {
 
         const vData = v.item_variation_data || {};
         const priceCents = vData.price_money?.amount || 0;
-        if (priceCents <= 0) return; // Skip dummy/unpriced variations
 
-        const stock = stockMap[v.id] !== undefined ? stockMap[v.id] : 0;
+        // Skip variations without a set price
+        if (priceCents <= 0) return;
+
+        // Check if variation is explicitly assigned to this location
+        const locationOverrides = vData.location_overrides || [];
+        const thisLocOverride = locationOverrides.find(o => o.location_id === locationId);
+        if (thisLocOverride && thisLocOverride.sold_out) {
+          // If marked sold out in location overrides
+          stockMap[v.id] = 0;
+        }
+
+        // Determine stock: if tracked, use stockMap; if not tracked, assume in-stock
+        const isTracking = vData.track_inventory === true;
+        let stock = 0;
+        if (isTracking) {
+          stock = stockMap[v.id] !== undefined ? stockMap[v.id] : 0;
+        } else {
+          // Default buffer stock for items where inventory tracking is toggled off in Square
+          stock = 10;
+        }
+
         totalStock += stock;
 
         let varName = (vData.name || '').trim();
@@ -105,7 +141,6 @@ export default async function handler(req, res) {
 
       if (validVariations.length === 0) return;
 
-      // Sort variations lowest price to highest
       validVariations.sort((a, b) => a.price - b.price);
 
       groupedProducts.push({
