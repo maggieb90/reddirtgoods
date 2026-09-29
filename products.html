@@ -254,6 +254,7 @@
 
       try {
         const res = await fetch('/api/products');
+        if (!res.ok) throw new Error(`Server returned status ${res.status}`);
         catalog = await res.json();
 
         inStockGrid.innerHTML = '';
@@ -281,8 +282,8 @@
           if (inStockVariations.length > 0) {
             inStockCardCount++;
             const prices = inStockVariations.map(v => v.price);
-            const minPrice = Math.min(...prices);
-            const maxPrice = Math.max(...prices);
+            const minPrice = prices.length ? Math.min(...prices) : 0;
+            const maxPrice = prices.length ? Math.max(...prices) : 0;
             const priceLabel = minPrice === maxPrice 
               ? `$${minPrice.toFixed(2)}` 
               : `$${minPrice.toFixed(2)} – $${maxPrice.toFixed(2)}`;
@@ -314,13 +315,14 @@
             inStockGrid.appendChild(card);
 
             // Active Order Row with Dropdown
+            const firstVar = inStockVariations[0];
             const orderRow = document.createElement('div');
             orderRow.className = "bg-charcoal-950 p-3 rounded-lg border border-stone-800 flex flex-col sm:flex-row sm:items-center justify-between gap-3";
             orderRow.innerHTML = `
               <div class="flex-grow">
                 <span class="text-sm font-medium text-stone-200 block">${item.name}</span>
                 <span id="price-desc-${index}" class="text-xs text-rust-400 font-mono">
-                  $${inStockVariations[0].price.toFixed(2)} ${inStockVariations[0].category === 'jar_trio' ? '(3 for $18 eligible)' : ''}
+                  $${firstVar.price.toFixed(2)} ${firstVar.category === 'jar_trio' ? '(3 for $18 eligible)' : ''}
                 </span>
               </div>
               <div class="flex items-center gap-2">
@@ -334,12 +336,12 @@
                 <input type="number" 
                        id="qty-input-${index}"
                        data-parent-name="${item.name}"
-                       data-variation-id="${inStockVariations[0].variationId}" 
-                       data-name="${item.name} (${inStockVariations[0].name})" 
-                       data-price="${inStockVariations[0].price}" 
-                       data-category="${inStockVariations[0].category}" 
+                       data-variation-id="${firstVar.variationId}" 
+                       data-name="${item.name} (${firstVar.name})" 
+                       data-price="${firstVar.price}" 
+                       data-category="${firstVar.category}" 
                        min="0" 
-                       max="${Math.min(inStockVariations[0].stock, 12)}" 
+                       max="${Math.min(firstVar.stock, 12)}" 
                        value="0" 
                        class="qty-input w-16 bg-charcoal-900 border border-stone-700 rounded px-2 py-1 text-center text-stone-100 focus:border-rust-500" 
                        onchange="updateCart()">
@@ -360,8 +362,8 @@
 
           outOfStockGrid.innerHTML = outOfStockGroups.map(group => {
             const prices = group.variations.map(v => v.price);
-            const minPrice = Math.min(...prices);
-            const maxPrice = Math.max(...prices);
+            const minPrice = prices.length ? Math.min(...prices) : 0;
+            const maxPrice = prices.length ? Math.max(...prices) : 0;
             const priceLabel = minPrice === maxPrice 
               ? `$${minPrice.toFixed(2)}` 
               : `$${minPrice.toFixed(2)} – $${maxPrice.toFixed(2)}`;
@@ -403,7 +405,7 @@
         inStockGrid.innerHTML = `<div class="col-span-full text-center text-stone-400 py-8">Unable to sync live Square inventory right now. Please check back shortly.</div>`;
       }
     }
-    }    loadCatalog();
+    loadCatalog();
 
     function handleSizeChange(index) {
       const select = document.getElementById(`var-select-${index}`);
