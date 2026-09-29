@@ -58,11 +58,28 @@
         <p class="text-stone-400 text-xs mt-2 italic">Bundle discounts automatically applied in your cart below!</p>
       </div>
 
-      <!-- Live Dynamic Grid -->
-      <div id="provisionsGrid" class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+      <!-- IN-STOCK PROVISIONS GRID -->
+      <div id="inStockGrid" class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
         <div class="col-span-full text-center py-12 text-stone-400 font-mono text-sm animate-pulse">
-          Syncing latest provisions from pantry...
+          Loading pantry provisions from kitchen...
         </div>
+      </div>
+
+      <!-- OUT OF STOCK / UPCOMING BATCHES ACCORDION -->
+      <div id="outOfStockWrapper" class="mt-12 hidden">
+        <details class="group bg-charcoal-900 border border-stone-800 rounded-2xl overflow-hidden transition">
+          <summary class="flex justify-between items-center p-5 cursor-pointer select-none text-stone-400 hover:text-stone-200 transition">
+            <div class="flex items-center gap-2.5">
+              <span class="text-xs uppercase font-bold tracking-widest text-stone-400">See What's Coming (Out of Stock)</span>
+              <span id="outOfStockCount" class="text-[11px] font-mono bg-stone-800 text-stone-400 px-2 py-0.5 rounded-full">0</span>
+            </div>
+            <span class="text-xs text-stone-500 group-open:rotate-180 transition-transform duration-200 font-mono">▼</span>
+          </summary>
+          <div class="p-5 pt-0 border-t border-stone-800/60">
+            <p class="text-xs text-stone-500 my-4">These seasonal recipes and small-batch jars are currently resting or between harvests. Check back soon!</p>
+            <div id="outOfStockGrid" class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+          </div>
+        </details>
       </div>
     </section>
 
@@ -167,8 +184,9 @@
             <span class="text-[11px] text-stone-400 italic">Bundles automatically applied!</span>
           </div>
           
-          <div id="orderItemsContainer" class="grid gap-2.5">
-            <div class="text-xs text-stone-400 italic py-2">Loading live items from Square...</div>
+          <!-- Live Grouped Order Inputs -->
+          <div id="orderItemsContainer" class="grid gap-3">
+            <div class="text-xs text-stone-400 italic py-2">Loading live provisions...</div>
           </div>
         </div>
 
@@ -227,88 +245,152 @@
     let isDeliveryValid = false;
     let catalog = [];
 
-    async function loadSquareCatalog() {
-      const grid = document.getElementById('provisionsGrid');
+    async function loadCatalog() {
+      const inStockGrid = document.getElementById('inStockGrid');
+      const outOfStockGrid = document.getElementById('outOfStockGrid');
+      const outOfStockWrapper = document.getElementById('outOfStockWrapper');
+      const outOfStockCount = document.getElementById('outOfStockCount');
       const orderInputs = document.getElementById('orderItemsContainer');
 
       try {
         const res = await fetch('/api/products');
         catalog = await res.json();
 
-        grid.innerHTML = '';
+        inStockGrid.innerHTML = '';
+        outOfStockGrid.innerHTML = '';
         orderInputs.innerHTML = '';
 
-        catalog.forEach(item => {
-          const isAvail = item.isAvailable;
-          const stock = item.stock;
+        let outOfStockTotal = 0;
 
-          // 1. Grid Cards
-          const card = document.createElement('div');
-          if (isAvail) {
+        catalog.forEach((item, index) => {
+          const inStockVariations = item.variations.filter(v => v.isAvailable);
+
+          // 1. Render Catalog Grid Cards
+          if (item.isAvailable && inStockVariations.length > 0) {
+            // Price range format (e.g. "$7.00" or "$7.00 – $12.00")
+            const prices = inStockVariations.map(v => v.price);
+            const minPrice = Math.min(...prices);
+            const maxPrice = Math.max(...prices);
+            const priceLabel = minPrice === maxPrice 
+              ? `$${minPrice.toFixed(2)}` 
+              : `$${minPrice.toFixed(2)} – $${maxPrice.toFixed(2)}`;
+
+            const card = document.createElement('div');
             card.className = "border border-stone-800 rounded-xl p-5 bg-charcoal-900 hover:border-rust-500/50 transition flex flex-col justify-between";
             card.innerHTML = `
               <div>
                 <div class="flex justify-between items-start">
                   <h2 class="font-serif font-bold text-lg text-stone-100">${item.name}</h2>
-                  <span class="text-xs font-bold bg-rust-950 text-rust-300 border border-rust-800 px-2 py-1 rounded">$${item.price.toFixed(2)}</span>
+                  <span class="text-xs font-bold bg-rust-950 text-rust-300 border border-rust-800 px-2 py-1 rounded font-mono">${priceLabel}</span>
                 </div>
                 <div class="flex gap-1.5 mt-2 flex-wrap">
-                  <span class="text-[10px] font-semibold uppercase tracking-wider bg-stone-800 text-stone-300 px-2 py-0.5 rounded border border-stone-700">Small-Batch</span>
-                  ${item.category === 'jar_trio' ? `<span class="text-[10px] font-semibold uppercase tracking-wider bg-rust-950 text-rust-300 px-2 py-0.5 rounded border border-rust-800">3 for $18</span>` : ''}
+                  ${inStockVariations.map(v => `
+                    <span class="text-[10px] font-semibold uppercase tracking-wider bg-stone-800 text-stone-300 px-2 py-0.5 rounded border border-stone-700">
+                      ${v.name}:$${v.price.toFixed(2)}
+                    </span>
+                  `).join('')}
                 </div>
                 <p class="text-sm text-stone-400 mt-2.5">${item.description}</p>
               </div>
+              ${item.pairWith ? `
+                <p class="text-xs text-rust-400 mt-4 pt-3 border-t border-stone-800/80 font-medium">
+                  <span class="text-stone-300">Pair with:</span> ${item.pairWith}
+                </p>
+              ` : ''}
             `;
+            inStockGrid.appendChild(card);
+
+            // 2. Render Order Form Row with Dynamic Size Picker
+            const orderRow = document.createElement('div');
+            orderRow.className = "bg-charcoal-950 p-3 rounded-lg border border-stone-800 flex flex-col sm:flex-row sm:items-center justify-between gap-3";
+            orderRow.innerHTML = `
+              <div class="flex-grow">
+                <span class="text-sm font-medium text-stone-200 block">${item.name}</span>
+                <span id="price-desc-${index}" class="text-xs text-rust-400 font-mono">
+                  $${inStockVariations[0].price.toFixed(2)} ${inStockVariations[0].category === 'jar_trio' ? '(3 for $18 eligible)' : ''}
+                </span>
+              </div>
+              <div class="flex items-center gap-2">
+                <select id="var-select-${index}" class="bg-charcoal-900 border border-stone-700 text-stone-200 text-xs rounded px-2.5 py-1.5 focus:border-rust-500" onchange="handleSizeChange(${index})">
+                  ${inStockVariations.map(v => `
+                    <option value="${v.variationId}" data-price="${v.price}" data-stock="${v.stock}" data-category="${v.category}">
+                      ${v.name} ($${v.price.toFixed(2)})
+                    </option>
+                  `).join('')}
+                </select>
+                <input type="number" 
+                       id="qty-input-${index}"
+                       data-parent-name="${item.name}"
+                       data-variation-id="${inStockVariations[0].variationId}" 
+                       data-name="${item.name} (${inStockVariations[0].name})" 
+                       data-price="${inStockVariations[0].price}" 
+                       data-category="${inStockVariations[0].category}" 
+                       min="0" 
+                       max="${Math.min(inStockVariations[0].stock, 12)}" 
+                       value="0" 
+                       class="qty-input w-16 bg-charcoal-900 border border-stone-700 rounded px-2 py-1 text-center text-stone-100 focus:border-rust-500" 
+                       onchange="updateCart()">
+              </div>
+            `;
+            orderInputs.appendChild(orderRow);
+
           } else {
-            card.className = "border border-stone-800/80 rounded-xl p-5 bg-charcoal-950/80 opacity-60 flex flex-col justify-between relative overflow-hidden";
+            // Put into Out of Stock drawer
+            outOfStockTotal++;
+            const card = document.createElement('div');
+            card.className = "border border-stone-800/80 rounded-xl p-5 bg-charcoal-950/80 opacity-60 flex flex-col justify-between";
             card.innerHTML = `
               <div>
                 <div class="flex justify-between items-start">
-                  <h2 class="font-serif font-bold text-lg text-stone-300">${item.name}</h2>
-                  <span class="text-xs font-semibold bg-stone-900 text-stone-400 border border-stone-700 px-2 py-1 rounded">Sold Out</span>
+                  <h2 class="font-serif font-bold text-base text-stone-300">${item.name}</h2>
+                  <span class="text-[10px] font-semibold bg-stone-900 text-stone-400 border border-stone-700 px-2 py-0.5 rounded">Sold Out</span>
                 </div>
-                <p class="text-sm text-stone-500 mt-2.5">${item.description}</p>
+                <p class="text-xs text-stone-500 mt-2">${item.description}</p>
               </div>
-              <p class="text-xs text-stone-500 mt-4 pt-3 border-t border-stone-900 font-medium">
-                Currently sold out — fresh batch brewing!
+              <p class="text-[11px] text-stone-500 mt-3 pt-2 border-t border-stone-900 italic">
+                Restock in progress!
               </p>
             `;
+            outOfStockGrid.appendChild(card);
           }
-          grid.appendChild(card);
-
-          // 2. Order Form Row
-          const orderRow = document.createElement('div');
-          if (isAvail) {
-            orderRow.className = "flex items-center justify-between bg-charcoal-950 p-3 rounded-lg border border-stone-800";
-            orderRow.innerHTML = `
-              <span class="text-sm text-stone-200">${item.name} — $${item.price.toFixed(2)} ${item.category === 'jar_trio' ? '<span class="text-[11px] text-stone-400 font-mono">(3 for $18)</span>' : ''}</span>
-              <input type="number" 
-                     data-variation-id="${item.variationId}" 
-                     data-name="${item.name}" 
-                     data-price="${item.price}" 
-                     data-category="${item.category}" 
-                     min="0" 
-                     max="${Math.min(stock, 12)}" 
-                     value="0" 
-                     class="qty-input w-16 bg-charcoal-900 border border-stone-700 rounded px-2 py-1 text-center text-stone-100 focus:border-rust-500" 
-                     onchange="updateCart()">
-            `;
-          } else {
-            orderRow.className = "flex items-center justify-between bg-charcoal-950/50 p-3 rounded-lg border border-stone-800/60 opacity-50";
-            orderRow.innerHTML = `
-              <span class="text-sm text-stone-400">${item.name}</span>
-              <span class="text-xs text-stone-500 italic">Sold Out</span>
-            `;
-          }
-          orderInputs.appendChild(orderRow);
         });
 
+        if (outOfStockTotal > 0) {
+          outOfStockWrapper.classList.remove('hidden');
+          outOfStockCount.textContent = outOfStockTotal;
+        }
+
       } catch (err) {
-        console.error("Failed to load Square products:", err);
-        grid.innerHTML = `<div class="col-span-full text-center text-stone-400 py-8">Unable to sync live Square inventory right now. Please check back shortly.</div>`;
+        console.error("Failed to load catalog:", err);
+        inStockGrid.innerHTML = `<div class="col-span-full text-center text-stone-400 py-8">Unable to sync live Square inventory right now. Please check back shortly.</div>`;
       }
     }
-    loadSquareCatalog();
+    loadCatalog();
+
+    function handleSizeChange(index) {
+      const select = document.getElementById(`var-select-${index}`);
+      const selectedOpt = select.options[select.selectedIndex];
+      const qtyInput = document.getElementById(`qty-input-${index}`);
+      const priceDesc = document.getElementById(`price-desc-${index}`);
+
+      const newPrice = parseFloat(selectedOpt.getAttribute('data-price'));
+      const newStock = parseInt(selectedOpt.getAttribute('data-stock'), 10) || 0;
+      const newCategory = selectedOpt.getAttribute('data-category');
+      const parentName = qtyInput.getAttribute('data-parent-name');
+
+      qtyInput.setAttribute('data-variation-id', select.value);
+      qtyInput.setAttribute('data-name', `${parentName} (${selectedOpt.text.split('(')[0].trim()})`);
+      qtyInput.setAttribute('data-price', newPrice);
+      qtyInput.setAttribute('data-category', newCategory);
+      qtyInput.max = Math.min(newStock, 12);
+
+      priceDesc.textContent = `$${newPrice.toFixed(2)} ${newCategory === 'jar_trio' ? '(3 for $18 eligible)' : ''}`;
+
+      if (parseInt(qtyInput.value, 10) > newStock) {
+        qtyInput.value = newStock;
+      }
+      updateCart();
+    }
 
     function setupSaturdayDates() {
       const select = document.getElementById('pickupDate');
@@ -431,7 +513,7 @@
       const jarTrioPrices = [];
 
       document.querySelectorAll('.qty-input').forEach(input => {
-        const qty = parseInt(input.value) || 0;
+        const qty = parseInt(input.value, 10) || 0;
         const price = parseFloat(input.getAttribute('data-price'));
         const category = input.getAttribute('data-category');
 
@@ -503,7 +585,7 @@
 
       const items = [];
       document.querySelectorAll('.qty-input').forEach(input => {
-        const qty = parseInt(input.value) || 0;
+        const qty = parseInt(input.value, 10) || 0;
         if (qty > 0) {
           items.push({
             variationId: input.getAttribute('data-variation-id'),
