@@ -140,33 +140,31 @@
 
   <!-- DYNAMIC EVENTS & STATUS BAR LOGIC -->
   <script>
-    // =========================================================================
+// =========================================================================
     // 🗓️ VENDOR SCHEDULE CONTROL CENTER 🗓️
     // (This is the ONLY section you ever need to edit!)
     // =========================================================================
 
-    // 1. DATES TO SKIP:
+    // 1. DATES TO SKIP (Skipping regular downtown market for festival):
     const SKIP_SATURDAYS = [
-      // "2026-10-31", // Add dates to skip here
+      "2026-10-03", // Friendship Festival in Burkburnett
     ];
 
     // 2. ADDITIONAL POP-UPS & SPECIAL EVENTS:
     const SPECIAL_POPUP_EVENTS = [
-      /* Example event entry:
       {
-        title: "Fall Harvest Night at the Brewery",
-        tag: "Special Pop-Up",
-        dateISO: "2026-10-16",
-        dateString: "Friday, Oct 16",
-        startHour: 17, // 5:00 PM (24-hr format)
-        endHour: 21,   // 9:00 PM
-        hoursText: "5:00 PM – 9:00 PM",
-        locationText: "Wichita Falls Brewing Co., 701 Indiana Ave",
-        mapLink: "https://maps.google.com/?q=Wichita+Falls+Brewing+Co+TX",
+        title: "Friendship Festival (Burkburnett)",
+        tag: "Special Festival",
+        dateISO: "2026-10-03",
+        dateString: "Saturday, Oct 3",
+        startHour: 9,  // 9:00 AM
+        endHour: 17,  // 5:00 PM (adjust if your festival hours differ)
+        hoursText: "9:00 AM – 5:00 PM",
+        locationText: "Friendship Park, 705 Davy Dr / County Rd, Burkburnett, TX",
+        mapLink: "https://maps.google.com/?q=Friendship+Park+705+Davy+Dr+Burkburnett+TX",
         linkText: "Open in Google Maps &rarr;",
-        description: "Join us for local beer and small-batch provisions! Pre-order pickups available."
+        description: "Join us at the Friendship Festival! Stock up on small-batch provisions, pickled mustard caviar, drinking vinegars, and fresh seasonal jars."
       }
-      */
     ];
 
     // 3. DEFAULT SATURDAY FARMERS MARKET DETAILS:
@@ -181,7 +179,7 @@
       linkText: "Open in Google Maps &rarr;",
       description: "Stock up on fresh batches, sample our brines and provisions, or pick up your pre-orders!"
     };
-
+    
     // =========================================================================
     // ⚙️ AUTOMATIC GENERATOR LOGIC (Do not edit below this line)
     // =========================================================================
