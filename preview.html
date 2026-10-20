@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Red Dirt Goods - Texture Previews</title>
+  <title>Red Dirt Goods - Custom Texture Test</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
     tailwind.config = {
@@ -24,105 +24,53 @@
     }
   </script>
   <style>
-    /* OPTION A: Dark Moody Burlap (CSS Cross-Hatch Weave + Vignette) */
-    .texture-a {
-      background-color: #120f0d;
+    /* Full page background styling using your downloaded image */
+    body {
+      background-color: #1a1410;
       background-image: 
-        radial-gradient(circle at center, rgba(28, 22, 19, 0.4) 0%, rgba(10, 8, 7, 0.95) 100%),
-        repeating-linear-gradient(0deg, rgba(255, 255, 255, 0.03) 0px, rgba(255, 255, 255, 0.03) 1px, transparent 1px, transparent 4px),
-        repeating-linear-gradient(90deg, rgba(255, 255, 255, 0.03) 0px, rgba(255, 255, 255, 0.03) 1px, transparent 1px, transparent 4px);
-    }
-
-    /* OPTION B: Tinted Raw Burlap Canvas Weave (High-Density Organic Micro-Texture) */
-    .texture-b {
-      background-color: #181310;
-      background-image: 
-        radial-gradient(circle at 50% 30%, rgba(46, 35, 28, 0.35) 0%, rgba(14, 11, 9, 0.95) 100%),
-        repeating-linear-gradient(45deg, rgba(210, 180, 140, 0.04) 0, rgba(210, 180, 140, 0.04) 2px, transparent 0, transparent 6px),
-        repeating-linear-gradient(-45deg, rgba(0, 0, 0, 0.35) 0, rgba(0, 0, 0, 0.35) 2px, transparent 0, transparent 6px);
-    }
-
-    /* OPTION C: Pure Muslin / Homespun Linen SVG Weave */
-    .texture-c {
-      background-color: #15110f;
-      background-image: 
-        radial-gradient(circle at center, rgba(25, 20, 17, 0.2) 0%, rgba(10, 8, 7, 0.9) 100%),
-        url("data:image/svg+xml,%3Csvg width='24' height='24' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 0h12v12H0V0zm12 12h12v12H12V12z' fill='%23281e18' fill-opacity='0.45' fill-rule='evenodd'/%3E%3Cpath d='M0 12h12v12H0V12zm12-12h12v12H12V0z' fill='%230f0c0a' fill-opacity='0.4' fill-rule='evenodd'/%3E%3C/svg%3E");
+        radial-gradient(circle at center, rgba(20, 16, 13, 0.72) 0%, rgba(10, 8, 7, 0.94) 100%),
+        url("burlap-texture.webp"); /* <-- CHANGE EXTENSION TO .jpg OR .png IF NEEDED */
+      background-repeat: repeat;
+      background-attachment: fixed;
+      background-size: 320px 320px;
     }
   </style>
 </head>
-<body class="bg-charcoal-950 text-stone-200 font-sans p-6 sm:p-10 space-y-12 max-w-5xl mx-auto">
+<body class="text-stone-200 font-sans p-6 sm:p-12 min-h-screen flex flex-col justify-between">
 
-  <div class="border-b border-stone-800 pb-6 text-center">
-    <h1 class="font-serif text-3xl font-bold text-stone-100">Rustic Background Texture Comparisons</h1>
-    <p class="text-stone-400 text-sm mt-2">Compare how each weave pattern looks alongside your branding, rust badges, and card components.</p>
-  </div>
-
-  <!-- OPTION A PREVIEW -->
-  <div class="space-y-3">
-    <div class="flex items-center justify-between">
-      <h2 class="font-serif text-xl font-bold text-rust-400">Option A: Dark Moody Burlap (Cross-Hatch Thread Weave)</h2>
-      <span class="text-xs bg-stone-800 text-stone-300 px-2.5 py-1 rounded">Pure CSS • Zero Network Requests</span>
+  <!-- TOP HEADER PREVIEW -->
+  <header class="border-b border-stone-800/80 bg-charcoal-900/90 backdrop-blur max-w-4xl mx-auto w-full px-6 py-4 rounded-xl shadow-xl flex justify-between items-center">
+    <div class="font-serif font-bold text-lg tracking-wide text-stone-100">
+      RED DIRT GOODS <span class="text-rust-500 font-light">Co.</span>
     </div>
-    <div class="texture-a border border-stone-800 rounded-2xl p-8 sm:p-12 shadow-2xl relative overflow-hidden">
-      <!-- Mock Component -->
-      <div class="max-w-md mx-auto bg-charcoal-900/90 border border-stone-800 p-6 rounded-xl shadow-xl backdrop-blur-sm text-center">
-        <span class="text-xs font-bold uppercase tracking-widest text-rust-400 bg-rust-950 px-3 py-1 rounded-full border border-rust-800/60 inline-block mb-3">
+    <div class="text-xs text-stone-400 font-medium">Texture Test Environment</div>
+  </header>
+
+  <!-- MOCK EVENT CARDS -->
+  <main class="max-w-4xl mx-auto w-full my-12 space-y-6">
+    <div class="text-center">
+      <span class="text-xs font-bold uppercase tracking-widest text-rust-400 bg-rust-950/80 px-3.5 py-1.5 rounded-full border border-rust-800/60 inline-block mb-3">
+        Live Background Preview
+      </span>
+      <h1 class="font-serif text-3xl sm:text-4xl font-bold text-stone-100">Testing Your Texture</h1>
+      <p class="text-stone-400 text-sm mt-2">Notice how your text contrast, rust buttons, and cards read against the fabric.</p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8">
+      <!-- Card 1 -->
+      <div class="bg-charcoal-900/90 border border-stone-800 p-6 rounded-2xl shadow-xl backdrop-blur-sm">
+        <span class="text-xs font-bold uppercase tracking-wider bg-rust-950 text-rust-400 border border-rust-800/60 px-2.5 py-1 rounded">
           Special Event
         </span>
-        <h3 class="font-serif text-2xl font-bold text-stone-100">Smith's Gardentown Pumpkin Fest</h3>
-        <p class="text-stone-300 text-sm mt-2">4940 Seymour Hwy, Wichita Falls, TX 76310</p>
-        <div class="mt-4 border border-rust-800/60 bg-rust-950/40 px-4 py-2 rounded text-xs text-rust-300 font-medium">
-          Saturday, Oct 24 • 9:00 AM – 5:00 PM
+        <h3 class="font-serif text-xl font-bold text-stone-100 mt-4">Smith's Gardentown Pumpkin Fest</h3>
+        <p class="text-stone-400 text-sm mt-2">Special Giveaway: Make a purchase or show us you follow us on Instagram or Facebook to enter!</p>
+        <div class="mt-4 pt-4 border-t border-stone-800/80 text-xs text-stone-400 space-y-1.5">
+          <p><strong class="text-stone-200">Date:</strong> Saturday, Oct 24, 2026</p>
+          <p><strong class="text-stone-200">Hours:</strong> 9:00 AM – 5:00 PM</p>
+          <p><strong class="text-stone-200">Location:</strong> 4940 Seymour Hwy, Wichita Falls, TX 76310</p>
         </div>
       </div>
-      <p class="text-center text-xs text-stone-500 mt-6">Simulates a raw, charcoal-dyed burlap sack weave with subtle thread glints.</p>
-    </div>
-  </div>
 
-  <!-- OPTION B PREVIEW -->
-  <div class="space-y-3">
-    <div class="flex items-center justify-between">
-      <h2 class="font-serif text-xl font-bold text-rust-400">Option B: Roasted Burlap Canvas (Diagonal Twill Weave)</h2>
-      <span class="text-xs bg-stone-800 text-stone-300 px-2.5 py-1 rounded">Warm Earth Tones</span>
-    </div>
-    <div class="texture-b border border-stone-800 rounded-2xl p-8 sm:p-12 shadow-2xl relative overflow-hidden">
-      <!-- Mock Component -->
-      <div class="max-w-md mx-auto bg-charcoal-900/90 border border-stone-800 p-6 rounded-xl shadow-xl backdrop-blur-sm text-center">
-        <span class="text-xs font-bold uppercase tracking-widest text-rust-400 bg-rust-950 px-3 py-1 rounded-full border border-rust-800/60 inline-block mb-3">
-          Special Market
-        </span>
-        <h3 class="font-serif text-2xl font-bold text-stone-100">Found & Fancy Fright Market</h3>
-        <p class="text-stone-300 text-sm mt-2">4300 Fairway Blvd, Wichita Falls, TX 76308</p>
-        <div class="mt-4 border border-rust-800/60 bg-rust-950/40 px-4 py-2 rounded text-xs text-rust-300 font-medium">
-          Sunday, Oct 25 • 2:00 PM – 6:00 PM
-        </div>
-      </div>
-      <p class="text-center text-xs text-stone-500 mt-6">Simulates coarse diagonal hessian fiber with natural warm-tan undertones.</p>
-    </div>
-  </div>
-
-  <!-- OPTION C PREVIEW -->
-  <div class="space-y-3">
-    <div class="flex items-center justify-between">
-      <h2 class="font-serif text-xl font-bold text-rust-400">Option C: Homespun Muslin / Linen (Fine Box Weave)</h2>
-      <span class="text-xs bg-stone-800 text-stone-300 px-2.5 py-1 rounded">Clean & Structured</span>
-    </div>
-    <div class="texture-c border border-stone-800 rounded-2xl p-8 sm:p-12 shadow-2xl relative overflow-hidden">
-      <!-- Mock Component -->
-      <div class="max-w-md mx-auto bg-charcoal-900/90 border border-stone-800 p-6 rounded-xl shadow-xl backdrop-blur-sm text-center">
-        <span class="text-xs font-bold uppercase tracking-widest text-rust-400 bg-rust-950 px-3 py-1 rounded-full border border-rust-800/60 inline-block mb-3">
-          Farmers Market
-        </span>
-        <h3 class="font-serif text-2xl font-bold text-stone-100">Downtown Wichita Falls Farmers Market</h3>
-        <p class="text-stone-300 text-sm mt-2">8th & Ohio Ave, Wichita Falls, TX 76301</p>
-        <div class="mt-4 border border-rust-800/60 bg-rust-950/40 px-4 py-2 rounded text-xs text-rust-300 font-medium">
-          Every Saturday Morning • 9:00 AM – 1:00 PM
-        </div>
-      </div>
-      <p class="text-center text-xs text-stone-500 mt-6">Simulates a crisp, tighter-woven pantry muslin / flour-sack cloth.</p>
-    </div>
-  </div>
-
-</body>
-</html>
+      <!-- Card 2 -->
+      <div class="bg-charcoal-900/90 border border-stone-800 p-6 rounded-2xl shadow-xl backdrop-blur-sm">
+        <span class="text-xs font-bold uppercase tracking-wider bg-rust-950
