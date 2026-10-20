@@ -191,24 +191,19 @@
           </div>
         </div>
 
-        <!-- REPEATABLE ITEM BUILDER -->
+        <!-- INDEPENDENT ITEM ORDER SHEET -->
         <div class="border-t border-stone-800 pt-5">
-          <div class="flex justify-between items-center mb-3">
-            <label class="block text-xs font-bold uppercase tracking-wider text-rust-400">Select Items & Quantities</label>
-            <span class="text-[11px] text-stone-400 italic">3 for $18 discounts applied automatically!</span>
+          <div class="flex justify-between items-center mb-4">
+            <div>
+              <label class="block text-xs font-bold uppercase tracking-wider text-rust-400">Select Provisions & Quantities</label>
+              <p class="text-xs text-stone-400 mt-0.5">Select a size and set your quantity for each provision you'd like to reserve.</p>
+            </div>
+            <span class="text-[11px] text-stone-400 italic hidden sm:inline">3 for $18 applied automatically</span>
           </div>
           
           <div id="orderItemsContainer" class="space-y-3">
-            <!-- Dynamic rows inject here -->
+            <!-- Independent items inject here dynamically -->
           </div>
-
-          <button 
-            type="button" 
-            onclick="addOrderItemRow()" 
-            class="mt-3 w-full sm:w-auto inline-flex items-center justify-center gap-2 border border-dashed border-stone-700 hover:border-rust-500 text-stone-300 hover:text-white px-4 py-2.5 rounded-lg text-xs font-semibold transition"
-          >
-            <span>+</span> Add Another Size or Item
-          </button>
         </div>
 
         <div>
@@ -265,14 +260,14 @@
     let calculatedDeliveryFee = 0;
     let isDeliveryValid = false;
     let catalog = [];
-    let allAvailableVariations = [];
-    let rowCounter = 0;
+    let inStockProductList = [];
 
     async function loadCatalog() {
       const inStockGrid = document.getElementById('inStockGrid');
       const outOfStockGrid = document.getElementById('outOfStockGrid');
       const outOfStockWrapper = document.getElementById('outOfStockWrapper');
       const outOfStockCount = document.getElementById('outOfStockCount');
+      const orderItemsContainer = document.getElementById('orderItemsContainer');
 
       try {
         const res = await fetch('/api/products');
@@ -281,27 +276,14 @@
 
         inStockGrid.innerHTML = '';
         outOfStockGrid.innerHTML = '';
-        allAvailableVariations = [];
+        inStockProductList = [];
 
         let inStockCardCount = 0;
         let outOfStockGroups = [];
 
-        catalog.forEach(item => {
+        catalog.forEach((item, pIndex) => {
           const inStockVariations = (item.variations || []).filter(v => v.isAvailable && v.stock > 0);
           const outVariations = (item.variations || []).filter(v => !v.isAvailable || v.stock <= 0);
-
-          // Flatten into available choices list for the order builder
-          inStockVariations.forEach(v => {
-            allAvailableVariations.push({
-              parentName: item.name,
-              varName: v.name,
-              fullName: v.name === 'Standard' ? item.name : `${item.name} (${v.name})`,
-              variationId: v.variationId,
-              price: v.price,
-              stock: v.stock,
-              category: v.category
-            });
-          });
 
           // Group out-of-stock variations
           if (outVariations.length > 0) {
@@ -316,6 +298,13 @@
           // Active in-stock cards
           if (inStockVariations.length > 0) {
             inStockCardCount++;
+            inStockProductList.push({
+              pIndex: pIndex,
+              name: item.name,
+              description: item.description || '',
+              variations: inStockVariations
+            });
+
             const prices = inStockVariations.map(v => v.price);
             const minPrice = prices.length ? Math.min(...prices) : 0;
             const maxPrice = prices.length ? Math.max(...prices) : 0;
@@ -399,14 +388,64 @@
           outOfStockWrapper.classList.add('hidden');
         }
 
-        // Initialize the first item row
-        const container = document.getElementById('orderItemsContainer');
-        container.innerHTML = '';
-        if (allAvailableVariations.length > 0) {
-          addOrderItemRow();
+        // Render Independent Order Rows for Each Available Product
+        orderItemsContainer.innerHTML = '';
+        if (inStockProductList.length > 0) {
+          inStockProductList.forEach((prod, idx) => {
+            const firstVar = prod.variations[0];
+            const row = document.createElement('div');
+            row.id = `product-row-${idx}`;
+            row.className = "bg-charcoal-950 p-4 rounded-xl border border-stone-800 flex flex-col sm:flex-row sm:items-center justify-between gap-3 hover:border-stone-700 transition";
+
+            row.innerHTML = `
+              <div class="flex-grow">
+                <div class="flex items-baseline gap-2">
+                  <h4 class="font-serif font-bold text-stone-100 text-base">${prod.name}</h4>
+                  <span id="price-tag-${idx}" class="font-mono text-rust-400 font-bold text-sm">$${firstVar.price.toFixed(2)}</span>
+                </div>
+                <div class="flex items-center gap-3 mt-1.5 flex-wrap">
+                  <span id="bundle-badge-${idx}" class="text-[11px] text-rust-400 font-mono">
+                    ${firstVar.category === 'jar_trio' ? '★ 3 for $18 Bundle Eligible' : ''}
+                  </span>
+                  <span id="stock-badge-${idx}" class="text-[11px] text-stone-500 font-mono">(${firstVar.stock} available)</span>
+                </div>
+              </div>
+
+              <div class="flex items-center gap-3 justify-between sm:justify-end border-t sm:border-t-0 pt-2 sm:pt-0 border-stone-900">
+                <!-- Size Selector Dropdown -->
+                <div class="flex items-center gap-1.5">
+                  <label class="text-[11px] uppercase tracking-wider text-stone-400 font-medium">Size:</label>
+                  <select id="size-select-${idx}" class="bg-charcoal-900 border border-stone-700 text-stone-200 text-xs rounded-lg px-2.5 py-1.5 focus:border-rust-500" onchange="handleSizeChange(${idx})">
+                    ${prod.variations.map((v, vIdx) => `
+                      <option value="${vIdx}">
+                        ${v.name} ($${v.price.toFixed(2)})
+                      </option>
+                    `).join('')}
+                  </select>
+                </div>
+
+                <!-- Quantity Stepper -->
+                <div class="flex items-center gap-1.5">
+                  <label class="text-[11px] uppercase tracking-wider text-stone-400 font-medium">Qty:</label>
+                  <input 
+                    type="number" 
+                    id="qty-input-${idx}" 
+                    min="0" 
+                    max="${Math.min(firstVar.stock, 12)}" 
+                    value="0" 
+                    class="order-qty-input w-16 bg-charcoal-900 border border-stone-700 rounded-lg px-2 py-1.5 text-center text-stone-100 focus:border-rust-500 text-sm font-semibold" 
+                    oninput="handleQtyChange(${idx})"
+                  >
+                </div>
+              </div>
+            `;
+            orderItemsContainer.appendChild(row);
+          });
         } else {
-          container.innerHTML = `<div class="text-xs text-stone-400 italic py-2">No provisions currently in stock for online pre-order.</div>`;
+          orderItemsContainer.innerHTML = `<div class="text-xs text-stone-400 italic py-4 text-center">No provisions currently in stock for online pre-order.</div>`;
         }
+
+        updateCart();
 
       } catch (err) {
         console.error("Failed to load catalog:", err);
@@ -415,80 +454,46 @@
     }
     loadCatalog();
 
-    function addOrderItemRow() {
-      const container = document.getElementById('orderItemsContainer');
-      const id = rowCounter++;
+    function handleSizeChange(idx) {
+      const prod = inStockProductList[idx];
+      const sizeSelect = document.getElementById(`size-select-${idx}`);
+      const selectedVar = prod.variations[parseInt(sizeSelect.value, 10)];
+      const priceTag = document.getElementById(`price-tag-${idx}`);
+      const bundleBadge = document.getElementById(`bundle-badge-${idx}`);
+      const stockBadge = document.getElementById(`stock-badge-${idx}`);
+      const qtyInput = document.getElementById(`qty-input-${idx}`);
 
-      const row = document.createElement('div');
-      row.id = `order-row-${id}`;
-      row.className = "bg-charcoal-950 p-3 rounded-lg border border-stone-800 flex flex-col sm:flex-row sm:items-center justify-between gap-3";
+      priceTag.textContent = `$${selectedVar.price.toFixed(2)}`;
+      bundleBadge.textContent = selectedVar.category === 'jar_trio' ? '★ 3 for $18 Bundle Eligible' : '';
+      stockBadge.textContent = `(${selectedVar.stock} available)`;
 
-      const defaultVar = allAvailableVariations[0];
-
-      row.innerHTML = `
-        <div class="flex-grow">
-          <select id="var-select-${id}" class="w-full bg-charcoal-900 border border-stone-700 text-stone-200 text-xs sm:text-sm rounded px-3 py-2 focus:border-rust-500" onchange="syncRowDetails(${id})">
-            ${allAvailableVariations.map((v, i) => `
-              <option value="${i}" ${i === 0 ? 'selected' : ''}>
-                ${v.fullName} —$${v.price.toFixed(2)} (${v.stock} left)
-              </option>
-            `).join('')}
-          </select>
-          <span id="row-tag-${id}" class="text-[11px] text-rust-400 font-mono block mt-1">
-            ${defaultVar.category === 'jar_trio' ? '★ Eligible for 3 for $18 Trio Bundle' : 'Standard provision'}
-          </span>
-        </div>
-        <div class="flex items-center gap-2 justify-end">
-          <label class="text-xs text-stone-400 uppercase">Qty:</label>
-          <input 
-            type="number" 
-            id="qty-input-${id}" 
-            min="0" 
-            max="${Math.min(defaultVar.stock, 12)}" 
-            value="1" 
-            class="order-qty-input w-16 bg-charcoal-900 border border-stone-700 rounded px-2 py-1.5 text-center text-stone-100 focus:border-rust-500 text-sm" 
-            onchange="updateCart()"
-          >
-          <button 
-            type="button" 
-            onclick="removeOrderItemRow(${id})" 
-            title="Remove item" 
-            class="text-stone-500 hover:text-red-400 p-1.5 transition text-base"
-          >
-            ✕
-          </button>
-        </div>
-      `;
-
-      container.appendChild(row);
-      updateCart();
-    }
-
-    function syncRowDetails(id) {
-      const select = document.getElementById(`var-select-${id}`);
-      const selectedIndex = parseInt(select.value, 10);
-      const chosenVar = allAvailableVariations[selectedIndex];
-      const qtyInput = document.getElementById(`qty-input-${id}`);
-      const tag = document.getElementById(`row-tag-${id}`);
-
-      qtyInput.max = Math.min(chosenVar.stock, 12);
-      if (parseInt(qtyInput.value, 10) > chosenVar.stock) {
-        qtyInput.value = chosenVar.stock;
+      qtyInput.max = Math.min(selectedVar.stock, 12);
+      if (parseInt(qtyInput.value, 10) > selectedVar.stock) {
+        qtyInput.value = selectedVar.stock;
       }
-
-      tag.textContent = chosenVar.category === 'jar_trio' 
-        ? '★ Eligible for 3 for $18 Trio Bundle' 
-        : 'Standard provision';
 
       updateCart();
     }
 
-    function removeOrderItemRow(id) {
-      const row = document.getElementById(`order-row-${id}`);
-      if (row) {
-        row.remove();
-        updateCart();
+    function handleQtyChange(idx) {
+      const prod = inStockProductList[idx];
+      const sizeSelect = document.getElementById(`size-select-${idx}`);
+      const selectedVar = prod.variations[parseInt(sizeSelect.value, 10)];
+      const qtyInput = document.getElementById(`qty-input-${idx}`);
+      const row = document.getElementById(`product-row-${idx}`);
+
+      let qty = parseInt(qtyInput.value, 10);
+      if (isNaN(qty) || qty < 0) qty = 0;
+      if (qty > selectedVar.stock) qty = selectedVar.stock;
+      qtyInput.value = qty;
+
+      if (qty > 0) {
+        row.classList.add('border-rust-500/60', 'bg-charcoal-900/60');
+      } else {
+        row.classList.remove('border-rust-500/60', 'bg-charcoal-900/60');
       }
+
+      updateCart();
     }
 
     function setupSaturdayDates() {
@@ -611,13 +616,12 @@
       let totalQty = 0;
       const jarTrioPrices = [];
 
-      document.querySelectorAll('#orderItemsContainer [id^="order-row-"]').forEach(row => {
-        const id = row.id.replace('order-row-', '');
-        const select = document.getElementById(`var-select-${id}`);
-        const qtyInput = document.getElementById(`qty-input-${id}`);
+      inStockProductList.forEach((prod, idx) => {
+        const sizeSelect = document.getElementById(`size-select-${idx}`);
+        const qtyInput = document.getElementById(`qty-input-${idx}`);
 
-        if (select && qtyInput) {
-          const v = allAvailableVariations[parseInt(select.value, 10)];
+        if (sizeSelect && qtyInput) {
+          const v = prod.variations[parseInt(sizeSelect.value, 10)];
           const qty = parseInt(qtyInput.value, 10) || 0;
 
           if (v && qty > 0) {
@@ -691,19 +695,19 @@
       }
 
       const items = [];
-      document.querySelectorAll('#orderItemsContainer [id^="order-row-"]').forEach(row => {
-        const id = row.id.replace('order-row-', '');
-        const select = document.getElementById(`var-select-${id}`);
-        const qtyInput = document.getElementById(`qty-input-${id}`);
+      inStockProductList.forEach((prod, idx) => {
+        const sizeSelect = document.getElementById(`size-select-${idx}`);
+        const qtyInput = document.getElementById(`qty-input-${idx}`);
 
-        if (select && qtyInput) {
-          const v = allAvailableVariations[parseInt(select.value, 10)];
+        if (sizeSelect && qtyInput) {
+          const v = prod.variations[parseInt(sizeSelect.value, 10)];
           const qty = parseInt(qtyInput.value, 10) || 0;
 
           if (v && qty > 0) {
+            const fullName = v.name === 'Standard' ? prod.name : `${prod.name} (${v.name})`;
             items.push({
               variationId: v.variationId,
-              name: v.fullName,
+              name: fullName,
               qty: qty,
               price: v.price,
               category: v.category
@@ -713,7 +717,7 @@
       });
 
       if (items.length === 0) {
-        alert("Please add at least one provision to your order.");
+        alert("Please select a quantity of at least 1 for the items you want to order.");
         return;
       }
 
