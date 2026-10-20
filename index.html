@@ -240,8 +240,7 @@
       if (now.getDay() === 6 && currentHour >= DEFAULT_FARMERS_MARKET.endHour) {
         checkDate.setDate(checkDate.getDate() + 1);
       }
-
-      while (autoSaturdays.length < 3) {
+      while (autoSaturdays.length < 5) {
         if (checkDate.getDay() === 6) { // It's Saturday
           const y = checkDate.getFullYear();
           const m = String(checkDate.getMonth() + 1).padStart(2, '0');
@@ -276,7 +275,7 @@
       // 2. Combine auto Saturdays with any special pop-ups
       const allEvents = [...autoSaturdays, ...SPECIAL_POPUP_EVENTS];
 
-      // 3. Filter out events that already passed and sort chronologically
+// 3. Filter out events that already passed and sort chronologically
       const upcomingEvents = allEvents
         .filter(e => {
           if (e.dateISO > todayISO) return true;
@@ -284,7 +283,7 @@
           return false;
         })
         .sort((a, b) => a.dateISO.localeCompare(b.dateISO))
-        .slice(0, 2); // Show the next 2 upcoming events
+        .slice(0, 4); // Show the next 4 upcoming events
 
       // 4. Determine if actively live at a booth right now
       const activeEvent = allEvents.find(e => 
