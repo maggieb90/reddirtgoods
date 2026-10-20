@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Contact & Market Info | Red Dirt Goods Co.</title>
   <link rel="icon" type="image/png" href="logo.webp">
+  <link rel="preload" as="image" href="burlap-texture.webp" type="image/webp">
   <meta property="og:title" content="Red Dirt Goods Co. | Small-Batch Texas Provisions">
   <meta property="og:description" content="Elevated pantry provisions, pickled mustard caviar, cold-crafted drinking vinegars, and small-batch salsa handcrafted in Wichita Falls, Texas.">
   <meta property="og:image" content="https://reddirtgoods.com/logo.webp">
@@ -55,7 +56,7 @@
         <a href="index.html" class="text-stone-300 hover:text-rust-400 transition">Home</a>
         <a href="products.html" class="text-stone-300 hover:text-rust-400 transition">Products</a>
         <a href="about.html" class="text-stone-300 hover:text-rust-400 transition">About Us</a>
-        <a href="market-memories.html" class="text-stone-300 hover:text-rust-400 transition">Market Memories</a>
+        <!-- <a href="market-memories.html" class="text-stone-300 hover:text-rust-400 transition">Market Memories</a> -->
         <a href="contact.html" class="text-rust-400 font-semibold">Contact</a>
       </nav>
     </div>
@@ -63,8 +64,8 @@
 
   <main class="flex-grow py-16 px-4 max-w-4xl mx-auto">
     
-    <!-- DYNAMIC UPCOMING EVENT SECTION (PULLED FROM INDEX.HTML) -->
-    <section id="market-info" class="text-center mb-16 border-b border-stone-800 pb-16">
+    <!-- DYNAMIC UPCOMING EVENT SECTION (SYNCED WITH INDEX.HTML) -->
+    <section id="market-info" class="text-center mb-16 border-b border-stone-800/80 pb-16">
       <span id="market-tag" class="text-xs font-bold uppercase tracking-widest text-rust-400 bg-rust-950/80 px-3.5 py-1.5 rounded-full border border-rust-800/60 inline-block mb-3">
         Next In-Person Event
       </span>
@@ -80,7 +81,7 @@
       </div>
 
       <div id="market-description" class="mt-4 text-sm text-stone-300 max-w-xl mx-auto bg-charcoal-900/90 border border-stone-800 p-3.5 rounded-xl backdrop-blur-sm hidden">
-        <!-- Injected automatically from index.html -->
+        <!-- Injected dynamically -->
       </div>
       
       <div class="mt-6 flex flex-wrap justify-center items-center gap-4">
@@ -154,7 +155,7 @@
       <span>•</span>
       <a href="https://facebook.com/reddirtgoodsco" target="_blank" rel="noopener noreferrer" class="hover:text-rust-400 transition">Facebook</a>
       <span>•</span>
-      <a href="contact.html" class="hover:text-rust-400 transition">Market Schedule</a>
+      <a href="index.html#events" class="hover:text-rust-400 transition">Upcoming Events</a>
     </div>
     <p class="text-xs text-stone-500 max-w-2xl mx-auto uppercase tracking-wide leading-relaxed">
       THIS PRODUCT WAS PRODUCED IN A PRIVATE RESIDENCE THAT IS NOT SUBJECT TO GOVERNMENTAL LICENSING OR INSPECTION.
@@ -171,7 +172,7 @@
       if (banner) banner.classList.remove('hidden');
     }
 
-    // 2. Dynamically pull and render next event from index.html
+    // 2. Dynamically pull and render next event from index.html schedule engine
     (async function syncWithHomepage() {
       function applyEventData(evt) {
         if (!evt) return;
@@ -198,60 +199,20 @@
         if (!response.ok) throw new Error('Could not fetch index.html');
         
         const htmlText = await response.text();
-        const parser = new DOMParser();
-        const doc = parser.parseFromString(htmlText, 'text/html');
 
-        // Look for the first event card generated in index.html's grid
-        const firstCard = doc.querySelector('#events-grid > div');
-        
-        if (firstCard) {
-          const dateString = firstCard.querySelector('.font-mono')?.textContent.trim() || 'Upcoming';
-          const title = firstCard.querySelector('h3')?.textContent.trim() || '';
-          const description = firstCard.querySelector('p')?.textContent.trim() || '';
-          
-          let hoursText = '';
-          let locationText = '';
-          const detailRows = firstCard.querySelectorAll('.mt-6 .flex');
-          detailRows.forEach(row => {
-            const text = row.textContent || '';
-            if (text.includes('Hours:')) {
-              hoursText = text.replace('Hours:', '').trim();
-            } else if (text.includes('Location:')) {
-              locationText = text.replace('Location:', '').trim();
-            }
-          });
-
-          const mapLink = firstCard.querySelector('a[href*="maps"]')?.getAttribute('href') || '#';
-
-          applyEventData({
-            title,
-            dateString,
-            hoursText,
-            locationText,
-            mapLink,
-            description
-          });
-          return;
-        }
-
-        // If card was rendered by client-side JS on index.html, run schedule engine script directly
+        // Extract and run the schedule engine script from index.html directly in memory
         const scriptMatch = htmlText.match(/<script>([\s\S]*?initMarketSchedule[\s\S]*?)<\/script>/i);
         if (scriptMatch) {
-          let code = scriptMatch[1];
-          code = code.replace(
-            'const nextEvent = upcomingEvents[0];',
-            'window.__HOMEPAGE_NEXT_EVENT__ = upcomingEvents[0]; const nextEvent = upcomingEvents[0];'
-          );
-          const executeEngine = new Function(code);
-          executeEngine();
+          const runScript = new Function(scriptMatch[1]);
+          runScript();
 
-          if (window.__HOMEPAGE_NEXT_EVENT__) {
-            applyEventData(window.__HOMEPAGE_NEXT_EVENT__);
+          if (window.RedDirtEvents && window.RedDirtEvents.next) {
+            applyEventData(window.RedDirtEvents.next);
             return;
           }
         }
         
-        throw new Error('Could not parse schedule from index.html');
+        throw new Error('Schedule engine not found in index.html');
       } catch (err) {
         // Fallback directly to Smith's Gardentown Pumpkin Fest
         applyEventData({
