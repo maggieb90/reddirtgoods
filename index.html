@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Red Dirt Goods Co. | Small-Batch Texas Brine & Provisions</title>
   <link rel="icon" type="image/png" href="logo.webp">
+  <link rel="preload" as="image" href="burlap-texture.webp" type="image/webp">
   <meta property="og:title" content="Red Dirt Goods Co. | Small-Batch Texas Provisions">
   <meta property="og:description" content="Elevated pantry provisions, pickled mustard caviar, cold-crafted drinking vinegars, and small-batch salsa handcrafted in Wichita Falls, Texas.">
   <meta property="og:image" content="https://reddirtgoods.com/logo.webp">
@@ -65,7 +66,7 @@
         <a href="#events" class="text-stone-300 hover:text-rust-400 transition">Events</a>
         <a href="products.html" class="text-stone-300 hover:text-rust-400 transition">Products</a>
         <a href="about.html" class="text-stone-300 hover:text-rust-400 transition">About Us</a>
-        <a href="market-memories.html" class="text-stone-300 hover:text-rust-400 transition">Market Memories</a>
+        <!-- <a href="market-memories.html" class="text-stone-300 hover:text-rust-400 transition">Market Memories</a> -->
         <a href="contact.html" class="text-stone-300 hover:text-rust-400 transition">Contact</a>
       </nav>
     </div>
@@ -155,10 +156,9 @@
   <script>
     // =========================================================================
     // 🗓️ VENDOR SCHEDULE CONTROL CENTER 🗓️
-    // (This is the ONLY section you ever need to edit!)
     // =========================================================================
 
-    // 1. DATES TO SKIP (Skipping regular downtown market for festival):
+    // 1. DATES TO SKIP (Skipping regular downtown market for festivals/pop-ups):
     const SKIP_SATURDAYS = [
       "2026-10-03", // Friendship Festival in Burkburnett
       "2026-10-24", // Smith's Gardentown Pumpkin Fest
@@ -172,8 +172,8 @@
         tag: "Special Festival",
         dateISO: "2026-10-03",
         dateString: "Saturday, Oct 3",
-        startHour: 9,  // 10:00 AM
-        endHour: 17,  // 4:00 PM (adjust if your festival hours differ)
+        startHour: 9,
+        endHour: 17,
         hoursText: "10:00 AM – 4:00 PM",
         locationText: "Friendship Park, 705 Davy Dr / 400-898 County Rd, Burkburnett, TX",
         mapLink: "https://maps.google.com/?q=Friendship+Park+705+Davy+Dr+Burkburnett+TX",
@@ -225,8 +225,8 @@
     const DEFAULT_FARMERS_MARKET = {
       title: "Downtown Wichita Falls Farmers Market",
       tag: "Farmers Market",
-      startHour: 9,  // 9:00 AM
-      endHour: 13,   // 1:00 PM
+      startHour: 9,
+      endHour: 13,
       hoursText: "9:00 AM – 1:00 PM",
       locationText: "8th & Ohio Ave, Wichita Falls, TX 76301",
       mapLink: "https://maps.google.com/?q=8th+and+Ohio+Ave+Wichita+Falls+TX",
@@ -235,7 +235,7 @@
     };
     
     // =========================================================================
-    // ⚙️ AUTOMATIC GENERATOR LOGIC (Do not edit below this line)
+    // ⚙️ AUTOMATIC GENERATOR LOGIC
     // =========================================================================
     (function initMarketSchedule() {
       const now = new Date();
@@ -245,16 +245,16 @@
       const todayISO = `${currentYear}-${currentMonth}-${currentDay}`;
       const currentHour = now.getHours() + (now.getMinutes() / 60);
 
-      // 1. Generate the next available Saturday Farmers Markets automatically
+      // 1. Generate available Saturday Farmers Markets automatically
       const autoSaturdays = [];
       let checkDate = new Date(now);
 
-      // If it's Saturday after 1:00 PM, advance past today
       if (now.getDay() === 6 && currentHour >= DEFAULT_FARMERS_MARKET.endHour) {
         checkDate.setDate(checkDate.getDate() + 1);
       }
+
       while (autoSaturdays.length < 5) {
-        if (checkDate.getDay() === 6) { // It's Saturday
+        if (checkDate.getDay() === 6) {
           const y = checkDate.getFullYear();
           const m = String(checkDate.getMonth() + 1).padStart(2, '0');
           const d = String(checkDate.getDate()).padStart(2, '0');
@@ -285,10 +285,8 @@
         checkDate.setDate(checkDate.getDate() + 1);
       }
 
-      // 2. Combine auto Saturdays with any special pop-ups
+      // 2. Combine auto Saturdays with pop-ups & sort chronologically
       const allEvents = [...autoSaturdays, ...SPECIAL_POPUP_EVENTS];
-
-      // 3. Filter out events that already passed and sort chronologically
       const upcomingEvents = allEvents
         .filter(e => {
           if (e.dateISO > todayISO) return true;
@@ -296,9 +294,16 @@
           return false;
         })
         .sort((a, b) => a.dateISO.localeCompare(b.dateISO))
-        .slice(0, 4); // Show the next 4 upcoming events
+        .slice(0, 4);
 
-      // 4. Determine if actively live at a booth right now
+      // 3. Expose to global scope for secondary page scripts
+      window.RedDirtEvents = {
+        all: allEvents,
+        upcoming: upcomingEvents,
+        next: upcomingEvents[0] || null
+      };
+
+      // 4. Check if currently live at a booth
       const activeEvent = allEvents.find(e => 
         e.dateISO === todayISO && 
         currentHour >= e.startHour && 
