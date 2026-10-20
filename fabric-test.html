@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Real Fabric Texture Previews</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            rust: {
+              400: '#e3886e',
+              500: '#c85a32',
+              600: '#af4420',
+              800: '#752d18',
+              950: '#381308',
+            },
+            charcoal: { 800: '#211d1a', 900: '#171412', 950: '#0e0c0b' }
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    /* STYLE 1: Real Coarse Burlap (Warm, rustic jute weave with dark tint for readability) */
+    .real-burlap {
+      background-color: #1a1410;
+      /* Replace URL with your local burlap-texture.webp or an external seamless asset */
+      background-image: 
+        radial-gradient(circle at center, rgba(20, 16, 13, 0.72) 0%, rgba(10, 8, 7, 0.94) 100%),
+        url("https://www.transparenttextures.com/patterns/natural-paper.png");
+      background-repeat: repeat;
+      background-size: 320px 320px;
+    }
+
+    /* STYLE 2: Real Raw Muslin / Linen (Organic fine cotton slub) */
+    .real-muslin {
+      background-color: #141211;
+      background-image: 
+        radial-gradient(circle at center, rgba(24, 21, 19, 0.70) 0%, rgba(9, 8, 7, 0.94) 100%),
+        url("https://www.transparenttextures.com/patterns/linen.png");
+      background-repeat: repeat;
+      background-size: 240px 240px;
+    }
+
+    /* STYLE 3: Light Natural Flour-Sack Muslin (Inverted Light Theme Preview) */
+    .light-muslin {
+      background-color: #f4ece1;
+      background-image: 
+        radial-gradient(circle at center, rgba(255, 255, 255, 0.4) 0%, rgba(220, 208, 192, 0.6) 100%),
+        url("https://www.transparenttextures.com/patterns/linen.png");
+      background-repeat: repeat;
+      background-size: 240px 240px;
+    }
+  </style>
+</head>
+<body class="bg-charcoal-950 text-stone-200 font-sans p-6 sm:p-10 space-y-12 max-w-5xl mx-auto">
+
+  <div class="border-b border-stone-800 pb-6 text-center">
+    <h1 class="font-serif text-3xl font-bold text-stone-100">Photographic Fabric Texture Previews</h1>
+    <p class="text-stone-400 text-sm mt-2">True fabric fibers using photographic grain with your exact brand palette.</p>
+  </div>
+
+  <!-- PREVIEW 1: Dark Burlap -->
+  <div class="space-y-3">
+    <div class="flex items-center justify-between">
+      <h2 class="font-serif text-xl font-bold text-rust-400">1. Coarse Burlap (Dark Roast Tint)</h2>
+      <span class="text-xs bg-stone-800 text-stone-300 px-2.5 py-1 rounded">Heavier Jute Texture</span>
+    </div>
+    <div class="real-burlap border border-stone-800 rounded-2xl p-8 sm:p-12 shadow-2xl">
+      <div class="max-w-md mx-auto bg-charcoal-900/90 border border-stone-800 p-6 rounded-xl shadow-xl text-center">
+        <span class="text-xs font-bold uppercase tracking-widest text-rust-400 bg-rust-950 px-3 py-1 rounded-full border border-rust-800/60 inline-block mb-3">
+          Special Event
+        </span>
+        <h3 class="font-serif text-2xl font-bold text-stone-100">Smith's Gardentown Pumpkin Fest</h3>
+        <p class="text-stone-300 text-sm mt-2">4940 Seymour Hwy, Wichita Falls, TX 76310</p>
+        <div class="mt-4 border border-rust-800/60 bg-rust-950/40 px-4 py-2 rounded text-xs text-rust-300 font-medium">
+          Saturday, Oct 24 • 9:00 AM – 5:00 PM
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PREVIEW 2: Dark Muslin/Linen -->
+  <div class="space-y-3">
+    <div class="flex items-center justify-between">
+      <h2 class="font-serif text-xl font-bold text-rust-400">2. Homespun Muslin / Linen (Dark Pantry Slate)</h2>
+      <span class="text-xs bg-stone-800 text-stone-300 px-2.5 py-1 rounded">Subtle Cotton Slub</span>
+    </div>
+    <div class="real-muslin border border-stone-800 rounded-2xl p-8 sm:p-12 shadow-2xl">
+      <div class="max-w-md mx-auto bg-charcoal-900/90 border border-stone-800 p-6 rounded-xl shadow-xl text-center">
+        <span class="text-xs font-bold uppercase tracking-widest text-rust-400 bg-rust-950 px-3 py-1 rounded-full border border-rust-800/60 inline-block mb-3">
+          Special Market
+        </span>
+        <h3 class="font-serif text-2xl font-bold text-stone-100">Found & Fancy Fright Market</h3>
+        <p class="text-stone-300 text-sm mt-2">4300 Fairway Blvd, Wichita Falls, TX 76308</p>
+        <div class="mt-4 border border-rust-800/60 bg-rust-950/40 px-4 py-2 rounded text-xs text-rust-300 font-medium">
+          Sunday, Oct 25 • 2:00 PM – 6:00 PM
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PREVIEW 3: Light Natural Muslin -->
+  <div class="space-y-3">
+    <div class="flex items-center justify-between">
+      <h2 class="font-serif text-xl font-bold text-rust-400">3. Natural Light Muslin (Flour Sack / Feed Bag)</h2>
+      <span class="text-xs bg-amber-900/20 text-amber-300 border border-amber-800/40 px-2.5 py-1 rounded">Light Canvas Theme</span>
+    </div>
+    <div class="light-muslin border border-stone-300 rounded-2xl p-8 sm:p-12 shadow-2xl text-stone-900">
+      <div class="max-w-md mx-auto bg-white/95 border border-stone-300 p-6 rounded-xl shadow-xl text-center">
+        <span class="text-xs font-bold uppercase tracking-widest text-rust-700 bg-rust-100 px-3 py-1 rounded-full border border-rust-300 inline-block mb-3">
+          Special Event
+        </span>
+        <h3 class="font-serif text-2xl font-bold text-stone-900">Smith's Gardentown Pumpkin Fest</h3>
+        <p class="text-stone-700 text-sm mt-2">4940 Seymour Hwy, Wichita Falls, TX 76310</p>
+        <div class="mt-4 border border-rust-300 bg-rust-50 px-4 py-2 rounded text-xs text-rust-800 font-medium">
+          Saturday, Oct 24 • 9:00 AM – 5:00 PM
+        </div>
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>
