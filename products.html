@@ -27,8 +27,21 @@
       }
     }
   </script>
+  <style>
+    body {
+      background-color: #1a1410;
+      /* Subtle dark vignette overlay for legibility */
+      background-image: 
+        radial-gradient(circle at center, rgba(18, 14, 11, 0.40) 0%, rgba(10, 8, 7, 0.75) 100%),
+        url("burlap-texture.webp");
+      background-repeat: no-repeat;
+      background-position: center top;
+      background-attachment: scroll; /* Smooth, static, mobile-friendly */
+      background-size: cover;
+    }
+  </style>
 </head>
-<body class="bg-charcoal-950 text-stone-200 font-sans antialiased flex flex-col min-h-screen">
+<body class="text-stone-200 font-sans antialiased flex flex-col min-h-screen">
 
   <header class="border-b border-stone-800 bg-charcoal-900/90 backdrop-blur sticky top-0 z-50">
     <div class="max-w-6xl mx-auto px-4 py-3 flex flex-wrap justify-between items-center gap-4">
@@ -67,7 +80,7 @@
 
       <!-- OUT OF STOCK ACCORDION -->
       <div id="outOfStockWrapper" class="mt-12 hidden">
-        <details class="group bg-charcoal-900 border border-stone-800 rounded-2xl overflow-hidden transition">
+        <details class="group bg-charcoal-900/90 border border-stone-800 rounded-2xl overflow-hidden transition backdrop-blur-sm">
           <summary class="flex justify-between items-center p-5 cursor-pointer select-none text-stone-400 hover:text-stone-200 transition">
             <div class="flex items-center gap-2.5">
               <span class="text-xs uppercase font-bold tracking-widest text-stone-400">See What's Coming (Out of Stock)</span>
@@ -84,7 +97,7 @@
     </section>
 
     <!-- DIRECT ORDERING -->
-    <section id="order" class="py-16 px-4 max-w-3xl mx-auto border-t border-stone-800">
+    <section id="order" class="py-16 px-4 max-w-3xl mx-auto border-t border-stone-800/80">
       <div class="text-center mb-10">
         <span class="text-xs font-bold uppercase tracking-widest text-rust-400 bg-rust-950/60 px-3 py-1 rounded-full border border-rust-900">
           Direct Ordering
@@ -95,7 +108,7 @@
         </p>
       </div>
 
-      <div class="bg-amber-950/40 border border-amber-800/60 rounded-xl p-4 mb-6 text-xs text-amber-200/90 leading-relaxed">
+      <div class="bg-amber-950/40 border border-amber-800/60 rounded-xl p-4 mb-6 text-xs text-amber-200/90 leading-relaxed backdrop-blur-sm">
         <p class="font-semibold text-amber-300 flex items-center gap-1.5 mb-1">
           <span>⚖️</span> Texas Cottage Food Law Notice
         </p>
@@ -104,7 +117,7 @@
         </p>
       </div>
 
-      <form id="orderForm" class="bg-charcoal-900 border border-stone-800 p-6 sm:p-8 rounded-2xl space-y-6 shadow-xl">
+      <form id="orderForm" class="bg-charcoal-900/90 border border-stone-800 p-6 sm:p-8 rounded-2xl space-y-6 shadow-xl backdrop-blur-sm">
         <div class="grid sm:grid-cols-2 gap-4">
           <div>
             <label class="block text-xs font-semibold uppercase text-stone-400 mb-1">Your Full Name *</label>
@@ -311,7 +324,7 @@
               : `$${minPrice.toFixed(2)} – $${maxPrice.toFixed(2)}`;
 
             const card = document.createElement('div');
-            card.className = "border border-stone-800 rounded-xl p-5 bg-charcoal-900 hover:border-rust-500/50 transition flex flex-col justify-between";
+            card.className = "border border-stone-800 rounded-xl p-5 bg-charcoal-900/90 hover:border-rust-500/50 transition flex flex-col justify-between backdrop-blur-sm";
             card.innerHTML = `
               <div>
                 <div class="flex justify-between items-start">
@@ -526,9 +539,9 @@
       const R = 3958.8;
       const dLat = (lat2 - lat1) * Math.PI / 180;
       const dLon = (lon2 - lon1) * Math.PI / 180;
-      const a =
+      const a = 
         Math.sin(dLat / 2) * Math.sin(dLat / 2) +
-        Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) *
+        Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) * 
         Math.sin(dLon / 2) * Math.sin(dLon / 2);
       const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
       return R * c;
