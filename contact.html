@@ -50,7 +50,7 @@
 
   <main class="flex-grow py-16 px-4 max-w-4xl mx-auto">
     
-    <!-- DYNAMIC UPCOMING EVENT SECTION -->
+    <!-- DYNAMIC UPCOMING EVENT SECTION (PULLED FROM INDEX.HTML) -->
     <section id="market-info" class="text-center mb-16 border-b border-stone-800 pb-16">
       <span id="market-tag" class="text-xs font-bold uppercase tracking-widest text-rust-400 bg-rust-950/80 px-3.5 py-1.5 rounded-full border border-rust-800/60 inline-block mb-3">
         Next In-Person Event
@@ -64,6 +64,10 @@
       
       <div id="market-hours" class="mt-4 inline-block border border-rust-800/60 bg-rust-950/40 px-5 py-2.5 rounded-lg text-sm text-rust-300 font-medium">
         Loading hours...
+      </div>
+
+      <div id="market-description" class="mt-4 text-sm text-stone-300 max-w-xl mx-auto bg-charcoal-900 border border-stone-800 p-3.5 rounded-xl hidden">
+        <!-- Injected automatically from index.html -->
       </div>
       
       <div class="mt-6 flex flex-wrap justify-center items-center gap-4">
@@ -102,3 +106,151 @@
             <label class="block text-xs font-semibold uppercase text-stone-400 mb-1">Your Name *</label>
             <input type="text" name="name" required class="w-full bg-charcoal-950 border border-stone-700 rounded-lg p-2.5 text-stone-100 focus:outline-none focus:border-rust-500">
           </div>
+          <div>
+            <label class="block text-xs font-semibold uppercase text-stone-400 mb-1">Email Address *</label>
+            <input type="email" name="email" required class="w-full bg-charcoal-950 border border-stone-700 rounded-lg p-2.5 text-stone-100 focus:outline-none focus:border-rust-500">
+          </div>
+        </div>
+        <div>
+          <label class="block text-xs font-semibold uppercase text-stone-400 mb-1">Message *</label>
+          <textarea name="message" rows="4" required class="w-full bg-charcoal-950 border border-stone-700 rounded-lg p-2.5 text-stone-100 focus:outline-none focus:border-rust-500" placeholder="Let us know how we can help..."></textarea>
+        </div>
+        <button type="submit" class="w-full bg-rust-600 hover:bg-rust-500 text-white font-bold py-3 rounded-lg transition border border-rust-500 shadow-md uppercase tracking-wide text-xs">
+          Send Message
+        </button>
+      </form>
+
+      <div class="mt-8 pt-8 border-t border-stone-800 text-center">
+        <p class="text-xs font-bold uppercase tracking-wider text-rust-400 mb-3">Connect On Social</p>
+        <div class="flex justify-center gap-4 text-sm font-medium">
+          <a href="https://instagram.com/reddirtgoodsco" target="_blank" rel="noopener noreferrer" class="text-stone-300 hover:text-rust-400 transition bg-charcoal-950 border border-stone-800 px-4 py-2 rounded-lg">
+            Instagram: <span class="text-rust-400">@reddirtgoodsco</span>
+          </a>
+          <a href="https://facebook.com/reddirtgoodsco" target="_blank" rel="noopener noreferrer" class="text-stone-300 hover:text-rust-400 transition bg-charcoal-950 border border-stone-800 px-4 py-2 rounded-lg">
+            Facebook: <span class="text-rust-400">/reddirtgoodsco</span>
+          </a>
+        </div>
+        <p class="text-xs text-stone-500 mt-2">Tag us in your Saturday market haul, and don't forget to add #RedDirtGoods!</p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="py-8 bg-charcoal-950 border-t border-stone-900 text-center px-4">
+    <div class="flex justify-center gap-6 mb-4 text-xs font-semibold uppercase tracking-wider text-stone-400">
+      <a href="https://instagram.com/reddirtgoodsco" target="_blank" rel="noopener noreferrer" class="hover:text-rust-400 transition">Instagram</a>
+      <span>•</span>
+      <a href="https://facebook.com/reddirtgoodsco" target="_blank" rel="noopener noreferrer" class="hover:text-rust-400 transition">Facebook</a>
+      <span>•</span>
+      <a href="contact.html" class="hover:text-rust-400 transition">Market Schedule</a>
+    </div>
+    <p class="text-xs text-stone-500 max-w-2xl mx-auto uppercase tracking-wide leading-relaxed">
+      THIS PRODUCT WAS PRODUCED IN A PRIVATE RESIDENCE THAT IS NOT SUBJECT TO GOVERNMENTAL LICENSING OR INSPECTION.
+    </p>
+    <p class="text-xs text-stone-600 mt-3">
+      © 2026 Red Dirt Goods Co. • Handcrafted in Texas
+    </p>
+  </footer>
+
+  <script>
+    // 1. Reveal green confirmation banner if URL contains submitted=true
+    if (window.location.search.includes('submitted=true')) {
+      const banner = document.getElementById('success-banner');
+      if (banner) banner.classList.remove('hidden');
+    }
+
+    // 2. Dynamically pull and render next event from index.html
+    (async function syncWithHomepage() {
+      function applyEventData(evt) {
+        if (!evt) return;
+        const tagEl = document.getElementById('market-tag');
+        const titleEl = document.getElementById('market-title');
+        const locEl = document.getElementById('market-location');
+        const hoursEl = document.getElementById('market-hours');
+        const mapEl = document.getElementById('market-map-link');
+        const descEl = document.getElementById('market-description');
+
+        if (tagEl) tagEl.textContent = `Next Event: ${evt.dateString}`;
+        if (titleEl) titleEl.textContent = evt.title;
+        if (locEl) locEl.innerHTML = evt.locationText.replace(', ', '<br />');
+        if (hoursEl) hoursEl.textContent = `${evt.dateString} • ${evt.hoursText}`;
+        if (mapEl) mapEl.href = evt.mapLink;
+        if (descEl && evt.description) {
+          descEl.textContent = evt.description;
+          descEl.classList.remove('hidden');
+        }
+      }
+
+      try {
+        const response = await fetch('index.html?t=' + Date.now());
+        if (!response.ok) throw new Error('Could not fetch index.html');
+        
+        const htmlText = await response.text();
+        const parser = new DOMParser();
+        const doc = parser.parseFromString(htmlText, 'text/html');
+
+        // Look for the first event card generated in index.html's grid
+        const firstCard = doc.querySelector('#events-grid > div');
+        
+        if (firstCard) {
+          const dateString = firstCard.querySelector('.font-mono')?.textContent.trim() || 'Upcoming';
+          const title = firstCard.querySelector('h3')?.textContent.trim() || '';
+          const description = firstCard.querySelector('p')?.textContent.trim() || '';
+          
+          let hoursText = '';
+          let locationText = '';
+          const detailRows = firstCard.querySelectorAll('.mt-6 .flex');
+          detailRows.forEach(row => {
+            const text = row.textContent || '';
+            if (text.includes('Hours:')) {
+              hoursText = text.replace('Hours:', '').trim();
+            } else if (text.includes('Location:')) {
+              locationText = text.replace('Location:', '').trim();
+            }
+          });
+
+          const mapLink = firstCard.querySelector('a[href*="maps"]')?.getAttribute('href') || '#';
+
+          applyEventData({
+            title,
+            dateString,
+            hoursText,
+            locationText,
+            mapLink,
+            description
+          });
+          return;
+        }
+
+        // If card was rendered by client-side JS on index.html, run schedule engine script directly
+        const scriptMatch = htmlText.match(/<script>([\s\S]*?initMarketSchedule[\s\S]*?)<\/script>/i);
+        if (scriptMatch) {
+          let code = scriptMatch[1];
+          code = code.replace(
+            'const nextEvent = upcomingEvents[0];',
+            'window.__HOMEPAGE_NEXT_EVENT__ = upcomingEvents[0]; const nextEvent = upcomingEvents[0];'
+          );
+          const executeEngine = new Function(code);
+          executeEngine();
+
+          if (window.__HOMEPAGE_NEXT_EVENT__) {
+            applyEventData(window.__HOMEPAGE_NEXT_EVENT__);
+            return;
+          }
+        }
+        
+        throw new Error('Could not parse schedule from index.html');
+      } catch (err) {
+        // Fallback directly to Smith's Gardentown Pumpkin Fest
+        applyEventData({
+          title: "Smith's Gardentown Pumpkin Fest",
+          dateString: "Saturday, Oct 24",
+          hoursText: "9:00 AM – 5:00 PM",
+          locationText: "Smith's Gardentown, 4940 Seymour Hwy, Wichita Falls, TX 76310",
+          mapLink: "https://maps.google.com/?q=Smith%27s+Gardentown+4940+Seymour+Hwy+Wichita+Falls+TX+76310",
+          description: "Join us at Smith's Gardentown Pumpkin Fest! Special Giveaway: Make a purchase or show us you follow us on Instagram or Facebook to enter!"
+        });
+      }
+    })();
+  </script>
+</body>
+</html>
