@@ -31,8 +31,21 @@
       }
     }
   </script>
+  <style>
+    body {
+      background-color: #1a1410;
+      /* Subtle dark vignette overlay for legibility */
+      background-image: 
+        radial-gradient(circle at center, rgba(18, 14, 11, 0.40) 0%, rgba(10, 8, 7, 0.75) 100%),
+        url("burlap-texture.webp");
+      background-repeat: no-repeat;
+      background-position: center top;
+      background-attachment: scroll; /* Smooth, static, mobile-friendly */
+      background-size: cover;
+    }
+  </style>
 </head>
-<body class="bg-charcoal-950 text-stone-200 font-sans antialiased flex flex-col min-h-screen">
+<body class="text-stone-200 font-sans antialiased flex flex-col min-h-screen">
 
   <header class="border-b border-stone-800 bg-charcoal-900/90 backdrop-blur sticky top-0 z-50">
     <div class="max-w-6xl mx-auto px-4 py-3 flex flex-wrap justify-between items-center gap-4">
@@ -65,7 +78,7 @@
 
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
       
-      <div class="group border border-stone-800 bg-charcoal-900 rounded-xl overflow-hidden shadow-lg">
+      <div class="group border border-stone-800 bg-charcoal-900/90 rounded-xl overflow-hidden shadow-lg backdrop-blur-sm">
         <div class="aspect-[4/3] bg-stone-900 overflow-hidden relative">
           <img src="market-booth.jpg" alt="Red Dirt Goods Market Booth" class="w-full h-full object-cover group-hover:scale-105 transition duration-500" onerror="this.src='https://placehold.co/600x450/171412/c85a32?text=Market+Booth+Setup'">
         </div>
@@ -76,7 +89,7 @@
         </div>
       </div>
 
-      <div class="group border border-stone-800 bg-charcoal-900 rounded-xl overflow-hidden shadow-lg">
+      <div class="group border border-stone-800 bg-charcoal-900/90 rounded-xl overflow-hidden shadow-lg backdrop-blur-sm">
         <div class="aspect-[4/3] bg-stone-900 overflow-hidden relative">
           <img src="family-crew.jpg" alt="The Crew in Action" class="w-full h-full object-cover group-hover:scale-105 transition duration-500" onerror="this.src='https://placehold.co/600x450/171412/c85a32?text=The+Crew+in+Action'">
         </div>
@@ -87,7 +100,7 @@
         </div>
       </div>
 
-      <div class="group border border-stone-800 bg-charcoal-900 rounded-xl overflow-hidden shadow-lg">
+      <div class="group border border-stone-800 bg-charcoal-900/90 rounded-xl overflow-hidden shadow-lg backdrop-blur-sm">
         <div class="aspect-[4/3] bg-stone-900 overflow-hidden relative">
           <img src="canning-day.jpg" alt="Homestead Batch Prep" class="w-full h-full object-cover group-hover:scale-105 transition duration-500" onerror="this.src='https://placehold.co/600x450/171412/c85a32?text=Fresh+Batch+Prep'">
         </div>
@@ -98,7 +111,7 @@
         </div>
       </div>
 
-      <div class="group border border-stone-800 bg-charcoal-900 rounded-xl overflow-hidden shadow-lg">
+      <div class="group border border-stone-800 bg-charcoal-900/90 rounded-xl overflow-hidden shadow-lg backdrop-blur-sm">
         <div class="aspect-[4/3] bg-stone-900 overflow-hidden relative">
           <img src="el-padres-prep.jpg" alt="El Padres Salsa Batch" class="w-full h-full object-cover group-hover:scale-105 transition duration-500" onerror="this.src='https://placehold.co/600x450/171412/c85a32?text=Fire-Roasting+Salsa'">
         </div>
@@ -109,7 +122,7 @@
         </div>
       </div>
 
-      <div class="group border border-stone-800 bg-charcoal-900 rounded-xl overflow-hidden shadow-lg">
+      <div class="group border border-stone-800 bg-charcoal-900/90 rounded-xl overflow-hidden shadow-lg backdrop-blur-sm">
         <div class="aspect-[4/3] bg-stone-900 overflow-hidden relative">
           <img src="market-samples.jpg" alt="Tasting and Samples" class="w-full h-full object-cover group-hover:scale-105 transition duration-500" onerror="this.src='https://placehold.co/600x450/171412/c85a32?text=Market+Tastings'">
         </div>
@@ -120,7 +133,7 @@
         </div>
       </div>
 
-      <div class="group border border-stone-800 bg-charcoal-900 rounded-xl overflow-hidden shadow-lg">
+      <div class="group border border-stone-800 bg-charcoal-900/90 rounded-xl overflow-hidden shadow-lg backdrop-blur-sm">
         <div class="aspect-[4/3] bg-stone-900 overflow-hidden relative">
           <img src="youngest-crew.jpg" alt="Little Helpers" class="w-full h-full object-cover group-hover:scale-105 transition duration-500" onerror="this.src='https://placehold.co/600x450/171412/c85a32?text=Market+Break+Smiles'">
         </div>
