@@ -4,15 +4,16 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <!-- TEMPORARY REDIRECT (Remove this line when ready to launch the page) -->
-  <meta http-equiv="refresh" content="0; url=index.html">
+  <!-- TEMPORARY REDIRECT (Commented out to prevent instant bounce loops; uncomment if strict redirect is required) -->
+  <!-- <meta http-equiv="refresh" content="0; url=index.html"> -->
 
   <title>Market Memories | Red Dirt Goods Co.</title>
   <link rel="icon" type="image/png" href="logo.webp">
+  <link rel="preload" as="image" href="burlap-texture.webp" type="image/webp">
   <meta property="og:title" content="Red Dirt Goods Co. | Small-Batch Texas Provisions">
   <meta property="og:description" content="Elevated pantry provisions, pickled mustard caviar, cold-crafted drinking vinegars, and small-batch salsa handcrafted in Wichita Falls, Texas.">
   <meta property="og:image" content="https://reddirtgoods.com/logo.webp">
-  <meta property="og:url" content="https://reddirtgoods.com">
+  <meta property="og:url" content="https://reddirtgoods.com/market-memories.html">
   <meta property="og:type" content="website">
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
@@ -59,92 +60,169 @@
         <a href="index.html" class="text-stone-300 hover:text-rust-400 transition">Home</a>
         <a href="products.html" class="text-stone-300 hover:text-rust-400 transition">Products</a>
         <a href="about.html" class="text-stone-300 hover:text-rust-400 transition">About Us</a>
-        <!-- <a href="market-memories.html" class="text-rust-400 font-semibold">Market Memories</a> -->
+        <a href="market-memories.html" class="text-rust-400 font-semibold">Market Memories</a>
         <a href="contact.html" class="text-stone-300 hover:text-rust-400 transition">Contact</a>
       </nav>
     </div>
   </header>
 
-  <main class="flex-grow py-16 px-4 max-w-6xl mx-auto">
-    <div class="text-center mb-12">
+  <main class="flex-grow py-16 px-4 max-w-6xl mx-auto space-y-12">
+    
+    <!-- HEADER INTRO -->
+    <div class="text-center">
       <span class="text-xs font-bold uppercase tracking-widest text-rust-400 bg-rust-950/80 px-3.5 py-1.5 rounded-full border border-rust-800/60 inline-block mb-3">
         Out at the Market
       </span>
       <h1 class="font-serif text-3xl sm:text-5xl font-bold text-stone-100">Market Memories</h1>
       <p class="text-stone-400 text-sm sm:text-base mt-3 max-w-xl mx-auto">
-        Snapshots from our Saturday mornings at the Downtown Wichita Falls Farmers Market, jar canning sessions, and family memories in action.
+        Snapshots from our Saturday mornings at the Downtown Wichita Falls Farmers Market, seasonal pop-ups, and family canning traditions.
       </p>
     </div>
 
+    <!-- PHOTO GALLERY GRID -->
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
       
-      <div class="group border border-stone-800 bg-charcoal-900/90 rounded-xl overflow-hidden shadow-lg backdrop-blur-sm">
+      <!-- Photo Card 1 -->
+      <div class="group border border-stone-800 bg-charcoal-900/90 rounded-2xl overflow-hidden shadow-xl backdrop-blur-sm hover:border-rust-500/50 transition">
         <div class="aspect-[4/3] bg-stone-900 overflow-hidden relative">
-          <img src="market-booth.jpg" alt="Red Dirt Goods Market Booth" class="w-full h-full object-cover group-hover:scale-105 transition duration-500" onerror="this.src='https://placehold.co/600x450/171412/c85a32?text=Market+Booth+Setup'">
+          <img 
+            src="market-booth.jpg" 
+            alt="Red Dirt Goods Market Booth" 
+            class="w-full h-full object-cover group-hover:scale-105 transition duration-500" 
+            onerror="this.onerror=null; this.src='https://placehold.co/600x450/171412/c85a32?text=Market+Booth+Setup';"
+          >
         </div>
-        <div class="p-4">
-          <h3 class="font-serif font-bold text-stone-100 text-base">Saturday Morning Market Table</h3>
-          <p class="text-xs text-rust-400 mt-0.5">Downtown Wichita Falls</p>
-          <p class="text-xs text-stone-400 mt-2">All stocked up with freshly labeled relish, shrubs, and mustard caviar before the morning crowd arrives.</p>
+        <div class="p-5">
+          <div class="flex items-center justify-between gap-2 mb-1">
+            <h3 class="font-serif font-bold text-stone-100 text-base">Saturday Morning Market Table</h3>
+            <span class="text-[10px] uppercase font-mono tracking-wider text-rust-400 bg-rust-950 px-2 py-0.5 rounded border border-rust-800/60">Wichita Falls</span>
+          </div>
+          <p class="text-xs text-stone-400 mt-2 leading-relaxed">
+            All stocked up with freshly labeled relish, shrubs, and mustard caviar before the morning crowd arrives.
+          </p>
         </div>
       </div>
 
-      <div class="group border border-stone-800 bg-charcoal-900/90 rounded-xl overflow-hidden shadow-lg backdrop-blur-sm">
+      <!-- Photo Card 2 -->
+      <div class="group border border-stone-800 bg-charcoal-900/90 rounded-2xl overflow-hidden shadow-xl backdrop-blur-sm hover:border-rust-500/50 transition">
         <div class="aspect-[4/3] bg-stone-900 overflow-hidden relative">
-          <img src="family-crew.jpg" alt="The Crew in Action" class="w-full h-full object-cover group-hover:scale-105 transition duration-500" onerror="this.src='https://placehold.co/600x450/171412/c85a32?text=The+Crew+in+Action'">
+          <img 
+            src="family-crew.jpg" 
+            alt="The Crew in Action" 
+            class="w-full h-full object-cover group-hover:scale-105 transition duration-500" 
+            onerror="this.onerror=null; this.src='https://placehold.co/600x450/171412/c85a32?text=The+Crew+in+Action';"
+          >
         </div>
-        <div class="p-4">
-          <h3 class="font-serif font-bold text-stone-100 text-base">The Crew in Action</h3>
-          <p class="text-xs text-rust-400 mt-0.5">Working the Market Tent</p>
-          <p class="text-xs text-stone-400 mt-2">Atreyu and Isabella greeting folks and keeping track of Saturday reservations.</p>
+        <div class="p-5">
+          <div class="flex items-center justify-between gap-2 mb-1">
+            <h3 class="font-serif font-bold text-stone-100 text-base">The Crew in Action</h3>
+            <span class="text-[10px] uppercase font-mono tracking-wider text-rust-400 bg-rust-950 px-2 py-0.5 rounded border border-rust-800/60">Tent Crew</span>
+          </div>
+          <p class="text-xs text-stone-400 mt-2 leading-relaxed">
+            Atreyu and Isabella greeting folks and keeping track of Saturday table reservations and pre-orders.
+          </p>
         </div>
       </div>
 
-      <div class="group border border-stone-800 bg-charcoal-900/90 rounded-xl overflow-hidden shadow-lg backdrop-blur-sm">
+      <!-- Photo Card 3 -->
+      <div class="group border border-stone-800 bg-charcoal-900/90 rounded-2xl overflow-hidden shadow-xl backdrop-blur-sm hover:border-rust-500/50 transition">
         <div class="aspect-[4/3] bg-stone-900 overflow-hidden relative">
-          <img src="canning-day.jpg" alt="Homestead Batch Prep" class="w-full h-full object-cover group-hover:scale-105 transition duration-500" onerror="this.src='https://placehold.co/600x450/171412/c85a32?text=Fresh+Batch+Prep'">
+          <img 
+            src="canning-day.jpg" 
+            alt="Homestead Batch Prep" 
+            class="w-full h-full object-cover group-hover:scale-105 transition duration-500" 
+            onerror="this.onerror=null; this.src='https://placehold.co/600x450/171412/c85a32?text=Fresh+Batch+Prep';"
+          >
         </div>
-        <div class="p-4">
-          <h3 class="font-serif font-bold text-stone-100 text-base">Fresh Batch Day</h3>
-          <p class="text-xs text-rust-400 mt-0.5">Homestead Kitchen</p>
-          <p class="text-xs text-stone-400 mt-2">Dicing fresh Texas jalapeños for Paw-Paw's Relish and steeping Shiner Bock mustard seed.</p>
+        <div class="p-5">
+          <div class="flex items-center justify-between gap-2 mb-1">
+            <h3 class="font-serif font-bold text-stone-100 text-base">Fresh Batch Day</h3>
+            <span class="text-[10px] uppercase font-mono tracking-wider text-rust-400 bg-rust-950 px-2 py-0.5 rounded border border-rust-800/60">Kitchen</span>
+          </div>
+          <p class="text-xs text-stone-400 mt-2 leading-relaxed">
+            Dicing fresh Texas jalapeños for Paw-Paw's Relish and steeping whole mustard seed for our craft jars.
+          </p>
         </div>
       </div>
 
-      <div class="group border border-stone-800 bg-charcoal-900/90 rounded-xl overflow-hidden shadow-lg backdrop-blur-sm">
+      <!-- Photo Card 4 -->
+      <div class="group border border-stone-800 bg-charcoal-900/90 rounded-2xl overflow-hidden shadow-xl backdrop-blur-sm hover:border-rust-500/50 transition">
         <div class="aspect-[4/3] bg-stone-900 overflow-hidden relative">
-          <img src="el-padres-prep.jpg" alt="El Padres Salsa Batch" class="w-full h-full object-cover group-hover:scale-105 transition duration-500" onerror="this.src='https://placehold.co/600x450/171412/c85a32?text=Fire-Roasting+Salsa'">
+          <img 
+            src="el-padres-prep.jpg" 
+            alt="El Padres Salsa Batch" 
+            class="w-full h-full object-cover group-hover:scale-105 transition duration-500" 
+            onerror="this.onerror=null; this.src='https://placehold.co/600x450/171412/c85a32?text=Fire-Roasting+Salsa';"
+          >
         </div>
-        <div class="p-4">
-          <h3 class="font-serif font-bold text-stone-100 text-base">Fire-Roasting El Padre's Salsa</h3>
-          <p class="text-xs text-rust-400 mt-0.5">Kitchen Prep</p>
-          <p class="text-xs text-stone-400 mt-2">Charring serranos and fresh tomatoes for that distinctive Texas smoky bite.</p>
+        <div class="p-5">
+          <div class="flex items-center justify-between gap-2 mb-1">
+            <h3 class="font-serif font-bold text-stone-100 text-base">Fire-Roasting El Padre's Salsa</h3>
+            <span class="text-[10px] uppercase font-mono tracking-wider text-rust-400 bg-rust-950 px-2 py-0.5 rounded border border-rust-800/60">Smoke & Fire</span>
+          </div>
+          <p class="text-xs text-stone-400 mt-2 leading-relaxed">
+            Charring serranos and fresh tomatoes for that distinctive Texas smokehouse bite.
+          </p>
         </div>
       </div>
 
-      <div class="group border border-stone-800 bg-charcoal-900/90 rounded-xl overflow-hidden shadow-lg backdrop-blur-sm">
+      <!-- Photo Card 5 -->
+      <div class="group border border-stone-800 bg-charcoal-900/90 rounded-2xl overflow-hidden shadow-xl backdrop-blur-sm hover:border-rust-500/50 transition">
         <div class="aspect-[4/3] bg-stone-900 overflow-hidden relative">
-          <img src="market-samples.jpg" alt="Tasting and Samples" class="w-full h-full object-cover group-hover:scale-105 transition duration-500" onerror="this.src='https://placehold.co/600x450/171412/c85a32?text=Market+Tastings'">
+          <img 
+            src="market-samples.jpg" 
+            alt="Tasting and Samples" 
+            class="w-full h-full object-cover group-hover:scale-105 transition duration-500" 
+            onerror="this.onerror=null; this.src='https://placehold.co/600x450/171412/c85a32?text=Market+Tastings';"
+          >
         </div>
-        <div class="p-4">
-          <h3 class="font-serif font-bold text-stone-100 text-base">Saturday Taste Tests</h3>
-          <p class="text-xs text-rust-400 mt-0.5">Downtown Wichita Falls</p>
-          <p class="text-xs text-stone-400 mt-2">Sampling out fruit shrubs with chilled topo chico on warm sunny Texas mornings.</p>
+        <div class="p-5">
+          <div class="flex items-center justify-between gap-2 mb-1">
+            <h3 class="font-serif font-bold text-stone-100 text-base">Saturday Taste Tests</h3>
+            <span class="text-[10px] uppercase font-mono tracking-wider text-rust-400 bg-rust-950 px-2 py-0.5 rounded border border-rust-800/60">Samples</span>
+          </div>
+          <p class="text-xs text-stone-400 mt-2 leading-relaxed">
+            Sampling out fruit shrubs with chilled topo chico on warm sunny Texas mornings.
+          </p>
         </div>
       </div>
 
-      <div class="group border border-stone-800 bg-charcoal-900/90 rounded-xl overflow-hidden shadow-lg backdrop-blur-sm">
+      <!-- Photo Card 6 -->
+      <div class="group border border-stone-800 bg-charcoal-900/90 rounded-2xl overflow-hidden shadow-xl backdrop-blur-sm hover:border-rust-500/50 transition">
         <div class="aspect-[4/3] bg-stone-900 overflow-hidden relative">
-          <img src="youngest-crew.jpg" alt="Little Helpers" class="w-full h-full object-cover group-hover:scale-105 transition duration-500" onerror="this.src='https://placehold.co/600x450/171412/c85a32?text=Market+Break+Smiles'">
+          <img 
+            src="youngest-crew.jpg" 
+            alt="Little Helpers" 
+            class="w-full h-full object-cover group-hover:scale-105 transition duration-500" 
+            onerror="this.onerror=null; this.src='https://placehold.co/600x450/171412/c85a32?text=Market+Break+Smiles';"
+          >
         </div>
-        <div class="p-4">
-          <h3 class="font-serif font-bold text-stone-100 text-base">Junior Crew Break</h3>
-          <p class="text-xs text-rust-400 mt-0.5">Behind the Tent</p>
-          <p class="text-xs text-stone-400 mt-2">Ronin and Lagertha keeping spirits high between customer visits.</p>
+        <div class="p-5">
+          <div class="flex items-center justify-between gap-2 mb-1">
+            <h3 class="font-serif font-bold text-stone-100 text-base">Junior Crew Break</h3>
+            <span class="text-[10px] uppercase font-mono tracking-wider text-rust-400 bg-rust-950 px-2 py-0.5 rounded border border-rust-800/60">Family</span>
+          </div>
+          <p class="text-xs text-stone-400 mt-2 leading-relaxed">
+            Ronin and Lagertha keeping spirits high behind the market tent between customer visits.
+          </p>
         </div>
       </div>
 
     </div>
+
+    <!-- CALLOUT FOOTER CTA -->
+    <div class="text-center bg-charcoal-900/80 border border-stone-800 rounded-2xl p-8 backdrop-blur-sm max-w-2xl mx-auto">
+      <h3 class="font-serif text-xl font-bold text-stone-100">Come Make Memories With Us</h3>
+      <p class="text-stone-400 text-xs sm:text-sm mt-2">
+        We'd love to see you in person! Stop by our booth this weekend to sample fresh batches and chat provisions.
+      </p>
+      <div class="mt-5 flex justify-center gap-4">
+        <a href="index.html#events" class="bg-rust-600 hover:bg-rust-500 text-white text-xs font-bold uppercase tracking-wider px-5 py-2.5 rounded-lg transition shadow-md">
+          View Event Schedule &rarr;
+        </a>
+      </div>
+    </div>
+
   </main>
 
   <footer class="py-8 bg-charcoal-950 border-t border-stone-900 text-center px-4">
@@ -153,7 +231,7 @@
       <span>•</span>
       <a href="https://facebook.com/reddirtgoodsco" target="_blank" rel="noopener noreferrer" class="hover:text-rust-400 transition">Facebook</a>
       <span>•</span>
-      <a href="contact.html" class="hover:text-rust-400 transition">Market Schedule</a>
+      <a href="index.html#events" class="hover:text-rust-400 transition">Market Schedule</a>
     </div>
     <p class="text-xs text-stone-500 max-w-2xl mx-auto uppercase tracking-wide leading-relaxed">
       THIS PRODUCT WAS PRODUCED IN A PRIVATE RESIDENCE THAT IS NOT SUBJECT TO GOVERNMENTAL LICENSING OR INSPECTION.
