@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Provisions & Pre-Order | Red Dirt Goods Co.</title>
   <link rel="icon" type="image/png" href="logo.webp">
+  <link rel="preload" as="image" href="burlap-texture.webp" type="image/webp">
   <meta property="og:title" content="Red Dirt Goods Co. | Small-Batch Texas Provisions">
   <meta property="og:description" content="Elevated pantry provisions, pickled mustard caviar, cold-crafted drinking vinegars, and small-batch salsa handcrafted in Wichita Falls, Texas.">
   <meta property="og:image" content="https://reddirtgoods.com/logo.webp">
@@ -55,7 +56,7 @@
         <a href="index.html" class="text-stone-300 hover:text-rust-400 transition">Home</a>
         <a href="products.html" class="text-rust-400 font-semibold">Products</a>
         <a href="about.html" class="text-stone-300 hover:text-rust-400 transition">About Us</a>
-        <a href="market-memories.html" class="text-stone-300 hover:text-rust-400 transition">Market Memories</a>
+        <!-- <a href="market-memories.html" class="text-stone-300 hover:text-rust-400 transition">Market Memories</a> -->
         <a href="contact.html" class="text-stone-300 hover:text-rust-400 transition">Contact</a>
       </nav>
     </div>
@@ -465,14 +466,24 @@
 
       priceTag.textContent = `$${selectedVar.price.toFixed(2)}`;
       bundleBadge.textContent = selectedVar.category === 'jar_trio' ? '★ 3 for $18 Bundle Eligible' : '';
-      stockBadge.textContent = `(${selectedVar.stock} available)`;
 
-      qtyInput.max = Math.min(selectedVar.stock, 12);
-      if (parseInt(qtyInput.value, 10) > selectedVar.stock) {
-        qtyInput.value = selectedVar.stock;
+      if (selectedVar.stock <= 0) {
+        stockBadge.textContent = `(Sold Out)`;
+        stockBadge.className = "text-[11px] text-red-400 font-mono";
+        qtyInput.value = 0;
+        qtyInput.disabled = true;
+        qtyInput.max = 0;
+      } else {
+        stockBadge.textContent = `(${selectedVar.stock} available)`;
+        stockBadge.className = "text-[11px] text-stone-500 font-mono";
+        qtyInput.disabled = false;
+        qtyInput.max = Math.min(selectedVar.stock, 12);
+        if (parseInt(qtyInput.value, 10) > selectedVar.stock) {
+          qtyInput.value = selectedVar.stock;
+        }
       }
 
-      updateCart();
+      handleQtyChange(idx);
     }
 
     function handleQtyChange(idx) {
