@@ -65,10 +65,6 @@
       <div id="market-hours" class="mt-4 inline-block border border-rust-800/60 bg-rust-950/40 px-5 py-2.5 rounded-lg text-sm text-rust-300 font-medium">
         Loading hours...
       </div>
-
-      <div id="market-details" class="mt-4 text-sm text-stone-400 max-w-xl mx-auto hidden">
-        <!-- Injected if special event has description/giveaway notes -->
-      </div>
       
       <div class="mt-6 flex flex-wrap justify-center items-center gap-4">
         <a id="market-map-link" href="#" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 text-xs font-semibold uppercase tracking-wider text-rust-400 hover:text-rust-300 underline">
@@ -108,4 +104,278 @@
           </div>
           <div>
             <label class="block text-xs font-semibold uppercase text-stone-400 mb-1">Email Address *</label>
-            <input type="email" name="email" required class="w-full bg-charcoal-950 border border-stone-700 rounded-lg p
+            <input type="email" name="email" required class="w-full bg-charcoal-950 border border-stone-700 rounded-lg p-2.5 text-stone-100 focus:outline-none focus:border-rust-500">
+          </div>
+        </div>
+        <div>
+          <label class="block text-xs font-semibold uppercase text-stone-400 mb-1">Message *</label>
+          <textarea name="message" rows="4" required class="w-full bg-charcoal-950 border border-stone-700 rounded-lg p-2.5 text-stone-100 focus:outline-none focus:border-rust-500" placeholder="Let us know how we can help..."></textarea>
+        </div>
+        <button type="submit" class="w-full bg-rust-600 hover:bg-rust-500 text-white font-bold py-3 rounded-lg transition border border-rust-500 shadow-md uppercase tracking-wide text-xs">
+          Send Message
+        </button>
+      </form>
+
+      <div class="mt-8 pt-8 border-t border-stone-800 text-center">
+        <p class="text-xs font-bold uppercase tracking-wider text-rust-400 mb-3">Connect On Social</p>
+        <div class="flex justify-center gap-4 text-sm font-medium">
+          <a href="https://instagram.com/reddirtgoodsco" target="_blank" rel="noopener noreferrer" class="text-stone-300 hover:text-rust-400 transition bg-charcoal-950 border border-stone-800 px-4 py-2 rounded-lg">
+            Instagram: <span class="text-rust-400">@reddirtgoodsco</span>
+          </a>
+          <a href="https://facebook.com/reddirtgoodsco" target="_blank" rel="noopener noreferrer" class="text-stone-300 hover:text-rust-400 transition bg-charcoal-950 border border-stone-800 px-4 py-2 rounded-lg">
+            Facebook: <span class="text-rust-400">/reddirtgoodsco</span>
+          </a>
+        </div>
+        <p class="text-xs text-stone-500 mt-2">Tag us in your Saturday market haul, and don't forget to add #RedDirtGoods!</p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="py-8 bg-charcoal-950 border-t border-stone-900 text-center px-4">
+    <div class="flex justify-center gap-6 mb-4 text-xs font-semibold uppercase tracking-wider text-stone-400">
+      <a href="https://instagram.com/reddirtgoodsco" target="_blank" rel="noopener noreferrer" class="hover:text-rust-400 transition">Instagram</a>
+      <span>•</span>
+      <a href="https://facebook.com/reddirtgoodsco" target="_blank" rel="noopener noreferrer" class="hover:text-rust-400 transition">Facebook</a>
+      <span>•</span>
+      <a href="contact.html" class="hover:text-rust-400 transition">Market Schedule</a>
+    </div>
+    <p class="text-xs text-stone-500 max-w-2xl mx-auto uppercase tracking-wide leading-relaxed">
+      THIS PRODUCT WAS PRODUCED IN A PRIVATE RESIDENCE THAT IS NOT SUBJECT TO GOVERNMENTAL LICENSING OR INSPECTION.
+    </p>
+    <p class="text-xs text-stone-600 mt-3">
+      © 2026 Red Dirt Goods Co. • Handcrafted in Texas
+    </p>
+  </footer>
+
+  <script>
+    // 1. Reveal green confirmation banner if URL contains submitted=true
+    if (window.location.search.includes('submitted=true')) {
+      const banner = document.getElementById('success-banner');
+      if (banner) banner.classList.remove('hidden');
+    }
+
+    // 2. Dynamic Schedule Engine (Mirrors index.html)
+    const SKIP_SATURDAYS = [
+      "2026-10-03", // Friendship Festival in Burkburnett
+    ];
+
+    const SPECIAL_POPUP_EVENTS = [
+      {
+        title: "Friendship Festival (Burkburnett)",
+        tag: "Special Festival",
+        dateISO: "2026-10-03",
+        dateString: "Saturday, Oct 3",
+        startHour: 9,
+        endHour: 17,
+        hoursText: "9:00 AM – 5:00 PM",
+        locationText: "Friendship Park, 705 Davy Dr / County Rd, Burkburnett, TX",
+        mapLink: "https://maps.google.com/?q=Friendship+Park+705+Davy+Dr+Burkburnett+TX"
+      }
+    ];
+
+    const DEFAULT_FARMERS_MARKET = {
+      title: "Downtown Wichita Falls Farmers Market",
+      tag: "Farmers Market",
+      startHour: 9,
+      endHour: 13,
+      hoursText: "Every Saturday Morning • 9:00 AM – 1:00 PM",
+      locationText: "8th & Ohio Ave, Wichita Falls, TX 76301",
+      mapLink: "https://maps.google.com/?q=Downtown+Wichita+Falls+Farmers+Market+8th+and+Ohio+Ave+Wichita+Falls+TX"
+    };
+
+    (function updateContactEvent() {
+      const now = new Date();
+      const currentYear = now.getFullYear();
+      const currentMonth = String(now.getMonth() + 1).padStart(2, '0');
+      const currentDay = String(now.getDate()).padStart(2, '0');
+      const todayISO = `${currentYear}-${currentMonth}-${currentDay}`;
+      const currentHour = now.getHours() + (now.getMinutes() / 60);
+
+      // Generate regular Saturdays
+      const autoSaturdays = [];
+      let checkDate = new Date(now);
+
+      if (now.getDay() === 6 && currentHour >= DEFAULT_FARMERS_MARKET.endHour) {
+        checkDate.setDate(checkDate.getDate() + 1);
+      }
+
+      while (autoSaturdays.length < 3) {
+        if (checkDate.getDay() === 6) {
+          const y = checkDate.getFullYear();
+          const m = String(checkDate.getMonth() + 1).padStart(2, '0');
+          const d = String(checkDate.getDate()).padStart(2, '0');
+          const dateISO = `${y}-${m}-${d}`;
+
+          if (!SKIP_SATURDAYS.includes(dateISO)) {
+            const dateString = checkDate.toLocaleDateString('en-US', {
+              weekday: 'long', month: 'short', day: 'numeric'
+            });
+
+            autoSaturdays.push({
+              title: DEFAULT_FARMERS_MARKET.title,
+              tag: DEFAULT_FARMERS_MARKET.tag,
+              dateISO: dateISO,
+              dateString: dateString,
+              endHour: DEFAULT_FARMERS_MARKET.endHour,
+              hoursText: DEFAULT_FARMERS_MARKET.hoursText,
+              locationText: DEFAULT_FARMERS_MARKET.locationText,
+              mapLink: DEFAULT_FARMERS_MARKET.mapLink
+            });
+          }
+        }
+        checkDate.setDate(checkDate.getDate() + 1);
+      }
+
+      // Merge and find earliest upcoming event
+      const allEvents = [...autoSaturdays, ...SPECIAL_POPUP_EVENTS];
+      const upcoming = allEvents
+        .filter(e => {
+          if (e.dateISO > todayISO) return true;
+          if (e.dateISO === todayISO && currentHour < e.endHour) return true;
+          return false;
+        })
+        .sort((a, b) => a.dateISO.localeCompare(b.dateISO))[0];
+
+      if (upcoming) {
+        document.getElementById('market-tag').textContent = `Next Event: ${upcoming.dateString}`;
+        document.getElementById('market-title').textContent = upcoming.title;
+        document.getElementById('market-location').innerHTML = upcoming.locationText.replace(', ', '<br />');
+        document.getElementById('market-hours').textContent = `${upcoming.dateString} • ${upcoming.hoursText}`;
+        document.getElementById('market-map-link').href = upcoming.mapLink;
+      }
+    })();
+  </script>
+  <script>
+    // 1. Reveal green confirmation banner if URL contains submitted=true
+    if (window.location.search.includes('submitted=true')) {
+      const banner = document.getElementById('success-banner');
+      if (banner) banner.classList.remove('hidden');
+    }
+
+    // 2. Dynamic Schedule Engine (Mirrors index.html)
+    const SKIP_SATURDAYS = [
+      "2026-10-03", // Friendship Festival in Burkburnett
+      "2026-10-24", // Smith's Gardentown Pumpkin Fest
+      "2026-10-31", // Smith's Gardentown Pumpkin Fest
+    ];
+
+    const SPECIAL_POPUP_EVENTS = [
+      {
+        title: "Friendship Festival (Burkburnett)",
+        tag: "Special Festival",
+        dateISO: "2026-10-03",
+        dateString: "Saturday, Oct 3",
+        startHour: 9,
+        endHour: 17,
+        hoursText: "9:00 AM – 5:00 PM",
+        locationText: "Friendship Park, 705 Davy Dr / County Rd, Burkburnett, TX",
+        mapLink: "https://maps.google.com/?q=Friendship+Park+705+Davy+Dr+Burkburnett+TX"
+      },
+      {
+        title: "Smith's Gardentown Pumpkin Fest",
+        tag: "Special Event",
+        dateISO: "2026-10-24",
+        dateString: "Saturday, Oct 24",
+        startHour: 9,
+        endHour: 17,
+        hoursText: "9:00 AM – 5:00 PM",
+        locationText: "Smith's Gardentown, 4940 Seymour Hwy, Wichita Falls, TX 76310",
+        mapLink: "https://maps.google.com/?q=Smith%27s+Gardentown+4940+Seymour+Hwy+Wichita+Falls+TX+76310"
+      },
+      {
+        title: "Smith's Gardentown Pumpkin Fest",
+        tag: "Special Event",
+        dateISO: "2026-10-31",
+        dateString: "Saturday, Oct 31",
+        startHour: 9,
+        endHour: 17,
+        hoursText: "9:00 AM – 5:00 PM",
+        locationText: "Smith's Gardentown, 4940 Seymour Hwy, Wichita Falls, TX 76310",
+        mapLink: "https://maps.google.com/?q=Smith%27s+Gardentown+4940+Seymour+Hwy+Wichita+Falls+TX+76310"
+      }
+    ];
+
+    const DEFAULT_FARMERS_MARKET = {
+      title: "Downtown Wichita Falls Farmers Market",
+      tag: "Farmers Market",
+      startHour: 9,
+      endHour: 13,
+      hoursText: "Every Saturday Morning • 9:00 AM – 1:00 PM",
+      locationText: "8th & Ohio Ave, Wichita Falls, TX 76301",
+      mapLink: "https://maps.google.com/?q=Downtown+Wichita+Falls+Farmers+Market+8th+and+Ohio+Ave+Wichita+Falls+TX"
+    };
+
+    (function updateContactEvent() {
+      try {
+        const now = new Date();
+        const currentYear = now.getFullYear();
+        const currentMonth = String(now.getMonth() + 1).padStart(2, '0');
+        const currentDay = String(now.getDate()).padStart(2, '0');
+        const todayISO = `${currentYear}-${currentMonth}-${currentDay}`;
+        const currentHour = now.getHours() + (now.getMinutes() / 60);
+
+        // Generate regular Saturdays
+        const autoSaturdays = [];
+        let checkDate = new Date(now);
+
+        if (now.getDay() === 6 && currentHour >= DEFAULT_FARMERS_MARKET.endHour) {
+          checkDate.setDate(checkDate.getDate() + 1);
+        }
+
+        while (autoSaturdays.length < 3) {
+          if (checkDate.getDay() === 6) {
+            const y = checkDate.getFullYear();
+            const m = String(checkDate.getMonth() + 1).padStart(2, '0');
+            const d = String(checkDate.getDate()).padStart(2, '0');
+            const dateISO = `${y}-${m}-${d}`;
+
+            if (!SKIP_SATURDAYS.includes(dateISO)) {
+              const dateString = checkDate.toLocaleDateString('en-US', {
+                weekday: 'long', month: 'short', day: 'numeric'
+              });
+
+              autoSaturdays.push({
+                title: DEFAULT_FARMERS_MARKET.title,
+                tag: DEFAULT_FARMERS_MARKET.tag,
+                dateISO: dateISO,
+                dateString: dateString,
+                endHour: DEFAULT_FARMERS_MARKET.endHour,
+                hoursText: DEFAULT_FARMERS_MARKET.hoursText,
+                locationText: DEFAULT_FARMERS_MARKET.locationText,
+                mapLink: DEFAULT_FARMERS_MARKET.mapLink
+              });
+            }
+          }
+          checkDate.setDate(checkDate.getDate() + 1);
+        }
+
+        // Merge and find earliest upcoming event
+        const allEvents = [...autoSaturdays, ...SPECIAL_POPUP_EVENTS];
+        const upcoming = allEvents
+          .filter(e => {
+            if (e.dateISO > todayISO) return true;
+            if (e.dateISO === todayISO && currentHour < e.endHour) return true;
+            return false;
+          })
+          .sort((a, b) => a.dateISO.localeCompare(b.dateISO))[0];
+
+        if (upcoming) {
+          const tagEl = document.getElementById('market-tag');
+          const titleEl = document.getElementById('market-title');
+          const locEl = document.getElementById('market-location');
+          const hoursEl = document.getElementById('market-hours');
+          const mapEl = document.getElementById('market-map-link');
+
+          if (tagEl) tagEl.textContent = `Next Event: ${upcoming.dateString}`;
+          if (titleEl) titleEl.textContent = upcoming.title;
+          if (locEl) locEl.innerHTML = upcoming.locationText.replace(', ', '<br />');
+          if (hoursEl) hoursEl.textContent = `${upcoming.dateString} • ${upcoming.hoursText}`;
+          if (mapEl) mapEl.href = upcoming.mapLink;
+        }
+      } catch (err) {
+        console.error('Error rendering upcoming event:', err);
+      }
+    })();
+  </script>
+</body>
+</html>
