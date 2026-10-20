@@ -26,14 +26,14 @@
   <style>
     body {
       background-color: #1a1410;
-      /* Subtle dark vignette overlay for legibility */
       background-image: 
         radial-gradient(circle at center, rgba(18, 14, 11, 0.40) 0%, rgba(10, 8, 7, 0.75) 100%),
-        url("burlap-texture.jpg");
-      background-repeat: no-repeat;       /* Eliminates the grid seams completely */
-      background-position: center center;  /* Centers the best part of the photo */
-      background-attachment: fixed;        /* Keeps the fabric still while scrolling */
-      background-size: cover;              /* Stretches the full photo edge-to-edge */
+        url("burlap-texture.webp"); /* Using optimized WebP format */
+      background-repeat: no-repeat;
+      background-position: center top;
+      background-attachment: scroll; /* Static: eliminates mobile scrolling lag and jumpiness */
+      background-size: cover;
+    }
     }
   </style>
 </head>
