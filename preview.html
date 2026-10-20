@@ -23,12 +23,16 @@
       }
     }
   </script>
-<style>
+  <style>
     body {
-      background-color: #2b1f17;
-      background-image: url("burlap-texture.jpg");
+      background-color: #1a1410;
+      /* Balanced dark vignette overlay so text remains readable */
+      background-image: 
+        radial-gradient(circle at center, rgba(18, 14, 11, 0.45) 0%, rgba(10, 8, 7, 0.78) 100%),
+        url("burlap-texture.jpg");
       background-repeat: repeat;
-      background-size: auto;
+      background-attachment: fixed;
+      background-size: 200px auto; /* Zoomed out, finer weave */
     }
   </style>
 </head>
@@ -69,4 +73,24 @@
 
       <!-- Card 2 -->
       <div class="bg-charcoal-900/90 border border-stone-800 p-6 rounded-2xl shadow-xl backdrop-blur-sm">
-        <span class="text-xs font-bold uppercase tracking-wider bg-rust-950
+        <span class="text-xs font-bold uppercase tracking-wider bg-rust-950 text-rust-400 border border-rust-800/60 px-2.5 py-1 rounded">
+          Special Market
+        </span>
+        <h3 class="font-serif text-xl font-bold text-stone-100 mt-4">Found & Fancy Fright Market</h3>
+        <p class="text-stone-400 text-sm mt-2">Join us for local provisions, spooky season goods, and weekend board favorites!</p>
+        <div class="mt-4 pt-4 border-t border-stone-800/80 text-xs text-stone-400 space-y-1.5">
+          <p><strong class="text-stone-200">Date:</strong> Sunday, Oct 25, 2026</p>
+          <p><strong class="text-stone-200">Hours:</strong> 2:00 PM – 6:00 PM</p>
+          <p><strong class="text-stone-200">Location:</strong> 4300 Fairway Blvd, Wichita Falls, TX 76308</p>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="text-center text-xs text-stone-500 py-4">
+    © 2026 Red Dirt Goods Co. • Handcrafted in Texas
+  </footer>
+
+</body>
+</html>
